@@ -20,6 +20,19 @@ After laravel installation, migrate and seed the database:
 php artisan migrate --seed
 ```
 
+**Complete installation:**
+
+After checkout, run the following:
+```
+composer install
+cp .env.example .env
+```
+*Edit the database settings in .env file*
+```
+php artisan key:generate
+php artisan migrate --seed
+```
+
 After you login with the seeded default account:
 **admin@admin.com** - **password**
 
