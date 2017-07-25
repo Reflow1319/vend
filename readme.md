@@ -1,5 +1,7 @@
 # Vend
 
+![Vend](https://www.finehive.com/vend/vend.jpg)
+
 Vend is a project management tool built on Laravel and Vue.js
 
 ## Features
