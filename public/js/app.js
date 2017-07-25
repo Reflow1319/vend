@@ -5414,136 +5414,6 @@ var index_esm = {
 "use strict";
 
 
-Object.defineProperty(exports, "__esModule", {
-    value: true
-});
-
-var _moment = __webpack_require__(0);
-
-var _moment2 = _interopRequireDefault(_moment);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-exports.default = {
-    methods: {
-        fromNow: function fromNow(date) {
-            return (0, _moment2.default)(date, "YYYY-MM-DD HH:mm").fromNow();
-        },
-        fileSize: function fileSize(byte) {
-            return Math.round(byte / 1024) + ' Kb';
-        },
-        eventFormat: function eventFormat(date) {
-            var _date = (0, _moment2.default)(date, 'YYYY-MM-DD HH:mm');
-            return {
-                day: _date.format('D'),
-                month: _date.format('MMMM')
-            };
-        },
-        emit: function emit(event, data) {
-            this.$root.$emit(event, data);
-        },
-        on: function on(event, cb) {
-            this.$root.$on(event, cb);
-        },
-        setErrors: function setErrors(err) {
-            this.$refs.errorMessage ? this.$refs.errorMessage.set(err) : console.error('Reference error component not found');
-        },
-        clearErrors: function clearErrors() {
-            this.$refs.errorMessage.clear();
-        },
-        timeFormat: function timeFormat(date) {
-            return date ? (0, _moment2.default)(date, 'YYYY-MM-DD HH:mm').format('HH:mm') : null;
-        },
-        elapsedFormat: function elapsedFormat(time) {
-            var sec_num = parseInt(time, 10);
-            var hours = Math.floor(sec_num / 3600);
-            var minutes = Math.floor((sec_num - hours * 3600) / 60);
-            var seconds = sec_num - hours * 3600 - minutes * 60;
-
-            if (hours < 10) {
-                hours = "0" + hours;
-            }
-            if (minutes < 10) {
-                minutes = "0" + minutes;
-            }
-            if (seconds < 10) {
-                seconds = "0" + seconds;
-            }
-            return hours + ':' + minutes + ':' + seconds;
-        },
-        dateFormat: function dateFormat(date, full) {
-            if (!date) {
-                return null;
-            }
-
-            var format = full ? 'HH:mm on MMM DD, YYYY' : 'MMM DD, YYYY';
-
-            if (date && date.isMoment) {
-                return date.format(format);
-            }
-            return (0, _moment2.default)(date, 'YYYY-MM-DD HH:mm').format(format);
-        },
-        monthDateFormat: function monthDateFormat(date) {
-            return (0, _moment2.default)(date, 'YYYY-MM-DD').format('MMMM DD.');
-        },
-        showFavorite: function showFavorite(favorite) {
-            if (favorite.type === 'project') {
-                this.$route.go('projects/' + favorite.related.id);
-            }
-            if (favorite.type === 'topic') {
-                this.$route.go('topic/' + favorite.related.id);
-            }
-        },
-        strToInterval: function strToInterval(date) {
-            var start = void 0,
-                end = void 0;
-            switch (date) {
-                case 'thisWeek':
-                    start = (0, _moment2.default)().startOf('isoWeek');
-                    end = (0, _moment2.default)().endOf('isoWeek');
-                    break;
-                case 'nextWeek':
-                    start = (0, _moment2.default)().add(1, 'weeks').startOf('isoWeek');
-                    end = (0, _moment2.default)().add(1, 'weeks').endOf('isoWeek');
-                    break;
-                case 'thisMonth':
-                    start = (0, _moment2.default)().startOf('month');
-                    end = (0, _moment2.default)().endOf('month');
-                    break;
-                case 'nextMonth':
-                    start = (0, _moment2.default)().add(1, 'months').startOf('month');
-                    end = (0, _moment2.default)().add(1, 'months').endOf('month');
-                    break;
-            }
-            return [start, end];
-        },
-        setTab: function setTab(target, e) {
-            var tabButton = $(e.currentTarget);
-            var parent = tabButton.closest('.tabs');
-            parent.find('.tabs-links a').removeClass('active');
-            tabButton.addClass('active');
-            parent.find('.tabs-panel').removeClass('active');
-            parent.find('.tabs-wrapper #' + target).addClass('active');
-            e.preventDefault();
-        },
-        collectionRemove: function collectionRemove(collection, item) {
-            var index = _.findIndex(collection, { id: item.id });
-            collection.splice(index, 1);
-        },
-        collectionUpdate: function collectionUpdate(collection, item) {
-            var index = _.findIndex(collection, { id: item.id });
-            collection.splice(index, 1, item);
-        }
-    }
-};
-
-/***/ }),
-/* 4 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
 var bind = __webpack_require__(20);
 
 /*global toString:true*/
@@ -5842,6 +5712,136 @@ module.exports = {
   trim: trim
 };
 
+
+/***/ }),
+/* 4 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+
+var _moment = __webpack_require__(0);
+
+var _moment2 = _interopRequireDefault(_moment);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+exports.default = {
+    methods: {
+        fromNow: function fromNow(date) {
+            return (0, _moment2.default)(date, "YYYY-MM-DD HH:mm").fromNow();
+        },
+        fileSize: function fileSize(byte) {
+            return Math.round(byte / 1024) + ' Kb';
+        },
+        eventFormat: function eventFormat(date) {
+            var _date = (0, _moment2.default)(date, 'YYYY-MM-DD HH:mm');
+            return {
+                day: _date.format('D'),
+                month: _date.format('MMMM')
+            };
+        },
+        emit: function emit(event, data) {
+            this.$root.$emit(event, data);
+        },
+        on: function on(event, cb) {
+            this.$root.$on(event, cb);
+        },
+        setErrors: function setErrors(err) {
+            this.$refs.errorMessage ? this.$refs.errorMessage.set(err) : console.error('Reference error component not found');
+        },
+        clearErrors: function clearErrors() {
+            this.$refs.errorMessage.clear();
+        },
+        timeFormat: function timeFormat(date) {
+            return date ? (0, _moment2.default)(date, 'YYYY-MM-DD HH:mm').format('HH:mm') : null;
+        },
+        elapsedFormat: function elapsedFormat(time) {
+            var sec_num = parseInt(time, 10);
+            var hours = Math.floor(sec_num / 3600);
+            var minutes = Math.floor((sec_num - hours * 3600) / 60);
+            var seconds = sec_num - hours * 3600 - minutes * 60;
+
+            if (hours < 10) {
+                hours = "0" + hours;
+            }
+            if (minutes < 10) {
+                minutes = "0" + minutes;
+            }
+            if (seconds < 10) {
+                seconds = "0" + seconds;
+            }
+            return hours + ':' + minutes + ':' + seconds;
+        },
+        dateFormat: function dateFormat(date, full) {
+            if (!date) {
+                return null;
+            }
+
+            var format = full ? 'HH:mm on MMM DD, YYYY' : 'MMM DD, YYYY';
+
+            if (date && date.isMoment) {
+                return date.format(format);
+            }
+            return (0, _moment2.default)(date, 'YYYY-MM-DD HH:mm').format(format);
+        },
+        monthDateFormat: function monthDateFormat(date) {
+            return (0, _moment2.default)(date, 'YYYY-MM-DD').format('MMMM DD.');
+        },
+        showFavorite: function showFavorite(favorite) {
+            if (favorite.type === 'project') {
+                this.$route.go('projects/' + favorite.related.id);
+            }
+            if (favorite.type === 'topic') {
+                this.$route.go('topic/' + favorite.related.id);
+            }
+        },
+        strToInterval: function strToInterval(date) {
+            var start = void 0,
+                end = void 0;
+            switch (date) {
+                case 'thisWeek':
+                    start = (0, _moment2.default)().startOf('isoWeek');
+                    end = (0, _moment2.default)().endOf('isoWeek');
+                    break;
+                case 'nextWeek':
+                    start = (0, _moment2.default)().add(1, 'weeks').startOf('isoWeek');
+                    end = (0, _moment2.default)().add(1, 'weeks').endOf('isoWeek');
+                    break;
+                case 'thisMonth':
+                    start = (0, _moment2.default)().startOf('month');
+                    end = (0, _moment2.default)().endOf('month');
+                    break;
+                case 'nextMonth':
+                    start = (0, _moment2.default)().add(1, 'months').startOf('month');
+                    end = (0, _moment2.default)().add(1, 'months').endOf('month');
+                    break;
+            }
+            return [start, end];
+        },
+        setTab: function setTab(target, e) {
+            var tabButton = $(e.currentTarget);
+            var parent = tabButton.closest('.tabs');
+            parent.find('.tabs-links a').removeClass('active');
+            tabButton.addClass('active');
+            parent.find('.tabs-panel').removeClass('active');
+            parent.find('.tabs-wrapper #' + target).addClass('active');
+            e.preventDefault();
+        },
+        collectionRemove: function collectionRemove(collection, item) {
+            var index = _.findIndex(collection, { id: item.id });
+            collection.splice(index, 1);
+        },
+        collectionUpdate: function collectionUpdate(collection, item) {
+            var index = _.findIndex(collection, { id: item.id });
+            collection.splice(index, 1, item);
+        }
+    }
+};
 
 /***/ }),
 /* 5 */
@@ -16201,10 +16201,44 @@ module.exports = Component.exports
 /* 9 */
 /***/ (function(module, exports, __webpack_require__) {
 
+var Component = __webpack_require__(1)(
+  /* script */
+  __webpack_require__(180),
+  /* template */
+  __webpack_require__(281),
+  /* scopeId */
+  null,
+  /* cssModules */
+  null
+)
+Component.options.__file = "c:\\xampp\\htdocs\\vev\\resources\\assets\\js\\components\\common\\ErrorMessage.vue"
+if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
+if (Component.options.functional) {console.error("[vue-loader] ErrorMessage.vue: functional components are not supported with templates, they should use render functions.")}
+
+/* hot reload */
+if (false) {(function () {
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), false)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-3a726444", Component.options)
+  } else {
+    hotAPI.reload("data-v-3a726444", Component.options)
+  }
+})()}
+
+module.exports = Component.exports
+
+
+/***/ }),
+/* 10 */
+/***/ (function(module, exports, __webpack_require__) {
+
 "use strict";
 /* WEBPACK VAR INJECTION */(function(process) {
 
-var utils = __webpack_require__(4);
+var utils = __webpack_require__(3);
 var normalizeHeaderName = __webpack_require__(169);
 
 var PROTECTION_PREFIX = /^\)\]\}',?\n/;
@@ -16297,40 +16331,6 @@ utils.forEach(['post', 'put', 'patch'], function forEachMethodWithData(method) {
 module.exports = defaults;
 
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(237)))
-
-/***/ }),
-/* 10 */
-/***/ (function(module, exports, __webpack_require__) {
-
-var Component = __webpack_require__(1)(
-  /* script */
-  __webpack_require__(180),
-  /* template */
-  __webpack_require__(281),
-  /* scopeId */
-  null,
-  /* cssModules */
-  null
-)
-Component.options.__file = "c:\\xampp\\htdocs\\vev\\resources\\assets\\js\\components\\common\\ErrorMessage.vue"
-if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
-if (Component.options.functional) {console.error("[vue-loader] ErrorMessage.vue: functional components are not supported with templates, they should use render functions.")}
-
-/* hot reload */
-if (false) {(function () {
-  var hotAPI = require("vue-hot-reload-api")
-  hotAPI.install(require("vue"), false)
-  if (!hotAPI.compatible) return
-  module.hot.accept()
-  if (!module.hot.data) {
-    hotAPI.createRecord("data-v-3a726444", Component.options)
-  } else {
-    hotAPI.reload("data-v-3a726444", Component.options)
-  }
-})()}
-
-module.exports = Component.exports
-
 
 /***/ }),
 /* 11 */
@@ -16502,7 +16502,7 @@ module.exports = g;
 "use strict";
 
 
-var utils = __webpack_require__(4);
+var utils = __webpack_require__(3);
 var settle = __webpack_require__(161);
 var buildURL = __webpack_require__(164);
 var parseHeaders = __webpack_require__(170);
@@ -30480,7 +30480,7 @@ module.exports = Component.exports
 
 "use strict";
 /* WEBPACK VAR INJECTION */(function(global) {/*!
- * Vue.js v2.3.3
+ * Vue.js v2.4.2
  * (c) 2014-2017 Evan You
  * Released under the MIT License.
  */
@@ -30505,11 +30505,16 @@ function isTrue (v) {
 function isFalse (v) {
   return v === false
 }
+
 /**
  * Check if value is primitive
  */
 function isPrimitive (value) {
-  return typeof value === 'string' || typeof value === 'number'
+  return (
+    typeof value === 'string' ||
+    typeof value === 'number' ||
+    typeof value === 'boolean'
+  )
 }
 
 /**
@@ -30533,6 +30538,14 @@ function isPlainObject (obj) {
 
 function isRegExp (v) {
   return _toString.call(v) === '[object RegExp]'
+}
+
+/**
+ * Check if val is a valid array index.
+ */
+function isValidArrayIndex (val) {
+  var n = parseFloat(val);
+  return n >= 0 && Math.floor(n) === n && isFinite(val)
 }
 
 /**
@@ -30577,6 +30590,11 @@ function makeMap (
  * Check if a tag is a built-in tag.
  */
 var isBuiltInTag = makeMap('slot,component', true);
+
+/**
+ * Check if a attribute is a reserved attribute.
+ */
+var isReservedAttribute = makeMap('key,ref,slot,is');
 
 /**
  * Remove an item from an array
@@ -30690,13 +30708,15 @@ function toObject (arr) {
 
 /**
  * Perform no operation.
+ * Stubbing args to make Flow happy without leaving useless transpiled code
+ * with ...rest (https://flow.org/blog/2017/05/07/Strict-Function-Call-Arity/)
  */
-function noop () {}
+function noop (a, b, c) {}
 
 /**
  * Always return false.
  */
-var no = function () { return false; };
+var no = function (a, b, c) { return false; };
 
 /**
  * Return same value
@@ -30717,14 +30737,30 @@ function genStaticKeys (modules) {
  * if they are plain objects, do they have the same shape?
  */
 function looseEqual (a, b) {
+  if (a === b) { return true }
   var isObjectA = isObject(a);
   var isObjectB = isObject(b);
   if (isObjectA && isObjectB) {
     try {
-      return JSON.stringify(a) === JSON.stringify(b)
+      var isArrayA = Array.isArray(a);
+      var isArrayB = Array.isArray(b);
+      if (isArrayA && isArrayB) {
+        return a.length === b.length && a.every(function (e, i) {
+          return looseEqual(e, b[i])
+        })
+      } else if (!isArrayA && !isArrayB) {
+        var keysA = Object.keys(a);
+        var keysB = Object.keys(b);
+        return keysA.length === keysB.length && keysA.every(function (key) {
+          return looseEqual(a[key], b[key])
+        })
+      } else {
+        /* istanbul ignore next */
+        return false
+      }
     } catch (e) {
-      // possible circular reference
-      return a === b
+      /* istanbul ignore next */
+      return false
     }
   } else if (!isObjectA && !isObjectB) {
     return String(a) === String(b)
@@ -30806,6 +30842,11 @@ var config = ({
    * Error handler for watcher errors
    */
   errorHandler: null,
+
+  /**
+   * Warn handler for watcher warns
+   */
+  warnHandler: null,
 
   /**
    * Ignore certain custom elements
@@ -30913,10 +30954,12 @@ if (true) {
     .replace(/[-_]/g, ''); };
 
   warn = function (msg, vm) {
-    if (hasConsole && (!config.silent)) {
-      console.error("[Vue warn]: " + msg + (
-        vm ? generateComponentTrace(vm) : ''
-      ));
+    var trace = vm ? generateComponentTrace(vm) : '';
+
+    if (config.warnHandler) {
+      config.warnHandler.call(null, msg, vm, trace);
+    } else if (hasConsole && (!config.silent)) {
+      console.error(("[Vue warn]: " + msg + trace));
     }
   };
 
@@ -31026,6 +31069,9 @@ var isAndroid = UA && UA.indexOf('android') > 0;
 var isIOS = UA && /iphone|ipad|ipod|ios/.test(UA);
 var isChrome = UA && /chrome\/\d+/.test(UA) && !isEdge;
 
+// Firefix has a "watch" function on Object.prototype...
+var nativeWatch = ({}).watch;
+
 var supportsPassive = false;
 if (inBrowser) {
   try {
@@ -31035,7 +31081,7 @@ if (inBrowser) {
         /* istanbul ignore next */
         supportsPassive = true;
       }
-    } )); // https://github.com/facebook/flow/issues/285
+    })); // https://github.com/facebook/flow/issues/285
     window.addEventListener('test-passive', null, opts);
   } catch (e) {}
 }
@@ -31250,22 +31296,14 @@ var arrayMethods = Object.create(arrayProto);[
   // cache original method
   var original = arrayProto[method];
   def(arrayMethods, method, function mutator () {
-    var arguments$1 = arguments;
+    var args = [], len = arguments.length;
+    while ( len-- ) args[ len ] = arguments[ len ];
 
-    // avoid leaking arguments:
-    // http://jsperf.com/closure-with-arguments
-    var i = arguments.length;
-    var args = new Array(i);
-    while (i--) {
-      args[i] = arguments$1[i];
-    }
     var result = original.apply(this, args);
     var ob = this.__ob__;
     var inserted;
     switch (method) {
       case 'push':
-        inserted = args;
-        break
       case 'unshift':
         inserted = args;
         break
@@ -31291,8 +31329,7 @@ var arrayKeys = Object.getOwnPropertyNames(arrayMethods);
  * under a frozen data structure. Converting it would defeat the optimization.
  */
 var observerState = {
-  shouldConvert: true,
-  isSettingProps: false
+  shouldConvert: true
 };
 
 /**
@@ -31344,7 +31381,7 @@ Observer.prototype.observeArray = function observeArray (items) {
  * Augment an target Object or Array by intercepting
  * the prototype chain using __proto__
  */
-function protoAugment (target, src) {
+function protoAugment (target, src, keys) {
   /* eslint-disable no-proto */
   target.__proto__ = src;
   /* eslint-enable no-proto */
@@ -31396,7 +31433,8 @@ function defineReactive$$1 (
   obj,
   key,
   val,
-  customSetter
+  customSetter,
+  shallow
 ) {
   var dep = new Dep();
 
@@ -31409,7 +31447,7 @@ function defineReactive$$1 (
   var getter = property && property.get;
   var setter = property && property.set;
 
-  var childOb = observe(val);
+  var childOb = !shallow && observe(val);
   Object.defineProperty(obj, key, {
     enumerable: true,
     configurable: true,
@@ -31441,7 +31479,7 @@ function defineReactive$$1 (
       } else {
         val = newVal;
       }
-      childOb = observe(newVal);
+      childOb = !shallow && observe(newVal);
       dep.notify();
     }
   });
@@ -31453,7 +31491,7 @@ function defineReactive$$1 (
  * already exist.
  */
 function set (target, key, val) {
-  if (Array.isArray(target) && typeof key === 'number') {
+  if (Array.isArray(target) && isValidArrayIndex(key)) {
     target.length = Math.max(target.length, key);
     target.splice(key, 1, val);
     return val
@@ -31462,7 +31500,7 @@ function set (target, key, val) {
     target[key] = val;
     return val
   }
-  var ob = (target ).__ob__;
+  var ob = (target).__ob__;
   if (target._isVue || (ob && ob.vmCount)) {
     "development" !== 'production' && warn(
       'Avoid adding reactive properties to a Vue instance or its root $data ' +
@@ -31483,11 +31521,11 @@ function set (target, key, val) {
  * Delete a property and trigger change if necessary.
  */
 function del (target, key) {
-  if (Array.isArray(target) && typeof key === 'number') {
+  if (Array.isArray(target) && isValidArrayIndex(key)) {
     target.splice(key, 1);
     return
   }
-  var ob = (target ).__ob__;
+  var ob = (target).__ob__;
   if (target._isVue || (ob && ob.vmCount)) {
     "development" !== 'production' && warn(
       'Avoid deleting properties on a Vue instance or its root $data ' +
@@ -31566,7 +31604,7 @@ function mergeData (to, from) {
 /**
  * Data
  */
-strats.data = function (
+function mergeDataOrFn (
   parentVal,
   childVal,
   vm
@@ -31574,15 +31612,6 @@ strats.data = function (
   if (!vm) {
     // in a Vue.extend merge, both should be functions
     if (!childVal) {
-      return parentVal
-    }
-    if (typeof childVal !== 'function') {
-      "development" !== 'production' && warn(
-        'The "data" option should be a function ' +
-        'that returns a per-instance value in component ' +
-        'definitions.',
-        vm
-      );
       return parentVal
     }
     if (!parentVal) {
@@ -31595,8 +31624,8 @@ strats.data = function (
     // it has to be a function to pass previous merges.
     return function mergedDataFn () {
       return mergeData(
-        childVal.call(this),
-        parentVal.call(this)
+        typeof childVal === 'function' ? childVal.call(this) : childVal,
+        typeof parentVal === 'function' ? parentVal.call(this) : parentVal
       )
     }
   } else if (parentVal || childVal) {
@@ -31615,6 +31644,28 @@ strats.data = function (
       }
     }
   }
+}
+
+strats.data = function (
+  parentVal,
+  childVal,
+  vm
+) {
+  if (!vm) {
+    if (childVal && typeof childVal !== 'function') {
+      "development" !== 'production' && warn(
+        'The "data" option should be a function ' +
+        'that returns a per-instance value in component ' +
+        'definitions.',
+        vm
+      );
+
+      return parentVal
+    }
+    return mergeDataOrFn.call(this, parentVal, childVal)
+  }
+
+  return mergeDataOrFn(parentVal, childVal, vm)
 };
 
 /**
@@ -31662,6 +31713,9 @@ ASSET_TYPES.forEach(function (type) {
  * another, so we merge them as arrays.
  */
 strats.watch = function (parentVal, childVal) {
+  // work around Firefox's Object.prototype.watch...
+  if (parentVal === nativeWatch) { parentVal = undefined; }
+  if (childVal === nativeWatch) { childVal = undefined; }
   /* istanbul ignore if */
   if (!childVal) { return Object.create(parentVal || null) }
   if (!parentVal) { return childVal }
@@ -31675,7 +31729,7 @@ strats.watch = function (parentVal, childVal) {
     }
     ret[key] = parent
       ? parent.concat(child)
-      : [child];
+      : Array.isArray(child) ? child : [child];
   }
   return ret
 };
@@ -31685,14 +31739,15 @@ strats.watch = function (parentVal, childVal) {
  */
 strats.props =
 strats.methods =
+strats.inject =
 strats.computed = function (parentVal, childVal) {
-  if (!childVal) { return Object.create(parentVal || null) }
   if (!parentVal) { return childVal }
   var ret = Object.create(null);
   extend(ret, parentVal);
-  extend(ret, childVal);
+  if (childVal) { extend(ret, childVal); }
   return ret
 };
+strats.provide = mergeDataOrFn;
 
 /**
  * Default strategy.
@@ -31751,6 +31806,19 @@ function normalizeProps (options) {
 }
 
 /**
+ * Normalize all injections into Object-based format
+ */
+function normalizeInject (options) {
+  var inject = options.inject;
+  if (Array.isArray(inject)) {
+    var normalized = options.inject = {};
+    for (var i = 0; i < inject.length; i++) {
+      normalized[inject[i]] = inject[i];
+    }
+  }
+}
+
+/**
  * Normalize raw function directives into object format.
  */
 function normalizeDirectives (options) {
@@ -31783,6 +31851,7 @@ function mergeOptions (
   }
 
   normalizeProps(child);
+  normalizeInject(child);
   normalizeDirectives(child);
   var extendsFrom = child.extends;
   if (extendsFrom) {
@@ -32115,7 +32184,8 @@ var VNode = function VNode (
   text,
   elm,
   context,
-  componentOptions
+  componentOptions,
+  asyncFactory
 ) {
   this.tag = tag;
   this.data = data;
@@ -32135,6 +32205,9 @@ var VNode = function VNode (
   this.isComment = false;
   this.isCloned = false;
   this.isOnce = false;
+  this.asyncFactory = asyncFactory;
+  this.asyncMeta = undefined;
+  this.isAsyncPlaceholder = false;
 };
 
 var prototypeAccessors = { child: {} };
@@ -32147,9 +32220,11 @@ prototypeAccessors.child.get = function () {
 
 Object.defineProperties( VNode.prototype, prototypeAccessors );
 
-var createEmptyVNode = function () {
+var createEmptyVNode = function (text) {
+  if ( text === void 0 ) text = '';
+
   var node = new VNode();
-  node.text = '';
+  node.text = text;
   node.isComment = true;
   return node
 };
@@ -32170,7 +32245,8 @@ function cloneVNode (vnode) {
     vnode.text,
     vnode.elm,
     vnode.context,
-    vnode.componentOptions
+    vnode.componentOptions,
+    vnode.asyncFactory
   );
   cloned.ns = vnode.ns;
   cloned.isStatic = vnode.isStatic;
@@ -32212,8 +32288,9 @@ function createFnInvoker (fns) {
 
     var fns = invoker.fns;
     if (Array.isArray(fns)) {
-      for (var i = 0; i < fns.length; i++) {
-        fns[i].apply(null, arguments$1);
+      var cloned = fns.slice();
+      for (var i = 0; i < cloned.length; i++) {
+        cloned[i].apply(null, arguments$1);
       }
     } else {
       // return handler return value for single handlers
@@ -32440,9 +32517,25 @@ function normalizeArrayChildren (children, nestedIndex) {
 /*  */
 
 function ensureCtor (comp, base) {
+  if (comp.__esModule && comp.default) {
+    comp = comp.default;
+  }
   return isObject(comp)
     ? base.extend(comp)
     : comp
+}
+
+function createAsyncPlaceholder (
+  factory,
+  data,
+  context,
+  children,
+  tag
+) {
+  var node = createEmptyVNode();
+  node.asyncFactory = factory;
+  node.asyncMeta = { data: data, context: context, children: children, tag: tag };
+  return node
 }
 
 function resolveAsyncComponent (
@@ -32686,7 +32779,11 @@ function eventsMixin (Vue) {
       cbs = cbs.length > 1 ? toArray(cbs) : cbs;
       var args = toArray(arguments, 1);
       for (var i = 0, l = cbs.length; i < l; i++) {
-        cbs[i].apply(vm, args);
+        try {
+          cbs[i].apply(vm, args);
+        } catch (e) {
+          handleError(e, vm, ("event handler for \"" + event + "\""));
+        }
       }
     }
     return vm
@@ -32754,6 +32851,7 @@ function resolveScopedSlots (
 /*  */
 
 var activeInstance = null;
+var isUpdatingChildComponent = false;
 
 function initLifecycle (vm) {
   var options = vm.$options;
@@ -32801,6 +32899,9 @@ function lifecycleMixin (Vue) {
         vm.$options._parentElm,
         vm.$options._refElm
       );
+      // no need for the ref nodes after initial patch
+      // this prevents keeping a detached DOM tree in memory (#5851)
+      vm.$options._parentElm = vm.$options._refElm = null;
     } else {
       // updates
       vm.$el = vm.__patch__(prevVnode, vnode);
@@ -32865,8 +32966,6 @@ function lifecycleMixin (Vue) {
     if (vm.$el) {
       vm.$el.__vue__ = null;
     }
-    // remove reference to DOM nodes (prevents leak)
-    vm.$options._parentElm = vm.$options._refElm = null;
   };
 }
 
@@ -32942,6 +33041,10 @@ function updateChildComponent (
   parentVnode,
   renderChildren
 ) {
+  if (true) {
+    isUpdatingChildComponent = true;
+  }
+
   // determine whether component has slot children
   // we need to do this before overwriting $options._renderChildren
   var hasChildren = !!(
@@ -32953,17 +33056,21 @@ function updateChildComponent (
 
   vm.$options._parentVnode = parentVnode;
   vm.$vnode = parentVnode; // update vm's placeholder node without re-render
+
   if (vm._vnode) { // update child tree's parent
     vm._vnode.parent = parentVnode;
   }
   vm.$options._renderChildren = renderChildren;
 
+  // update $attrs and $listensers hash
+  // these are also reactive so they may trigger child update if the child
+  // used them during render
+  vm.$attrs = parentVnode.data && parentVnode.data.attrs;
+  vm.$listeners = listeners;
+
   // update props
   if (propsData && vm.$options.props) {
     observerState.shouldConvert = false;
-    if (true) {
-      observerState.isSettingProps = true;
-    }
     var props = vm._props;
     var propKeys = vm.$options._propKeys || [];
     for (var i = 0; i < propKeys.length; i++) {
@@ -32971,12 +33078,10 @@ function updateChildComponent (
       props[key] = validateProp(key, vm.$options.props, propsData, vm);
     }
     observerState.shouldConvert = true;
-    if (true) {
-      observerState.isSettingProps = false;
-    }
     // keep a copy of raw propsData
     vm.$options.propsData = propsData;
   }
+
   // update listeners
   if (listeners) {
     var oldListeners = vm.$options._parentListeners;
@@ -32987,6 +33092,10 @@ function updateChildComponent (
   if (hasChildren) {
     vm.$slots = resolveSlots(renderChildren, parentVnode.context);
     vm.$forceUpdate();
+  }
+
+  if (true) {
+    isUpdatingChildComponent = false;
   }
 }
 
@@ -33121,7 +33230,7 @@ function flushSchedulerQueue () {
 
   // call component updated and activated hooks
   callActivatedHooks(activatedQueue);
-  callUpdateHooks(updatedQueue);
+  callUpdatedHooks(updatedQueue);
 
   // devtool hook
   /* istanbul ignore if */
@@ -33130,7 +33239,7 @@ function flushSchedulerQueue () {
   }
 }
 
-function callUpdateHooks (queue) {
+function callUpdatedHooks (queue) {
   var i = queue.length;
   while (i--) {
     var watcher = queue[i];
@@ -33251,22 +33360,23 @@ Watcher.prototype.get = function get () {
   pushTarget(this);
   var value;
   var vm = this.vm;
-  if (this.user) {
-    try {
-      value = this.getter.call(vm, vm);
-    } catch (e) {
-      handleError(e, vm, ("getter for watcher \"" + (this.expression) + "\""));
-    }
-  } else {
+  try {
     value = this.getter.call(vm, vm);
+  } catch (e) {
+    if (this.user) {
+      handleError(e, vm, ("getter for watcher \"" + (this.expression) + "\""));
+    } else {
+      throw e
+    }
+  } finally {
+    // "touch" every property so they are all tracked as
+    // dependencies for deep watching
+    if (this.deep) {
+      traverse(value);
+    }
+    popTarget();
+    this.cleanupDeps();
   }
-  // "touch" every property so they are all tracked as
-  // dependencies for deep watching
-  if (this.deep) {
-    traverse(value);
-  }
-  popTarget();
-  this.cleanupDeps();
   return value
 };
 
@@ -33459,14 +33569,20 @@ function initState (vm) {
     observe(vm._data = {}, true /* asRootData */);
   }
   if (opts.computed) { initComputed(vm, opts.computed); }
-  if (opts.watch) { initWatch(vm, opts.watch); }
+  if (opts.watch && opts.watch !== nativeWatch) {
+    initWatch(vm, opts.watch);
+  }
 }
 
-var isReservedProp = {
-  key: 1,
-  ref: 1,
-  slot: 1
-};
+function checkOptionType (vm, name) {
+  var option = vm.$options[name];
+  if (!isPlainObject(option)) {
+    warn(
+      ("component option \"" + name + "\" should be an object."),
+      vm
+    );
+  }
+}
 
 function initProps (vm, propsOptions) {
   var propsData = vm.$options.propsData || {};
@@ -33482,14 +33598,14 @@ function initProps (vm, propsOptions) {
     var value = validateProp(key, propsOptions, propsData, vm);
     /* istanbul ignore else */
     if (true) {
-      if (isReservedProp[key] || config.isReservedAttr(key)) {
+      if (isReservedAttribute(key) || config.isReservedAttr(key)) {
         warn(
           ("\"" + key + "\" is a reserved attribute and cannot be used as component prop."),
           vm
         );
       }
       defineReactive$$1(props, key, value, function () {
-        if (vm.$parent && !observerState.isSettingProps) {
+        if (vm.$parent && !isUpdatingChildComponent) {
           warn(
             "Avoid mutating a prop directly since the value will be " +
             "overwritten whenever the parent component re-renders. " +
@@ -33530,16 +33646,26 @@ function initData (vm) {
   // proxy data on instance
   var keys = Object.keys(data);
   var props = vm.$options.props;
+  var methods = vm.$options.methods;
   var i = keys.length;
   while (i--) {
-    if (props && hasOwn(props, keys[i])) {
+    var key = keys[i];
+    if (true) {
+      if (methods && hasOwn(methods, key)) {
+        warn(
+          ("method \"" + key + "\" has already been defined as a data property."),
+          vm
+        );
+      }
+    }
+    if (props && hasOwn(props, key)) {
       "development" !== 'production' && warn(
-        "The data property \"" + (keys[i]) + "\" is already declared as a prop. " +
+        "The data property \"" + key + "\" is already declared as a prop. " +
         "Use prop default value instead.",
         vm
       );
-    } else if (!isReserved(keys[i])) {
-      proxy(vm, "_data", keys[i]);
+    } else if (!isReserved(key)) {
+      proxy(vm, "_data", key);
     }
   }
   // observe data
@@ -33558,22 +33684,20 @@ function getData (data, vm) {
 var computedWatcherOptions = { lazy: true };
 
 function initComputed (vm, computed) {
+  "development" !== 'production' && checkOptionType(vm, 'computed');
   var watchers = vm._computedWatchers = Object.create(null);
 
   for (var key in computed) {
     var userDef = computed[key];
     var getter = typeof userDef === 'function' ? userDef : userDef.get;
-    if (true) {
-      if (getter === undefined) {
-        warn(
-          ("No getter function has been defined for computed property \"" + key + "\"."),
-          vm
-        );
-        getter = noop;
-      }
+    if ("development" !== 'production' && getter == null) {
+      warn(
+        ("Getter is missing for computed property \"" + key + "\"."),
+        vm
+      );
     }
     // create internal watcher for the computed property.
-    watchers[key] = new Watcher(vm, getter, noop, computedWatcherOptions);
+    watchers[key] = new Watcher(vm, getter || noop, noop, computedWatcherOptions);
 
     // component-defined computed properties are already defined on the
     // component prototype. We only need to define computed properties defined
@@ -33604,6 +33728,15 @@ function defineComputed (target, key, userDef) {
       ? userDef.set
       : noop;
   }
+  if ("development" !== 'production' &&
+      sharedPropertyDefinition.set === noop) {
+    sharedPropertyDefinition.set = function () {
+      warn(
+        ("Computed property \"" + key + "\" was assigned to but it has no setter."),
+        this
+      );
+    };
+  }
   Object.defineProperty(target, key, sharedPropertyDefinition);
 }
 
@@ -33623,6 +33756,7 @@ function createComputedGetter (key) {
 }
 
 function initMethods (vm, methods) {
+  "development" !== 'production' && checkOptionType(vm, 'methods');
   var props = vm.$options.props;
   for (var key in methods) {
     vm[key] = methods[key] == null ? noop : bind(methods[key], vm);
@@ -33645,6 +33779,7 @@ function initMethods (vm, methods) {
 }
 
 function initWatch (vm, watch) {
+  "development" !== 'production' && checkOptionType(vm, 'watch');
   for (var key in watch) {
     var handler = watch[key];
     if (Array.isArray(handler)) {
@@ -33657,8 +33792,12 @@ function initWatch (vm, watch) {
   }
 }
 
-function createWatcher (vm, key, handler) {
-  var options;
+function createWatcher (
+  vm,
+  keyOrFn,
+  handler,
+  options
+) {
   if (isPlainObject(handler)) {
     options = handler;
     handler = handler.handler;
@@ -33666,7 +33805,7 @@ function createWatcher (vm, key, handler) {
   if (typeof handler === 'string') {
     handler = vm[handler];
   }
-  vm.$watch(key, handler, options);
+  return vm.$watch(keyOrFn, handler, options)
 }
 
 function stateMixin (Vue) {
@@ -33701,6 +33840,9 @@ function stateMixin (Vue) {
     options
   ) {
     var vm = this;
+    if (isPlainObject(cb)) {
+      return createWatcher(vm, expOrFn, cb, options)
+    }
     options = options || {};
     options.user = true;
     var watcher = new Watcher(vm, expOrFn, cb, options);
@@ -33727,6 +33869,7 @@ function initProvide (vm) {
 function initInjections (vm) {
   var result = resolveInject(vm.$options.inject, vm);
   if (result) {
+    observerState.shouldConvert = false;
     Object.keys(result).forEach(function (key) {
       /* istanbul ignore else */
       if (true) {
@@ -33742,24 +33885,21 @@ function initInjections (vm) {
         defineReactive$$1(vm, key, result[key]);
       }
     });
+    observerState.shouldConvert = true;
   }
 }
 
 function resolveInject (inject, vm) {
   if (inject) {
     // inject is :any because flow is not smart enough to figure out cached
-    // isArray here
-    var isArray = Array.isArray(inject);
     var result = Object.create(null);
-    var keys = isArray
-      ? inject
-      : hasSymbol
+    var keys = hasSymbol
         ? Reflect.ownKeys(inject)
         : Object.keys(inject);
 
     for (var i = 0; i < keys.length; i++) {
       var key = keys[i];
-      var provideKey = isArray ? key : inject[key];
+      var provideKey = inject[key];
       var source = vm;
       while (source) {
         if (source._provided && provideKey in source._provided) {
@@ -33767,6 +33907,9 @@ function resolveInject (inject, vm) {
           break
         }
         source = source.$parent;
+      }
+      if ("development" !== 'production' && !source) {
+        warn(("Injection \"" + key + "\" not found"), vm);
       }
     }
     return result
@@ -33921,20 +34064,29 @@ function createComponent (
   }
 
   // async component
+  var asyncFactory;
   if (isUndef(Ctor.cid)) {
-    Ctor = resolveAsyncComponent(Ctor, baseCtor, context);
+    asyncFactory = Ctor;
+    Ctor = resolveAsyncComponent(asyncFactory, baseCtor, context);
     if (Ctor === undefined) {
-      // return nothing if this is indeed an async component
-      // wait for the callback to trigger parent update.
-      return
+      // return a placeholder node for async component, which is rendered
+      // as a comment node but preserves all the raw information for the node.
+      // the information will be used for async server-rendering and hydration.
+      return createAsyncPlaceholder(
+        asyncFactory,
+        data,
+        context,
+        children,
+        tag
+      )
     }
   }
+
+  data = data || {};
 
   // resolve constructor options in case global mixins are applied after
   // component constructor creation
   resolveConstructorOptions(Ctor);
-
-  data = data || {};
 
   // transform component v-model data into props & events
   if (isDef(data.model)) {
@@ -33953,12 +34105,19 @@ function createComponent (
   // child component listeners instead of DOM listeners
   var listeners = data.on;
   // replace with listeners with .native modifier
+  // so it gets processed during parent component patch.
   data.on = data.nativeOn;
 
   if (isTrue(Ctor.options.abstract)) {
     // abstract components do not keep anything
-    // other than props & listeners
+    // other than props & listeners & slot
+
+    // work around flow
+    var slot = data.slot;
     data = {};
+    if (slot) {
+      data.slot = slot;
+    }
   }
 
   // merge component management hooks onto the placeholder node
@@ -33969,7 +34128,8 @@ function createComponent (
   var vnode = new VNode(
     ("vue-component-" + (Ctor.cid) + (name ? ("-" + name) : '')),
     data, undefined, undefined, undefined, context,
-    { Ctor: Ctor, propsData: propsData, listeners: listeners, tag: tag, children: children }
+    { Ctor: Ctor, propsData: propsData, listeners: listeners, tag: tag, children: children },
+    asyncFactory
   );
   return vnode
 }
@@ -34074,9 +34234,23 @@ function _createElement (
     );
     return createEmptyVNode()
   }
+  // object syntax in v-bind
+  if (isDef(data) && isDef(data.is)) {
+    tag = data.is;
+  }
   if (!tag) {
     // in case of component :is set to falsy value
     return createEmptyVNode()
+  }
+  // warn against non-primitive key
+  if ("development" !== 'production' &&
+    isDef(data) && isDef(data.key) && !isPrimitive(data.key)
+  ) {
+    warn(
+      'Avoid using non-primitive value as key, ' +
+      'use string/number value instead.',
+      context
+    );
   }
   // support single function children as default scoped slot
   if (Array.isArray(children) &&
@@ -34190,7 +34364,7 @@ function renderSlot (
   if (scopedSlotFn) { // scoped slot
     props = props || {};
     if (bindObject) {
-      extend(props, bindObject);
+      props = extend(extend({}, bindObject), props);
     }
     return scopedSlotFn(props) || fallback
   } else {
@@ -34244,7 +34418,8 @@ function bindObjectProps (
   data,
   tag,
   value,
-  asProp
+  asProp,
+  isSync
 ) {
   if (value) {
     if (!isObject(value)) {
@@ -34257,8 +34432,12 @@ function bindObjectProps (
         value = toObject(value);
       }
       var hash;
-      for (var key in value) {
-        if (key === 'class' || key === 'style') {
+      var loop = function ( key ) {
+        if (
+          key === 'class' ||
+          key === 'style' ||
+          isReservedAttribute(key)
+        ) {
           hash = data;
         } else {
           var type = data.attrs && data.attrs.type;
@@ -34268,8 +34447,17 @@ function bindObjectProps (
         }
         if (!(key in hash)) {
           hash[key] = value[key];
+
+          if (isSync) {
+            var on = data.on || (data.on = {});
+            on[("update:" + key)] = function ($event) {
+              value[key] = $event;
+            };
+          }
         }
-      }
+      };
+
+      for (var key in value) loop( key );
     }
   }
   return data
@@ -34336,6 +34524,27 @@ function markStaticNode (node, key, isOnce) {
 
 /*  */
 
+function bindObjectListeners (data, value) {
+  if (value) {
+    if (!isPlainObject(value)) {
+      "development" !== 'production' && warn(
+        'v-on without argument expects an Object value',
+        this
+      );
+    } else {
+      var on = data.on = data.on ? extend({}, data.on) : {};
+      for (var key in value) {
+        var existing = on[key];
+        var ours = value[key];
+        on[key] = existing ? [].concat(ours, existing) : ours;
+      }
+    }
+  }
+  return data
+}
+
+/*  */
+
 function initRender (vm) {
   vm._vnode = null; // the root of the child tree
   vm._staticTrees = null;
@@ -34351,6 +34560,22 @@ function initRender (vm) {
   // normalization is always applied for the public version, used in
   // user-written render functions.
   vm.$createElement = function (a, b, c, d) { return createElement(vm, a, b, c, d, true); };
+
+  // $attrs & $listeners are exposed for easier HOC creation.
+  // they need to be reactive so that HOCs using them are always updated
+  var parentData = parentVnode && parentVnode.data;
+  /* istanbul ignore else */
+  if (true) {
+    defineReactive$$1(vm, '$attrs', parentData && parentData.attrs, function () {
+      !isUpdatingChildComponent && warn("$attrs is readonly.", vm);
+    }, true);
+    defineReactive$$1(vm, '$listeners', vm.$options._parentListeners, function () {
+      !isUpdatingChildComponent && warn("$listeners is readonly.", vm);
+    }, true);
+  } else {
+    defineReactive$$1(vm, '$attrs', parentData && parentData.attrs, null, true);
+    defineReactive$$1(vm, '$listeners', vm.$options._parentListeners, null, true);
+  }
 }
 
 function renderMixin (Vue) {
@@ -34430,6 +34655,7 @@ function renderMixin (Vue) {
   Vue.prototype._v = createTextVNode;
   Vue.prototype._e = createEmptyVNode;
   Vue.prototype._u = resolveScopedSlots;
+  Vue.prototype._g = bindObjectListeners;
 }
 
 /*  */
@@ -34588,10 +34814,11 @@ renderMixin(Vue$3);
 
 function initUse (Vue) {
   Vue.use = function (plugin) {
-    /* istanbul ignore if */
-    if (plugin.installed) {
+    var installedPlugins = (this._installedPlugins || (this._installedPlugins = []));
+    if (installedPlugins.indexOf(plugin) > -1) {
       return this
     }
+
     // additional parameters
     var args = toArray(arguments, 1);
     args.unshift(this);
@@ -34600,7 +34827,7 @@ function initUse (Vue) {
     } else if (typeof plugin === 'function') {
       plugin.apply(null, args);
     }
-    plugin.installed = true;
+    installedPlugins.push(plugin);
     return this
   };
 }
@@ -34751,14 +34978,16 @@ function initAssetRegisters (Vue) {
 
 /*  */
 
-var patternTypes = [String, RegExp];
+var patternTypes = [String, RegExp, Array];
 
 function getComponentName (opts) {
   return opts && (opts.Ctor.options.name || opts.tag)
 }
 
 function matches (pattern, name) {
-  if (typeof pattern === 'string') {
+  if (Array.isArray(pattern)) {
+    return pattern.indexOf(name) > -1
+  } else if (typeof pattern === 'string') {
     return pattern.split(',').indexOf(name) > -1
   } else if (isRegExp(pattern)) {
     return pattern.test(name)
@@ -34905,11 +35134,11 @@ Object.defineProperty(Vue$3.prototype, '$isServer', {
 Object.defineProperty(Vue$3.prototype, '$ssrContext', {
   get: function get () {
     /* istanbul ignore next */
-    return this.$vnode.ssrContext
+    return this.$vnode && this.$vnode.ssrContext
   }
 });
 
-Vue$3.version = '2.3.3';
+Vue$3.version = '2.4.2';
 
 /*  */
 
@@ -34970,7 +35199,7 @@ function genClassForVnode (vnode) {
       data = mergeClassData(data, parentNode.data);
     }
   }
-  return genClassFromData(data)
+  return renderClass(data.staticClass, data.class)
 }
 
 function mergeClassData (child, parent) {
@@ -34982,9 +35211,10 @@ function mergeClassData (child, parent) {
   }
 }
 
-function genClassFromData (data) {
-  var dynamicClass = data.class;
-  var staticClass = data.staticClass;
+function renderClass (
+  staticClass,
+  dynamicClass
+) {
   if (isDef(staticClass) || isDef(dynamicClass)) {
     return concat(staticClass, stringifyClass(dynamicClass))
   }
@@ -34997,31 +35227,39 @@ function concat (a, b) {
 }
 
 function stringifyClass (value) {
-  if (isUndef(value)) {
-    return ''
+  if (Array.isArray(value)) {
+    return stringifyArray(value)
+  }
+  if (isObject(value)) {
+    return stringifyObject(value)
   }
   if (typeof value === 'string') {
     return value
   }
-  var res = '';
-  if (Array.isArray(value)) {
-    var stringified;
-    for (var i = 0, l = value.length; i < l; i++) {
-      if (isDef(value[i])) {
-        if (isDef(stringified = stringifyClass(value[i])) && stringified !== '') {
-          res += stringified + ' ';
-        }
-      }
-    }
-    return res.slice(0, -1)
-  }
-  if (isObject(value)) {
-    for (var key in value) {
-      if (value[key]) { res += key + ' '; }
-    }
-    return res.slice(0, -1)
-  }
   /* istanbul ignore next */
+  return ''
+}
+
+function stringifyArray (value) {
+  var res = '';
+  var stringified;
+  for (var i = 0, l = value.length; i < l; i++) {
+    if (isDef(stringified = stringifyClass(value[i])) && stringified !== '') {
+      if (res) { res += ' '; }
+      res += stringified;
+    }
+  }
+  return res
+}
+
+function stringifyObject (value) {
+  var res = '';
+  for (var key in value) {
+    if (value[key]) {
+      if (res) { res += ' '; }
+      res += key;
+    }
+  }
   return res
 }
 
@@ -35035,7 +35273,7 @@ var namespaceMap = {
 var isHTMLTag = makeMap(
   'html,body,base,head,link,meta,style,title,' +
   'address,article,aside,footer,header,h1,h2,h3,h4,h5,h6,hgroup,nav,section,' +
-  'div,dd,dl,dt,figcaption,figure,hr,img,li,main,ol,p,pre,ul,' +
+  'div,dd,dl,dt,figcaption,figure,picture,hr,img,li,main,ol,p,pre,ul,' +
   'a,b,abbr,bdi,bdo,br,cite,code,data,dfn,em,i,kbd,mark,q,rp,rt,rtc,ruby,' +
   's,samp,small,span,strong,sub,sup,time,u,var,wbr,area,audio,map,track,video,' +
   'embed,object,param,source,canvas,script,noscript,del,ins,' +
@@ -35043,7 +35281,7 @@ var isHTMLTag = makeMap(
   'button,datalist,fieldset,form,input,label,legend,meter,optgroup,option,' +
   'output,progress,select,textarea,' +
   'details,dialog,menu,menuitem,summary,' +
-  'content,element,shadow,template'
+  'content,element,shadow,template,blockquote,iframe,tfoot'
 );
 
 // this map is intentionally selective, only covering SVG elements that may
@@ -35224,10 +35462,11 @@ function registerRef (vnode, isRemoval) {
     }
   } else {
     if (vnode.data.refInFor) {
-      if (Array.isArray(refs[key]) && refs[key].indexOf(ref) < 0) {
-        refs[key].push(ref);
-      } else {
+      if (!Array.isArray(refs[key])) {
         refs[key] = [ref];
+      } else if (refs[key].indexOf(ref) < 0) {
+        // $flow-disable-line
+        refs[key].push(ref);
       }
     } else {
       refs[key] = ref;
@@ -35255,11 +35494,18 @@ var hooks = ['create', 'activate', 'update', 'remove', 'destroy'];
 
 function sameVnode (a, b) {
   return (
-    a.key === b.key &&
-    a.tag === b.tag &&
-    a.isComment === b.isComment &&
-    isDef(a.data) === isDef(b.data) &&
-    sameInputType(a, b)
+    a.key === b.key && (
+      (
+        a.tag === b.tag &&
+        a.isComment === b.isComment &&
+        isDef(a.data) === isDef(b.data) &&
+        sameInputType(a, b)
+      ) || (
+        isTrue(a.isAsyncPlaceholder) &&
+        a.asyncFactory === b.asyncFactory &&
+        isUndef(b.asyncFactory.error)
+      )
+    )
   )
 }
 
@@ -35400,6 +35646,7 @@ function createPatchFunction (backend) {
   function initComponent (vnode, insertedVnodeQueue) {
     if (isDef(vnode.data.pendingInsert)) {
       insertedVnodeQueue.push.apply(insertedVnodeQueue, vnode.data.pendingInsert);
+      vnode.data.pendingInsert = null;
     }
     vnode.elm = vnode.componentInstance.$el;
     if (isPatchable(vnode)) {
@@ -35436,11 +35683,11 @@ function createPatchFunction (backend) {
     insert(parentElm, vnode.elm, refElm);
   }
 
-  function insert (parent, elm, ref) {
+  function insert (parent, elm, ref$$1) {
     if (isDef(parent)) {
-      if (isDef(ref)) {
-        if (ref.parentNode === parent) {
-          nodeOps.insertBefore(parent, elm, ref);
+      if (isDef(ref$$1)) {
+        if (ref$$1.parentNode === parent) {
+          nodeOps.insertBefore(parent, elm, ref$$1);
         }
       } else {
         nodeOps.appendChild(parent, elm);
@@ -35617,7 +35864,7 @@ function createPatchFunction (backend) {
           if (sameVnode(elmToMove, newStartVnode)) {
             patchVnode(elmToMove, newStartVnode, insertedVnodeQueue);
             oldCh[idxInOld] = undefined;
-            canMove && nodeOps.insertBefore(parentElm, newStartVnode.elm, oldStartVnode.elm);
+            canMove && nodeOps.insertBefore(parentElm, elmToMove.elm, oldStartVnode.elm);
             newStartVnode = newCh[++newStartIdx];
           } else {
             // same key but different element. treat as new element
@@ -35639,6 +35886,18 @@ function createPatchFunction (backend) {
     if (oldVnode === vnode) {
       return
     }
+
+    var elm = vnode.elm = oldVnode.elm;
+
+    if (isTrue(oldVnode.isAsyncPlaceholder)) {
+      if (isDef(vnode.asyncFactory.resolved)) {
+        hydrate(oldVnode.elm, vnode, insertedVnodeQueue);
+      } else {
+        vnode.isAsyncPlaceholder = true;
+      }
+      return
+    }
+
     // reuse element for static trees.
     // note we only do this if the vnode is cloned -
     // if the new node is not cloned it means the render functions have been
@@ -35648,16 +35907,16 @@ function createPatchFunction (backend) {
       vnode.key === oldVnode.key &&
       (isTrue(vnode.isCloned) || isTrue(vnode.isOnce))
     ) {
-      vnode.elm = oldVnode.elm;
       vnode.componentInstance = oldVnode.componentInstance;
       return
     }
+
     var i;
     var data = vnode.data;
     if (isDef(data) && isDef(i = data.hook) && isDef(i = i.prepatch)) {
       i(oldVnode, vnode);
     }
-    var elm = vnode.elm = oldVnode.elm;
+
     var oldCh = oldVnode.children;
     var ch = vnode.children;
     if (isDef(data) && isPatchable(vnode)) {
@@ -35702,6 +35961,11 @@ function createPatchFunction (backend) {
 
   // Note: this is a browser-only function so we can assume elms are DOM nodes.
   function hydrate (elm, vnode, insertedVnodeQueue) {
+    if (isTrue(vnode.isComment) && isDef(vnode.asyncFactory)) {
+      vnode.elm = elm;
+      vnode.isAsyncPlaceholder = true;
+      return true
+    }
     if (true) {
       if (!assertNodeMatch(elm, vnode)) {
         return false
@@ -35981,6 +36245,10 @@ var baseModules = [
 /*  */
 
 function updateAttrs (oldVnode, vnode) {
+  var opts = vnode.componentOptions;
+  if (isDef(opts) && opts.Ctor.options.inheritAttrs === false) {
+    return
+  }
   if (isUndef(oldVnode.data.attrs) && isUndef(vnode.data.attrs)) {
     return
   }
@@ -36346,10 +36614,7 @@ function genAssignmentCode (
   if (modelRs.idx === null) {
     return (value + "=" + assignment)
   } else {
-    return "var $$exp = " + (modelRs.exp) + ", $$idx = " + (modelRs.idx) + ";" +
-      "if (!Array.isArray($$exp)){" +
-        value + "=" + assignment + "}" +
-      "else{$$exp.splice($$idx, 1, " + assignment + ")}"
+    return ("$set(" + (modelRs.exp) + ", " + (modelRs.idx) + ", " + assignment + ")")
   }
 }
 
@@ -36480,7 +36745,11 @@ function model (
     }
   }
 
-  if (tag === 'select') {
+  if (el.component) {
+    genComponentModel(el, value, modifiers);
+    // component v-model doesn't need extra runtime
+    return false
+  } else if (tag === 'select') {
     genSelect(el, value, modifiers);
   } else if (tag === 'input' && type === 'checkbox') {
     genCheckboxModel(el, value, modifiers);
@@ -36529,7 +36798,7 @@ function genCheckboxModel (
     'if(Array.isArray($$a)){' +
       "var $$v=" + (number ? '_n(' + valueBinding + ')' : valueBinding) + "," +
           '$$i=_i($$a,$$v);' +
-      "if($$c){$$i<0&&(" + value + "=$$a.concat($$v))}" +
+      "if($$el.checked){$$i<0&&(" + value + "=$$a.concat($$v))}" +
       "else{$$i>-1&&(" + value + "=$$a.slice(0,$$i).concat($$a.slice($$i+1)))}" +
     "}else{" + (genAssignmentCode(value, '$$c')) + "}",
     null, true
@@ -36597,7 +36866,7 @@ function genDefaultModel (
 
   addProp(el, 'value', ("(" + value + ")"));
   addHandler(el, event, code, null, true);
-  if (trim || number || type === 'number') {
+  if (trim || number) {
     addHandler(el, 'blur', '$forceUpdate()');
   }
 }
@@ -36741,14 +37010,19 @@ function shouldUpdateValue (
 }
 
 function isDirty (elm, checkVal) {
-  // return true when textbox (.number and .trim) loses focus and its value is not equal to the updated value
-  return document.activeElement !== elm && elm.value !== checkVal
+  // return true when textbox (.number and .trim) loses focus and its value is
+  // not equal to the updated value
+  var notInFocus = true;
+  // #6157
+  // work around IE bug when accessing document.activeElement in an iframe
+  try { notInFocus = document.activeElement !== elm; } catch (e) {}
+  return notInFocus && elm.value !== checkVal
 }
 
 function isInputChanged (elm, newVal) {
   var value = elm.value;
   var modifiers = elm._vModifiers; // injected by v-model runtime
-  if ((isDef(modifiers) && modifiers.number) || elm.type === 'number') {
+  if (isDef(modifiers) && modifiers.number) {
     return toNumber(value) !== toNumber(newVal)
   }
   if (isDef(modifiers) && modifiers.trim) {
@@ -36854,20 +37128,20 @@ var setProp = function (el, name, val) {
   }
 };
 
-var prefixes = ['Webkit', 'Moz', 'ms'];
+var vendorNames = ['Webkit', 'Moz', 'ms'];
 
-var testEl;
+var emptyStyle;
 var normalize = cached(function (prop) {
-  testEl = testEl || document.createElement('div');
+  emptyStyle = emptyStyle || document.createElement('div').style;
   prop = camelize(prop);
-  if (prop !== 'filter' && (prop in testEl.style)) {
+  if (prop !== 'filter' && (prop in emptyStyle)) {
     return prop
   }
-  var upper = prop.charAt(0).toUpperCase() + prop.slice(1);
-  for (var i = 0; i < prefixes.length; i++) {
-    var prefixed = prefixes[i] + upper;
-    if (prefixed in testEl.style) {
-      return prefixed
+  var capName = prop.charAt(0).toUpperCase() + prop.slice(1);
+  for (var i = 0; i < vendorNames.length; i++) {
+    var name = vendorNames[i] + capName;
+    if (name in emptyStyle) {
+      return name
     }
   }
 });
@@ -36964,13 +37238,21 @@ function removeClass (el, cls) {
     } else {
       el.classList.remove(cls);
     }
+    if (!el.classList.length) {
+      el.removeAttribute('class');
+    }
   } else {
     var cur = " " + (el.getAttribute('class') || '') + " ";
     var tar = ' ' + cls + ' ';
     while (cur.indexOf(tar) >= 0) {
       cur = cur.replace(tar, ' ');
     }
-    el.setAttribute('class', cur.trim());
+    cur = cur.trim();
+    if (cur) {
+      el.setAttribute('class', cur);
+    } else {
+      el.removeAttribute('class');
+    }
   }
 }
 
@@ -37041,8 +37323,11 @@ function nextFrame (fn) {
 }
 
 function addTransitionClass (el, cls) {
-  (el._transitionClasses || (el._transitionClasses = [])).push(cls);
-  addClass(el, cls);
+  var transitionClasses = el._transitionClasses || (el._transitionClasses = []);
+  if (transitionClasses.indexOf(cls) < 0) {
+    transitionClasses.push(cls);
+    addClass(el, cls);
+  }
 }
 
 function removeTransitionClass (el, cls) {
@@ -37487,6 +37772,8 @@ var patch = createPatchFunction({ nodeOps: nodeOps, modules: modules });
  * properties to Elements.
  */
 
+var isTextInputType = makeMap('text,number,password,search,email,tel,url');
+
 /* istanbul ignore if */
 if (isIE9) {
   // http://www.matts411.com/post/internet-explorer-9-oninput/
@@ -37509,7 +37796,8 @@ var model$1 = {
       if (isIE || isEdge) {
         setTimeout(cb, 0);
       }
-    } else if (vnode.tag === 'textarea' || el.type === 'text' || el.type === 'password') {
+      el._vOptions = [].map.call(el.options, getValue);
+    } else if (vnode.tag === 'textarea' || isTextInputType(el.type)) {
       el._vModifiers = binding.modifiers;
       if (!binding.modifiers.lazy) {
         // Safari < 10.2 & UIWebView doesn't fire compositionend when
@@ -37535,10 +37823,9 @@ var model$1 = {
       // it's possible that the value is out-of-sync with the rendered options.
       // detect such cases and filter out values that no longer has a matching
       // option in the DOM.
-      var needReset = el.multiple
-        ? binding.value.some(function (v) { return hasNoMatchingOption(v, el.options); })
-        : binding.value !== binding.oldValue && hasNoMatchingOption(binding.value, el.options);
-      if (needReset) {
+      var prevOptions = el._vOptions;
+      var curOptions = el._vOptions = [].map.call(el.options, getValue);
+      if (curOptions.some(function (o, i) { return !looseEqual(o, prevOptions[i]); })) {
         trigger(el, 'change');
       }
     }
@@ -37578,15 +37865,6 @@ function setSelected (el, binding, vm) {
   }
 }
 
-function hasNoMatchingOption (value, options) {
-  for (var i = 0, l = options.length; i < l; i++) {
-    if (looseEqual(getValue(options[i]), value)) {
-      return false
-    }
-  }
-  return true
-}
-
 function getValue (option) {
   return '_value' in option
     ? option._value
@@ -37624,10 +37902,10 @@ var show = {
     var value = ref.value;
 
     vnode = locateNode(vnode);
-    var transition = vnode.data && vnode.data.transition;
+    var transition$$1 = vnode.data && vnode.data.transition;
     var originalDisplay = el.__vOriginalDisplay =
       el.style.display === 'none' ? '' : el.style.display;
-    if (value && transition && !isIE9) {
+    if (value && transition$$1) {
       vnode.data.show = true;
       enter(vnode, function () {
         el.style.display = originalDisplay;
@@ -37644,8 +37922,8 @@ var show = {
     /* istanbul ignore if */
     if (value === oldValue) { return }
     vnode = locateNode(vnode);
-    var transition = vnode.data && vnode.data.transition;
-    if (transition && !isIE9) {
+    var transition$$1 = vnode.data && vnode.data.transition;
+    if (transition$$1) {
       vnode.data.show = true;
       if (value) {
         enter(vnode, function () {
@@ -37749,6 +38027,10 @@ function isSameChild (child, oldChild) {
   return oldChild.key === child.key && oldChild.tag === child.tag
 }
 
+function isAsyncPlaceholder (node) {
+  return node.isComment && node.asyncFactory
+}
+
 var Transition = {
   name: 'transition',
   props: transitionProps,
@@ -37757,13 +38039,13 @@ var Transition = {
   render: function render (h) {
     var this$1 = this;
 
-    var children = this.$slots.default;
+    var children = this.$options._renderChildren;
     if (!children) {
       return
     }
 
     // filter out text nodes (possible whitespaces)
-    children = children.filter(function (c) { return c.tag; });
+    children = children.filter(function (c) { return c.tag || isAsyncPlaceholder(c); });
     /* istanbul ignore if */
     if (!children.length) {
       return
@@ -37815,7 +38097,9 @@ var Transition = {
     // during entering.
     var id = "__transition-" + (this._uid) + "-";
     child.key = child.key == null
-      ? id + child.tag
+      ? child.isComment
+        ? id + 'comment'
+        : id + child.tag
       : isPrimitive(child.key)
         ? (String(child.key).indexOf(id) === 0 ? child.key : id + child.key)
         : child.key;
@@ -37830,7 +38114,12 @@ var Transition = {
       child.data.show = true;
     }
 
-    if (oldChild && oldChild.data && !isSameChild(child, oldChild)) {
+    if (
+      oldChild &&
+      oldChild.data &&
+      !isSameChild(child, oldChild) &&
+      !isAsyncPlaceholder(oldChild)
+    ) {
       // replace old child transition data with fresh one
       // important for dynamic transitions!
       var oldData = oldChild && (oldChild.data.transition = extend({}, data));
@@ -37844,6 +38133,9 @@ var Transition = {
         });
         return placeholder(h, rawChild)
       } else if (mode === 'in-out') {
+        if (isAsyncPlaceholder(child)) {
+          return oldRawChild
+        }
         var delayedLeave;
         var performLeave = function () { delayedLeave(); };
         mergeVNodeHook(data, 'afterEnter', performLeave);
@@ -37973,7 +38265,8 @@ var TransitionGroup = {
       if (!hasTransition) {
         return false
       }
-      if (this._hasMove != null) {
+      /* istanbul ignore if */
+      if (this._hasMove) {
         return this._hasMove
       }
       // Detect whether an element with the move class applied has
@@ -38083,13 +38376,165 @@ setTimeout(function () {
 // check whether current browser encodes a char inside attribute values
 function shouldDecode (content, encoded) {
   var div = document.createElement('div');
-  div.innerHTML = "<div a=\"" + content + "\">";
+  div.innerHTML = "<div a=\"" + content + "\"/>";
   return div.innerHTML.indexOf(encoded) > 0
 }
 
 // #3663
 // IE encodes newlines inside attribute values while other browsers don't
 var shouldDecodeNewlines = inBrowser ? shouldDecode('\n', '&#10;') : false;
+
+/*  */
+
+var defaultTagRE = /\{\{((?:.|\n)+?)\}\}/g;
+var regexEscapeRE = /[-.*+?^${}()|[\]\/\\]/g;
+
+var buildRegex = cached(function (delimiters) {
+  var open = delimiters[0].replace(regexEscapeRE, '\\$&');
+  var close = delimiters[1].replace(regexEscapeRE, '\\$&');
+  return new RegExp(open + '((?:.|\\n)+?)' + close, 'g')
+});
+
+function parseText (
+  text,
+  delimiters
+) {
+  var tagRE = delimiters ? buildRegex(delimiters) : defaultTagRE;
+  if (!tagRE.test(text)) {
+    return
+  }
+  var tokens = [];
+  var lastIndex = tagRE.lastIndex = 0;
+  var match, index;
+  while ((match = tagRE.exec(text))) {
+    index = match.index;
+    // push text token
+    if (index > lastIndex) {
+      tokens.push(JSON.stringify(text.slice(lastIndex, index)));
+    }
+    // tag token
+    var exp = parseFilters(match[1].trim());
+    tokens.push(("_s(" + exp + ")"));
+    lastIndex = index + match[0].length;
+  }
+  if (lastIndex < text.length) {
+    tokens.push(JSON.stringify(text.slice(lastIndex)));
+  }
+  return tokens.join('+')
+}
+
+/*  */
+
+function transformNode (el, options) {
+  var warn = options.warn || baseWarn;
+  var staticClass = getAndRemoveAttr(el, 'class');
+  if ("development" !== 'production' && staticClass) {
+    var expression = parseText(staticClass, options.delimiters);
+    if (expression) {
+      warn(
+        "class=\"" + staticClass + "\": " +
+        'Interpolation inside attributes has been removed. ' +
+        'Use v-bind or the colon shorthand instead. For example, ' +
+        'instead of <div class="{{ val }}">, use <div :class="val">.'
+      );
+    }
+  }
+  if (staticClass) {
+    el.staticClass = JSON.stringify(staticClass);
+  }
+  var classBinding = getBindingAttr(el, 'class', false /* getStatic */);
+  if (classBinding) {
+    el.classBinding = classBinding;
+  }
+}
+
+function genData (el) {
+  var data = '';
+  if (el.staticClass) {
+    data += "staticClass:" + (el.staticClass) + ",";
+  }
+  if (el.classBinding) {
+    data += "class:" + (el.classBinding) + ",";
+  }
+  return data
+}
+
+var klass$1 = {
+  staticKeys: ['staticClass'],
+  transformNode: transformNode,
+  genData: genData
+};
+
+/*  */
+
+function transformNode$1 (el, options) {
+  var warn = options.warn || baseWarn;
+  var staticStyle = getAndRemoveAttr(el, 'style');
+  if (staticStyle) {
+    /* istanbul ignore if */
+    if (true) {
+      var expression = parseText(staticStyle, options.delimiters);
+      if (expression) {
+        warn(
+          "style=\"" + staticStyle + "\": " +
+          'Interpolation inside attributes has been removed. ' +
+          'Use v-bind or the colon shorthand instead. For example, ' +
+          'instead of <div style="{{ val }}">, use <div :style="val">.'
+        );
+      }
+    }
+    el.staticStyle = JSON.stringify(parseStyleText(staticStyle));
+  }
+
+  var styleBinding = getBindingAttr(el, 'style', false /* getStatic */);
+  if (styleBinding) {
+    el.styleBinding = styleBinding;
+  }
+}
+
+function genData$1 (el) {
+  var data = '';
+  if (el.staticStyle) {
+    data += "staticStyle:" + (el.staticStyle) + ",";
+  }
+  if (el.styleBinding) {
+    data += "style:(" + (el.styleBinding) + "),";
+  }
+  return data
+}
+
+var style$1 = {
+  staticKeys: ['staticStyle'],
+  transformNode: transformNode$1,
+  genData: genData$1
+};
+
+var modules$1 = [
+  klass$1,
+  style$1
+];
+
+/*  */
+
+function text (el, dir) {
+  if (dir.value) {
+    addProp(el, 'textContent', ("_s(" + (dir.value) + ")"));
+  }
+}
+
+/*  */
+
+function html (el, dir) {
+  if (dir.value) {
+    addProp(el, 'innerHTML', ("_s(" + (dir.value) + ")"));
+  }
+}
+
+var directives$1 = {
+  model: model,
+  text: text,
+  html: html
+};
 
 /*  */
 
@@ -38116,13 +38561,30 @@ var isNonPhrasingTag = makeMap(
 
 /*  */
 
+var baseOptions = {
+  expectHTML: true,
+  modules: modules$1,
+  directives: directives$1,
+  isPreTag: isPreTag,
+  isUnaryTag: isUnaryTag,
+  mustUseProp: mustUseProp,
+  canBeLeftOpenTag: canBeLeftOpenTag,
+  isReservedTag: isReservedTag,
+  getTagNamespace: getTagNamespace,
+  staticKeys: genStaticKeys(modules$1)
+};
+
+/*  */
+
 var decoder;
 
-function decode (html) {
-  decoder = decoder || document.createElement('div');
-  decoder.innerHTML = html;
-  return decoder.textContent
-}
+var he = {
+  decode: function decode (html) {
+    decoder = decoder || document.createElement('div');
+    decoder.innerHTML = html;
+    return decoder.textContent
+  }
+};
 
 /**
  * Not type-checking this file because it's mostly vendor code.
@@ -38182,6 +38644,10 @@ var decodingMap = {
 var encodedAttr = /&(?:lt|gt|quot|amp);/g;
 var encodedAttrWithNewLines = /&(?:lt|gt|quot|amp|#10);/g;
 
+// #5992
+var isIgnoreNewlineTag = makeMap('pre,textarea', true);
+var shouldIgnoreFirstNewline = function (tag, html) { return tag && isIgnoreNewlineTag(tag) && html[0] === '\n'; };
+
 function decodeAttr (value, shouldDecodeNewlines) {
   var re = shouldDecodeNewlines ? encodedAttrWithNewLines : encodedAttr;
   return value.replace(re, function (match) { return decodingMap[match]; })
@@ -38205,6 +38671,9 @@ function parseHTML (html, options) {
           var commentEnd = html.indexOf('-->');
 
           if (commentEnd >= 0) {
+            if (options.shouldKeepComment) {
+              options.comment(html.substring(4, commentEnd));
+            }
             advance(commentEnd + 3);
             continue
           }
@@ -38240,24 +38709,27 @@ function parseHTML (html, options) {
         var startTagMatch = parseStartTag();
         if (startTagMatch) {
           handleStartTag(startTagMatch);
+          if (shouldIgnoreFirstNewline(lastTag, html)) {
+            advance(1);
+          }
           continue
         }
       }
 
-      var text = (void 0), rest$1 = (void 0), next = (void 0);
+      var text = (void 0), rest = (void 0), next = (void 0);
       if (textEnd >= 0) {
-        rest$1 = html.slice(textEnd);
+        rest = html.slice(textEnd);
         while (
-          !endTag.test(rest$1) &&
-          !startTagOpen.test(rest$1) &&
-          !comment.test(rest$1) &&
-          !conditionalComment.test(rest$1)
+          !endTag.test(rest) &&
+          !startTagOpen.test(rest) &&
+          !comment.test(rest) &&
+          !conditionalComment.test(rest)
         ) {
           // < in plain text, be forgiving and treat it as text
-          next = rest$1.indexOf('<', 1);
+          next = rest.indexOf('<', 1);
           if (next < 0) { break }
           textEnd += next;
-          rest$1 = html.slice(textEnd);
+          rest = html.slice(textEnd);
         }
         text = html.substring(0, textEnd);
         advance(textEnd);
@@ -38272,23 +38744,26 @@ function parseHTML (html, options) {
         options.chars(text);
       }
     } else {
+      var endTagLength = 0;
       var stackedTag = lastTag.toLowerCase();
       var reStackedTag = reCache[stackedTag] || (reCache[stackedTag] = new RegExp('([\\s\\S]*?)(</' + stackedTag + '[^>]*>)', 'i'));
-      var endTagLength = 0;
-      var rest = html.replace(reStackedTag, function (all, text, endTag) {
+      var rest$1 = html.replace(reStackedTag, function (all, text, endTag) {
         endTagLength = endTag.length;
         if (!isPlainTextElement(stackedTag) && stackedTag !== 'noscript') {
           text = text
             .replace(/<!--([\s\S]*?)-->/g, '$1')
             .replace(/<!\[CDATA\[([\s\S]*?)]]>/g, '$1');
         }
+        if (shouldIgnoreFirstNewline(stackedTag, text)) {
+          text = text.slice(1);
+        }
         if (options.chars) {
           options.chars(text);
         }
         return ''
       });
-      index += html.length - rest.length;
-      html = rest;
+      index += html.length - rest$1.length;
+      html = rest$1;
       parseEndTag(stackedTag, index - endTagLength, index);
     }
 
@@ -38345,7 +38820,7 @@ function parseHTML (html, options) {
       }
     }
 
-    var unary = isUnaryTag$$1(tagName) || tagName === 'html' && lastTag === 'head' || !!unarySlash;
+    var unary = isUnaryTag$$1(tagName) || !!unarySlash;
 
     var l = match.attrs.length;
     var attrs = new Array(l);
@@ -38434,45 +38909,6 @@ function parseHTML (html, options) {
 
 /*  */
 
-var defaultTagRE = /\{\{((?:.|\n)+?)\}\}/g;
-var regexEscapeRE = /[-.*+?^${}()|[\]\/\\]/g;
-
-var buildRegex = cached(function (delimiters) {
-  var open = delimiters[0].replace(regexEscapeRE, '\\$&');
-  var close = delimiters[1].replace(regexEscapeRE, '\\$&');
-  return new RegExp(open + '((?:.|\\n)+?)' + close, 'g')
-});
-
-function parseText (
-  text,
-  delimiters
-) {
-  var tagRE = delimiters ? buildRegex(delimiters) : defaultTagRE;
-  if (!tagRE.test(text)) {
-    return
-  }
-  var tokens = [];
-  var lastIndex = tagRE.lastIndex = 0;
-  var match, index;
-  while ((match = tagRE.exec(text))) {
-    index = match.index;
-    // push text token
-    if (index > lastIndex) {
-      tokens.push(JSON.stringify(text.slice(lastIndex, index)));
-    }
-    // tag token
-    var exp = parseFilters(match[1].trim());
-    tokens.push(("_s(" + exp + ")"));
-    lastIndex = index + match[0].length;
-  }
-  if (lastIndex < text.length) {
-    tokens.push(JSON.stringify(text.slice(lastIndex)));
-  }
-  return tokens.join('+')
-}
-
-/*  */
-
 var onRE = /^@|^v-on:/;
 var dirRE = /^v-|^@|^:/;
 var forAliasRE = /(.*?)\s+(?:in|of)\s+(.*)/;
@@ -38482,7 +38918,7 @@ var argRE = /:(.*)$/;
 var bindRE = /^:|^v-bind:/;
 var modifierRE = /\.[^.]+/g;
 
-var decodeHTMLCached = cached(decode);
+var decodeHTMLCached = cached(he.decode);
 
 // configurable state
 var warn$2;
@@ -38502,12 +38938,15 @@ function parse (
   options
 ) {
   warn$2 = options.warn || baseWarn;
-  platformGetTagNamespace = options.getTagNamespace || no;
-  platformMustUseProp = options.mustUseProp || no;
+
   platformIsPreTag = options.isPreTag || no;
-  preTransforms = pluckModuleFunction(options.modules, 'preTransformNode');
+  platformMustUseProp = options.mustUseProp || no;
+  platformGetTagNamespace = options.getTagNamespace || no;
+
   transforms = pluckModuleFunction(options.modules, 'transformNode');
+  preTransforms = pluckModuleFunction(options.modules, 'preTransformNode');
   postTransforms = pluckModuleFunction(options.modules, 'postTransformNode');
+
   delimiters = options.delimiters;
 
   var stack = [];
@@ -38541,6 +38980,7 @@ function parse (
     isUnaryTag: options.isUnaryTag,
     canBeLeftOpenTag: options.canBeLeftOpenTag,
     shouldDecodeNewlines: options.shouldDecodeNewlines,
+    shouldKeepComment: options.comments,
     start: function start (tag, attrs, unary) {
       // check namespace.
       // inherit parent ns if there is one
@@ -38724,6 +39164,13 @@ function parse (
           });
         }
       }
+    },
+    comment: function comment (text) {
+      currentParent.children.push({
+        type: 3,
+        text: text,
+        isComment: true
+      });
     }
   });
   return root
@@ -38925,7 +39372,9 @@ function processAttrs (el) {
             );
           }
         }
-        if (isProp || platformMustUseProp(el.tag, el.attrsMap.type, name)) {
+        if (isProp || (
+          !el.component && platformMustUseProp(el.tag, el.attrsMap.type, name)
+        )) {
           addProp(el, name, value);
         } else {
           addAttr(el, name, value);
@@ -39100,6 +39549,15 @@ function markStatic$1 (node) {
         node.static = false;
       }
     }
+    if (node.ifConditions) {
+      for (var i$1 = 1, l$1 = node.ifConditions.length; i$1 < l$1; i$1++) {
+        var block = node.ifConditions[i$1].block;
+        markStatic$1(block);
+        if (!block.static) {
+          node.static = false;
+        }
+      }
+    }
   }
 }
 
@@ -39126,14 +39584,10 @@ function markStaticRoots (node, isInFor) {
       }
     }
     if (node.ifConditions) {
-      walkThroughConditionsBlocks(node.ifConditions, isInFor);
+      for (var i$1 = 1, l$1 = node.ifConditions.length; i$1 < l$1; i$1++) {
+        markStaticRoots(node.ifConditions[i$1].block, isInFor);
+      }
     }
-  }
-}
-
-function walkThroughConditionsBlocks (conditionBlocks, isInFor) {
-  for (var i = 1, len = conditionBlocks.length; i < len; i++) {
-    markStaticRoots(conditionBlocks[i].block, isInFor);
   }
 }
 
@@ -39291,99 +39745,101 @@ function genFilterCode (key) {
 
 /*  */
 
+function on (el, dir) {
+  if ("development" !== 'production' && dir.modifiers) {
+    warn("v-on without argument does not support modifiers.");
+  }
+  el.wrapListeners = function (code) { return ("_g(" + code + "," + (dir.value) + ")"); };
+}
+
+/*  */
+
 function bind$1 (el, dir) {
   el.wrapData = function (code) {
-    return ("_b(" + code + ",'" + (el.tag) + "'," + (dir.value) + (dir.modifiers && dir.modifiers.prop ? ',true' : '') + ")")
+    return ("_b(" + code + ",'" + (el.tag) + "'," + (dir.value) + "," + (dir.modifiers && dir.modifiers.prop ? 'true' : 'false') + (dir.modifiers && dir.modifiers.sync ? ',true' : '') + ")")
   };
 }
 
 /*  */
 
 var baseDirectives = {
+  on: on,
   bind: bind$1,
   cloak: noop
 };
 
 /*  */
 
-// configurable state
-var warn$3;
-var transforms$1;
-var dataGenFns;
-var platformDirectives$1;
-var isPlatformReservedTag$1;
-var staticRenderFns;
-var onceCount;
-var currentOptions;
+var CodegenState = function CodegenState (options) {
+  this.options = options;
+  this.warn = options.warn || baseWarn;
+  this.transforms = pluckModuleFunction(options.modules, 'transformCode');
+  this.dataGenFns = pluckModuleFunction(options.modules, 'genData');
+  this.directives = extend(extend({}, baseDirectives), options.directives);
+  var isReservedTag = options.isReservedTag || no;
+  this.maybeComponent = function (el) { return !isReservedTag(el.tag); };
+  this.onceId = 0;
+  this.staticRenderFns = [];
+};
+
+
 
 function generate (
   ast,
   options
 ) {
-  // save previous staticRenderFns so generate calls can be nested
-  var prevStaticRenderFns = staticRenderFns;
-  var currentStaticRenderFns = staticRenderFns = [];
-  var prevOnceCount = onceCount;
-  onceCount = 0;
-  currentOptions = options;
-  warn$3 = options.warn || baseWarn;
-  transforms$1 = pluckModuleFunction(options.modules, 'transformCode');
-  dataGenFns = pluckModuleFunction(options.modules, 'genData');
-  platformDirectives$1 = options.directives || {};
-  isPlatformReservedTag$1 = options.isReservedTag || no;
-  var code = ast ? genElement(ast) : '_c("div")';
-  staticRenderFns = prevStaticRenderFns;
-  onceCount = prevOnceCount;
+  var state = new CodegenState(options);
+  var code = ast ? genElement(ast, state) : '_c("div")';
   return {
     render: ("with(this){return " + code + "}"),
-    staticRenderFns: currentStaticRenderFns
+    staticRenderFns: state.staticRenderFns
   }
 }
 
-function genElement (el) {
+function genElement (el, state) {
   if (el.staticRoot && !el.staticProcessed) {
-    return genStatic(el)
+    return genStatic(el, state)
   } else if (el.once && !el.onceProcessed) {
-    return genOnce(el)
+    return genOnce(el, state)
   } else if (el.for && !el.forProcessed) {
-    return genFor(el)
+    return genFor(el, state)
   } else if (el.if && !el.ifProcessed) {
-    return genIf(el)
+    return genIf(el, state)
   } else if (el.tag === 'template' && !el.slotTarget) {
-    return genChildren(el) || 'void 0'
+    return genChildren(el, state) || 'void 0'
   } else if (el.tag === 'slot') {
-    return genSlot(el)
+    return genSlot(el, state)
   } else {
     // component or element
     var code;
     if (el.component) {
-      code = genComponent(el.component, el);
+      code = genComponent(el.component, el, state);
     } else {
-      var data = el.plain ? undefined : genData(el);
+      var data = el.plain ? undefined : genData$2(el, state);
 
-      var children = el.inlineTemplate ? null : genChildren(el, true);
+      var children = el.inlineTemplate ? null : genChildren(el, state, true);
       code = "_c('" + (el.tag) + "'" + (data ? ("," + data) : '') + (children ? ("," + children) : '') + ")";
     }
     // module transforms
-    for (var i = 0; i < transforms$1.length; i++) {
-      code = transforms$1[i](el, code);
+    for (var i = 0; i < state.transforms.length; i++) {
+      code = state.transforms[i](el, code);
     }
     return code
   }
 }
 
 // hoist static sub-trees out
-function genStatic (el) {
+function genStatic (el, state) {
   el.staticProcessed = true;
-  staticRenderFns.push(("with(this){return " + (genElement(el)) + "}"));
-  return ("_m(" + (staticRenderFns.length - 1) + (el.staticInFor ? ',true' : '') + ")")
+  state.staticRenderFns.push(("with(this){return " + (genElement(el, state)) + "}"));
+  return ("_m(" + (state.staticRenderFns.length - 1) + (el.staticInFor ? ',true' : '') + ")")
 }
 
 // v-once
-function genOnce (el) {
+function genOnce (el, state) {
   el.onceProcessed = true;
   if (el.if && !el.ifProcessed) {
-    return genIf(el)
+    return genIf(el, state)
   } else if (el.staticInFor) {
     var key = '';
     var parent = el.parent;
@@ -39395,51 +39851,72 @@ function genOnce (el) {
       parent = parent.parent;
     }
     if (!key) {
-      "development" !== 'production' && warn$3(
+      "development" !== 'production' && state.warn(
         "v-once can only be used inside v-for that is keyed. "
       );
-      return genElement(el)
+      return genElement(el, state)
     }
-    return ("_o(" + (genElement(el)) + "," + (onceCount++) + (key ? ("," + key) : "") + ")")
+    return ("_o(" + (genElement(el, state)) + "," + (state.onceId++) + (key ? ("," + key) : "") + ")")
   } else {
-    return genStatic(el)
+    return genStatic(el, state)
   }
 }
 
-function genIf (el) {
+function genIf (
+  el,
+  state,
+  altGen,
+  altEmpty
+) {
   el.ifProcessed = true; // avoid recursion
-  return genIfConditions(el.ifConditions.slice())
+  return genIfConditions(el.ifConditions.slice(), state, altGen, altEmpty)
 }
 
-function genIfConditions (conditions) {
+function genIfConditions (
+  conditions,
+  state,
+  altGen,
+  altEmpty
+) {
   if (!conditions.length) {
-    return '_e()'
+    return altEmpty || '_e()'
   }
 
   var condition = conditions.shift();
   if (condition.exp) {
-    return ("(" + (condition.exp) + ")?" + (genTernaryExp(condition.block)) + ":" + (genIfConditions(conditions)))
+    return ("(" + (condition.exp) + ")?" + (genTernaryExp(condition.block)) + ":" + (genIfConditions(conditions, state, altGen, altEmpty)))
   } else {
     return ("" + (genTernaryExp(condition.block)))
   }
 
   // v-if with v-once should generate code like (a)?_m(0):_m(1)
   function genTernaryExp (el) {
-    return el.once ? genOnce(el) : genElement(el)
+    return altGen
+      ? altGen(el, state)
+      : el.once
+        ? genOnce(el, state)
+        : genElement(el, state)
   }
 }
 
-function genFor (el) {
+function genFor (
+  el,
+  state,
+  altGen,
+  altHelper
+) {
   var exp = el.for;
   var alias = el.alias;
   var iterator1 = el.iterator1 ? ("," + (el.iterator1)) : '';
   var iterator2 = el.iterator2 ? ("," + (el.iterator2)) : '';
 
-  if (
-    "development" !== 'production' &&
-    maybeComponent(el) && el.tag !== 'slot' && el.tag !== 'template' && !el.key
+  if ("development" !== 'production' &&
+    state.maybeComponent(el) &&
+    el.tag !== 'slot' &&
+    el.tag !== 'template' &&
+    !el.key
   ) {
-    warn$3(
+    state.warn(
       "<" + (el.tag) + " v-for=\"" + alias + " in " + exp + "\">: component lists rendered with " +
       "v-for should have explicit keys. " +
       "See https://vuejs.org/guide/list.html#key for more info.",
@@ -39448,18 +39925,18 @@ function genFor (el) {
   }
 
   el.forProcessed = true; // avoid recursion
-  return "_l((" + exp + ")," +
+  return (altHelper || '_l') + "((" + exp + ")," +
     "function(" + alias + iterator1 + iterator2 + "){" +
-      "return " + (genElement(el)) +
+      "return " + ((altGen || genElement)(el, state)) +
     '})'
 }
 
-function genData (el) {
+function genData$2 (el, state) {
   var data = '{';
 
   // directives first.
   // directives may mutate the el's other properties before they are generated.
-  var dirs = genDirectives(el);
+  var dirs = genDirectives(el, state);
   if (dirs) { data += dirs + ','; }
 
   // key
@@ -39482,8 +39959,8 @@ function genData (el) {
     data += "tag:\"" + (el.tag) + "\",";
   }
   // module data generation functions
-  for (var i = 0; i < dataGenFns.length; i++) {
-    data += dataGenFns[i](el);
+  for (var i = 0; i < state.dataGenFns.length; i++) {
+    data += state.dataGenFns[i](el);
   }
   // attributes
   if (el.attrs) {
@@ -39495,10 +39972,10 @@ function genData (el) {
   }
   // event handlers
   if (el.events) {
-    data += (genHandlers(el.events, false, warn$3)) + ",";
+    data += (genHandlers(el.events, false, state.warn)) + ",";
   }
   if (el.nativeEvents) {
-    data += (genHandlers(el.nativeEvents, true, warn$3)) + ",";
+    data += (genHandlers(el.nativeEvents, true, state.warn)) + ",";
   }
   // slot target
   if (el.slotTarget) {
@@ -39506,7 +39983,7 @@ function genData (el) {
   }
   // scoped slots
   if (el.scopedSlots) {
-    data += (genScopedSlots(el.scopedSlots)) + ",";
+    data += (genScopedSlots(el.scopedSlots, state)) + ",";
   }
   // component v-model
   if (el.model) {
@@ -39514,7 +39991,7 @@ function genData (el) {
   }
   // inline-template
   if (el.inlineTemplate) {
-    var inlineTemplate = genInlineTemplate(el);
+    var inlineTemplate = genInlineTemplate(el, state);
     if (inlineTemplate) {
       data += inlineTemplate + ",";
     }
@@ -39524,10 +40001,14 @@ function genData (el) {
   if (el.wrapData) {
     data = el.wrapData(data);
   }
+  // v-on data wrap
+  if (el.wrapListeners) {
+    data = el.wrapListeners(data);
+  }
   return data
 }
 
-function genDirectives (el) {
+function genDirectives (el, state) {
   var dirs = el.directives;
   if (!dirs) { return }
   var res = 'directives:[';
@@ -39536,11 +40017,11 @@ function genDirectives (el) {
   for (i = 0, l = dirs.length; i < l; i++) {
     dir = dirs[i];
     needRuntime = true;
-    var gen = platformDirectives$1[dir.name] || baseDirectives[dir.name];
+    var gen = state.directives[dir.name];
     if (gen) {
       // compile-time directive that manipulates AST.
       // returns true if it also needs a runtime counterpart.
-      needRuntime = !!gen(el, dir, warn$3);
+      needRuntime = !!gen(el, dir, state.warn);
     }
     if (needRuntime) {
       hasRuntime = true;
@@ -39552,34 +40033,47 @@ function genDirectives (el) {
   }
 }
 
-function genInlineTemplate (el) {
+function genInlineTemplate (el, state) {
   var ast = el.children[0];
   if ("development" !== 'production' && (
     el.children.length > 1 || ast.type !== 1
   )) {
-    warn$3('Inline-template components must have exactly one child element.');
+    state.warn('Inline-template components must have exactly one child element.');
   }
   if (ast.type === 1) {
-    var inlineRenderFns = generate(ast, currentOptions);
+    var inlineRenderFns = generate(ast, state.options);
     return ("inlineTemplate:{render:function(){" + (inlineRenderFns.render) + "},staticRenderFns:[" + (inlineRenderFns.staticRenderFns.map(function (code) { return ("function(){" + code + "}"); }).join(',')) + "]}")
   }
 }
 
-function genScopedSlots (slots) {
-  return ("scopedSlots:_u([" + (Object.keys(slots).map(function (key) { return genScopedSlot(key, slots[key]); }).join(',')) + "])")
+function genScopedSlots (
+  slots,
+  state
+) {
+  return ("scopedSlots:_u([" + (Object.keys(slots).map(function (key) {
+      return genScopedSlot(key, slots[key], state)
+    }).join(',')) + "])")
 }
 
-function genScopedSlot (key, el) {
+function genScopedSlot (
+  key,
+  el,
+  state
+) {
   if (el.for && !el.forProcessed) {
-    return genForScopedSlot(key, el)
+    return genForScopedSlot(key, el, state)
   }
   return "{key:" + key + ",fn:function(" + (String(el.attrsMap.scope)) + "){" +
     "return " + (el.tag === 'template'
-      ? genChildren(el) || 'void 0'
-      : genElement(el)) + "}}"
+      ? genChildren(el, state) || 'void 0'
+      : genElement(el, state)) + "}}"
 }
 
-function genForScopedSlot (key, el) {
+function genForScopedSlot (
+  key,
+  el,
+  state
+) {
   var exp = el.for;
   var alias = el.alias;
   var iterator1 = el.iterator1 ? ("," + (el.iterator1)) : '';
@@ -39587,11 +40081,17 @@ function genForScopedSlot (key, el) {
   el.forProcessed = true; // avoid recursion
   return "_l((" + exp + ")," +
     "function(" + alias + iterator1 + iterator2 + "){" +
-      "return " + (genScopedSlot(key, el)) +
+      "return " + (genScopedSlot(key, el, state)) +
     '})'
 }
 
-function genChildren (el, checkSkip) {
+function genChildren (
+  el,
+  state,
+  checkSkip,
+  altGenElement,
+  altGenNode
+) {
   var children = el.children;
   if (children.length) {
     var el$1 = children[0];
@@ -39601,10 +40101,13 @@ function genChildren (el, checkSkip) {
       el$1.tag !== 'template' &&
       el$1.tag !== 'slot'
     ) {
-      return genElement(el$1)
+      return (altGenElement || genElement)(el$1, state)
     }
-    var normalizationType = checkSkip ? getNormalizationType(children) : 0;
-    return ("[" + (children.map(genNode).join(',')) + "]" + (normalizationType ? ("," + normalizationType) : ''))
+    var normalizationType = checkSkip
+      ? getNormalizationType(children, state.maybeComponent)
+      : 0;
+    var gen = altGenNode || genNode;
+    return ("[" + (children.map(function (c) { return gen(c, state); }).join(',')) + "]" + (normalizationType ? ("," + normalizationType) : ''))
   }
 }
 
@@ -39612,7 +40115,10 @@ function genChildren (el, checkSkip) {
 // 0: no normalization needed
 // 1: simple normalization needed (possible 1-level deep nested array)
 // 2: full normalization needed
-function getNormalizationType (children) {
+function getNormalizationType (
+  children,
+  maybeComponent
+) {
   var res = 0;
   for (var i = 0; i < children.length; i++) {
     var el = children[i];
@@ -39636,13 +40142,11 @@ function needsNormalization (el) {
   return el.for !== undefined || el.tag === 'template' || el.tag === 'slot'
 }
 
-function maybeComponent (el) {
-  return !isPlatformReservedTag$1(el.tag)
-}
-
-function genNode (node) {
+function genNode (node, state) {
   if (node.type === 1) {
-    return genElement(node)
+    return genElement(node, state)
+  } if (node.type === 3 && node.isComment) {
+    return genComment(node)
   } else {
     return genText(node)
   }
@@ -39654,9 +40158,13 @@ function genText (text) {
     : transformSpecialNewlines(JSON.stringify(text.text))) + ")")
 }
 
-function genSlot (el) {
+function genComment (comment) {
+  return ("_e(" + (JSON.stringify(comment.text)) + ")")
+}
+
+function genSlot (el, state) {
   var slotName = el.slotName || '"default"';
-  var children = genChildren(el);
+  var children = genChildren(el, state);
   var res = "_t(" + slotName + (children ? ("," + children) : '');
   var attrs = el.attrs && ("{" + (el.attrs.map(function (a) { return ((camelize(a.name)) + ":" + (a.value)); }).join(',')) + "}");
   var bind$$1 = el.attrsMap['v-bind'];
@@ -39673,9 +40181,13 @@ function genSlot (el) {
 }
 
 // componentName is el.component, take it as argument to shun flow's pessimistic refinement
-function genComponent (componentName, el) {
-  var children = el.inlineTemplate ? null : genChildren(el, true);
-  return ("_c(" + componentName + "," + (genData(el)) + (children ? ("," + children) : '') + ")")
+function genComponent (
+  componentName,
+  el,
+  state
+) {
+  var children = el.inlineTemplate ? null : genChildren(el, state, true);
+  return ("_c(" + componentName + "," + (genData$2(el, state)) + (children ? ("," + children) : '') + ")")
 }
 
 function genProps (props) {
@@ -39793,21 +40305,7 @@ function checkExpression (exp, text, errors) {
 
 /*  */
 
-function baseCompile (
-  template,
-  options
-) {
-  var ast = parse(template.trim(), options);
-  optimize(ast, options);
-  var code = generate(ast, options);
-  return {
-    ast: ast,
-    render: code.render,
-    staticRenderFns: code.staticRenderFns
-  }
-}
-
-function makeFunction (code, errors) {
+function createFunction (code, errors) {
   try {
     return new Function(code)
   } catch (err) {
@@ -39816,50 +40314,10 @@ function makeFunction (code, errors) {
   }
 }
 
-function createCompiler (baseOptions) {
-  var functionCompileCache = Object.create(null);
+function createCompileToFunctionFn (compile) {
+  var cache = Object.create(null);
 
-  function compile (
-    template,
-    options
-  ) {
-    var finalOptions = Object.create(baseOptions);
-    var errors = [];
-    var tips = [];
-    finalOptions.warn = function (msg, tip$$1) {
-      (tip$$1 ? tips : errors).push(msg);
-    };
-
-    if (options) {
-      // merge custom modules
-      if (options.modules) {
-        finalOptions.modules = (baseOptions.modules || []).concat(options.modules);
-      }
-      // merge custom directives
-      if (options.directives) {
-        finalOptions.directives = extend(
-          Object.create(baseOptions.directives),
-          options.directives
-        );
-      }
-      // copy other options
-      for (var key in options) {
-        if (key !== 'modules' && key !== 'directives') {
-          finalOptions[key] = options[key];
-        }
-      }
-    }
-
-    var compiled = baseCompile(template, finalOptions);
-    if (true) {
-      errors.push.apply(errors, detectErrors(compiled.ast));
-    }
-    compiled.errors = errors;
-    compiled.tips = tips;
-    return compiled
-  }
-
-  function compileToFunctions (
+  return function compileToFunctions (
     template,
     options,
     vm
@@ -39888,8 +40346,8 @@ function createCompiler (baseOptions) {
     var key = options.delimiters
       ? String(options.delimiters) + template
       : template;
-    if (functionCompileCache[key]) {
-      return functionCompileCache[key]
+    if (cache[key]) {
+      return cache[key]
     }
 
     // compile
@@ -39912,12 +40370,10 @@ function createCompiler (baseOptions) {
     // turn code into functions
     var res = {};
     var fnGenErrors = [];
-    res.render = makeFunction(compiled.render, fnGenErrors);
-    var l = compiled.staticRenderFns.length;
-    res.staticRenderFns = new Array(l);
-    for (var i = 0; i < l; i++) {
-      res.staticRenderFns[i] = makeFunction(compiled.staticRenderFns[i], fnGenErrors);
-    }
+    res.render = createFunction(compiled.render, fnGenErrors);
+    res.staticRenderFns = compiled.staticRenderFns.map(function (code) {
+      return createFunction(code, fnGenErrors)
+    });
 
     // check function generation errors.
     // this should only happen if there is a bug in the compiler itself.
@@ -39938,142 +40394,82 @@ function createCompiler (baseOptions) {
       }
     }
 
-    return (functionCompileCache[key] = res)
-  }
-
-  return {
-    compile: compile,
-    compileToFunctions: compileToFunctions
+    return (cache[key] = res)
   }
 }
 
 /*  */
 
-function transformNode (el, options) {
-  var warn = options.warn || baseWarn;
-  var staticClass = getAndRemoveAttr(el, 'class');
-  if ("development" !== 'production' && staticClass) {
-    var expression = parseText(staticClass, options.delimiters);
-    if (expression) {
-      warn(
-        "class=\"" + staticClass + "\": " +
-        'Interpolation inside attributes has been removed. ' +
-        'Use v-bind or the colon shorthand instead. For example, ' +
-        'instead of <div class="{{ val }}">, use <div :class="val">.'
-      );
-    }
-  }
-  if (staticClass) {
-    el.staticClass = JSON.stringify(staticClass);
-  }
-  var classBinding = getBindingAttr(el, 'class', false /* getStatic */);
-  if (classBinding) {
-    el.classBinding = classBinding;
-  }
-}
+function createCompilerCreator (baseCompile) {
+  return function createCompiler (baseOptions) {
+    function compile (
+      template,
+      options
+    ) {
+      var finalOptions = Object.create(baseOptions);
+      var errors = [];
+      var tips = [];
+      finalOptions.warn = function (msg, tip) {
+        (tip ? tips : errors).push(msg);
+      };
 
-function genData$1 (el) {
-  var data = '';
-  if (el.staticClass) {
-    data += "staticClass:" + (el.staticClass) + ",";
-  }
-  if (el.classBinding) {
-    data += "class:" + (el.classBinding) + ",";
-  }
-  return data
-}
-
-var klass$1 = {
-  staticKeys: ['staticClass'],
-  transformNode: transformNode,
-  genData: genData$1
-};
-
-/*  */
-
-function transformNode$1 (el, options) {
-  var warn = options.warn || baseWarn;
-  var staticStyle = getAndRemoveAttr(el, 'style');
-  if (staticStyle) {
-    /* istanbul ignore if */
-    if (true) {
-      var expression = parseText(staticStyle, options.delimiters);
-      if (expression) {
-        warn(
-          "style=\"" + staticStyle + "\": " +
-          'Interpolation inside attributes has been removed. ' +
-          'Use v-bind or the colon shorthand instead. For example, ' +
-          'instead of <div style="{{ val }}">, use <div :style="val">.'
-        );
+      if (options) {
+        // merge custom modules
+        if (options.modules) {
+          finalOptions.modules =
+            (baseOptions.modules || []).concat(options.modules);
+        }
+        // merge custom directives
+        if (options.directives) {
+          finalOptions.directives = extend(
+            Object.create(baseOptions.directives),
+            options.directives
+          );
+        }
+        // copy other options
+        for (var key in options) {
+          if (key !== 'modules' && key !== 'directives') {
+            finalOptions[key] = options[key];
+          }
+        }
       }
+
+      var compiled = baseCompile(template, finalOptions);
+      if (true) {
+        errors.push.apply(errors, detectErrors(compiled.ast));
+      }
+      compiled.errors = errors;
+      compiled.tips = tips;
+      return compiled
     }
-    el.staticStyle = JSON.stringify(parseStyleText(staticStyle));
-  }
 
-  var styleBinding = getBindingAttr(el, 'style', false /* getStatic */);
-  if (styleBinding) {
-    el.styleBinding = styleBinding;
-  }
-}
-
-function genData$2 (el) {
-  var data = '';
-  if (el.staticStyle) {
-    data += "staticStyle:" + (el.staticStyle) + ",";
-  }
-  if (el.styleBinding) {
-    data += "style:(" + (el.styleBinding) + "),";
-  }
-  return data
-}
-
-var style$1 = {
-  staticKeys: ['staticStyle'],
-  transformNode: transformNode$1,
-  genData: genData$2
-};
-
-var modules$1 = [
-  klass$1,
-  style$1
-];
-
-/*  */
-
-function text (el, dir) {
-  if (dir.value) {
-    addProp(el, 'textContent', ("_s(" + (dir.value) + ")"));
+    return {
+      compile: compile,
+      compileToFunctions: createCompileToFunctionFn(compile)
+    }
   }
 }
 
 /*  */
 
-function html (el, dir) {
-  if (dir.value) {
-    addProp(el, 'innerHTML', ("_s(" + (dir.value) + ")"));
+// `createCompilerCreator` allows creating compilers that use alternative
+// parser/optimizer/codegen, e.g the SSR optimizing compiler.
+// Here we just export a default compiler using the default parts.
+var createCompiler = createCompilerCreator(function baseCompile (
+  template,
+  options
+) {
+  var ast = parse(template.trim(), options);
+  optimize(ast, options);
+  var code = generate(ast, options);
+  return {
+    ast: ast,
+    render: code.render,
+    staticRenderFns: code.staticRenderFns
   }
-}
-
-var directives$1 = {
-  model: model,
-  text: text,
-  html: html
-};
+});
 
 /*  */
-
-var baseOptions = {
-  expectHTML: true,
-  modules: modules$1,
-  directives: directives$1,
-  isPreTag: isPreTag,
-  isUnaryTag: isUnaryTag,
-  mustUseProp: mustUseProp,
-  canBeLeftOpenTag: canBeLeftOpenTag,
-  isReservedTag: isReservedTag,
-  getTagNamespace: getTagNamespace,
-  staticKeys: genStaticKeys(modules$1)
-};
 
 var ref$1 = createCompiler(baseOptions);
 var compileToFunctions = ref$1.compileToFunctions;
@@ -40135,7 +40531,8 @@ Vue$3.prototype.$mount = function (
 
       var ref = compileToFunctions(template, {
         shouldDecodeNewlines: shouldDecodeNewlines,
-        delimiters: options.delimiters
+        delimiters: options.delimiters,
+        comments: options.comments
       }, this);
       var render = ref.render;
       var staticRenderFns = ref.staticRenderFns;
@@ -40279,7 +40676,7 @@ var _Account = __webpack_require__(240);
 
 var _Account2 = _interopRequireDefault(_Account);
 
-var _mixins = __webpack_require__(3);
+var _mixins = __webpack_require__(4);
 
 var _mixins2 = _interopRequireDefault(_mixins);
 
@@ -40681,10 +41078,10 @@ module.exports = __webpack_require__(155);
 "use strict";
 
 
-var utils = __webpack_require__(4);
+var utils = __webpack_require__(3);
 var bind = __webpack_require__(20);
 var Axios = __webpack_require__(157);
-var defaults = __webpack_require__(9);
+var defaults = __webpack_require__(10);
 
 /**
  * Create an instance of Axios
@@ -40804,8 +41201,8 @@ module.exports = CancelToken;
 "use strict";
 
 
-var defaults = __webpack_require__(9);
-var utils = __webpack_require__(4);
+var defaults = __webpack_require__(10);
+var utils = __webpack_require__(3);
 var InterceptorManager = __webpack_require__(158);
 var dispatchRequest = __webpack_require__(159);
 var isAbsoluteURL = __webpack_require__(167);
@@ -40896,7 +41293,7 @@ module.exports = Axios;
 "use strict";
 
 
-var utils = __webpack_require__(4);
+var utils = __webpack_require__(3);
 
 function InterceptorManager() {
   this.handlers = [];
@@ -40955,10 +41352,10 @@ module.exports = InterceptorManager;
 "use strict";
 
 
-var utils = __webpack_require__(4);
+var utils = __webpack_require__(3);
 var transformData = __webpack_require__(162);
 var isCancel = __webpack_require__(18);
-var defaults = __webpack_require__(9);
+var defaults = __webpack_require__(10);
 
 /**
  * Throws a `Cancel` if cancellation has been requested.
@@ -41099,7 +41496,7 @@ module.exports = function settle(resolve, reject, response) {
 "use strict";
 
 
-var utils = __webpack_require__(4);
+var utils = __webpack_require__(3);
 
 /**
  * Transform the data for a request or a response
@@ -41169,7 +41566,7 @@ module.exports = btoa;
 "use strict";
 
 
-var utils = __webpack_require__(4);
+var utils = __webpack_require__(3);
 
 function encode(val) {
   return encodeURIComponent(val).
@@ -41263,7 +41660,7 @@ module.exports = function combineURLs(baseURL, relativeURL) {
 "use strict";
 
 
-var utils = __webpack_require__(4);
+var utils = __webpack_require__(3);
 
 module.exports = (
   utils.isStandardBrowserEnv() ?
@@ -41344,7 +41741,7 @@ module.exports = function isAbsoluteURL(url) {
 "use strict";
 
 
-var utils = __webpack_require__(4);
+var utils = __webpack_require__(3);
 
 module.exports = (
   utils.isStandardBrowserEnv() ?
@@ -41419,7 +41816,7 @@ module.exports = (
 "use strict";
 
 
-var utils = __webpack_require__(4);
+var utils = __webpack_require__(3);
 
 module.exports = function normalizeHeaderName(headers, normalizedName) {
   utils.forEach(headers, function processHeader(value, name) {
@@ -41438,7 +41835,7 @@ module.exports = function normalizeHeaderName(headers, normalizedName) {
 "use strict";
 
 
-var utils = __webpack_require__(4);
+var utils = __webpack_require__(3);
 
 /**
  * Parse headers into an object
@@ -41520,7 +41917,7 @@ Object.defineProperty(exports, "__esModule", {
     value: true
 });
 
-var _mixins = __webpack_require__(3);
+var _mixins = __webpack_require__(4);
 
 var _mixins2 = _interopRequireDefault(_mixins);
 
@@ -42638,7 +43035,7 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 
 var _vuex = __webpack_require__(2);
 
-var _mixins = __webpack_require__(3);
+var _mixins = __webpack_require__(4);
 
 var _mixins2 = _interopRequireDefault(_mixins);
 
@@ -42883,7 +43280,7 @@ Object.defineProperty(exports, "__esModule", {
     value: true
 });
 
-var _mixins = __webpack_require__(3);
+var _mixins = __webpack_require__(4);
 
 var _mixins2 = _interopRequireDefault(_mixins);
 
@@ -42922,7 +43319,7 @@ Object.defineProperty(exports, "__esModule", {
     value: true
 });
 
-var _mixins = __webpack_require__(3);
+var _mixins = __webpack_require__(4);
 
 var _mixins2 = _interopRequireDefault(_mixins);
 
@@ -43010,7 +43407,7 @@ var _TitleBar = __webpack_require__(249);
 
 var _TitleBar2 = _interopRequireDefault(_TitleBar);
 
-var _mixins = __webpack_require__(3);
+var _mixins = __webpack_require__(4);
 
 var _mixins2 = _interopRequireDefault(_mixins);
 
@@ -43220,7 +43617,7 @@ var _Loader = __webpack_require__(6);
 
 var _Loader2 = _interopRequireDefault(_Loader);
 
-var _mixins = __webpack_require__(3);
+var _mixins = __webpack_require__(4);
 
 var _mixins2 = _interopRequireDefault(_mixins);
 
@@ -43528,7 +43925,7 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 
 var _vuex = __webpack_require__(2);
 
-var _mixins = __webpack_require__(3);
+var _mixins = __webpack_require__(4);
 
 var _mixins2 = _interopRequireDefault(_mixins);
 
@@ -43634,7 +44031,7 @@ var _Editor = __webpack_require__(140);
 
 var _Editor2 = _interopRequireDefault(_Editor);
 
-var _ErrorMessage = __webpack_require__(10);
+var _ErrorMessage = __webpack_require__(9);
 
 var _ErrorMessage2 = _interopRequireDefault(_ErrorMessage);
 
@@ -43884,7 +44281,7 @@ var _MembersList = __webpack_require__(141);
 
 var _MembersList2 = _interopRequireDefault(_MembersList);
 
-var _ErrorMessage = __webpack_require__(10);
+var _ErrorMessage = __webpack_require__(9);
 
 var _ErrorMessage2 = _interopRequireDefault(_ErrorMessage);
 
@@ -44167,7 +44564,7 @@ var _moment = __webpack_require__(0);
 
 var _moment2 = _interopRequireDefault(_moment);
 
-var _mixins = __webpack_require__(3);
+var _mixins = __webpack_require__(4);
 
 var _mixins2 = _interopRequireDefault(_mixins);
 
@@ -44685,7 +45082,7 @@ var _Loader2 = _interopRequireDefault(_Loader);
 
 var _vuex = __webpack_require__(2);
 
-var _mixins = __webpack_require__(3);
+var _mixins = __webpack_require__(4);
 
 var _mixins2 = _interopRequireDefault(_mixins);
 
@@ -44766,7 +45163,7 @@ var _MembersList = __webpack_require__(141);
 
 var _MembersList2 = _interopRequireDefault(_MembersList);
 
-var _ErrorMessage = __webpack_require__(10);
+var _ErrorMessage = __webpack_require__(9);
 
 var _ErrorMessage2 = _interopRequireDefault(_ErrorMessage);
 
@@ -45024,7 +45421,7 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 
 var _vuex = __webpack_require__(2);
 
-var _mixins = __webpack_require__(3);
+var _mixins = __webpack_require__(4);
 
 var _mixins2 = _interopRequireDefault(_mixins);
 
@@ -45158,7 +45555,7 @@ var _Uploader = __webpack_require__(13);
 
 var _Uploader2 = _interopRequireDefault(_Uploader);
 
-var _ErrorMessage = __webpack_require__(10);
+var _ErrorMessage = __webpack_require__(9);
 
 var _ErrorMessage2 = _interopRequireDefault(_ErrorMessage);
 
@@ -45203,7 +45600,7 @@ var _moment = __webpack_require__(0);
 
 var _moment2 = _interopRequireDefault(_moment);
 
-var _mixins = __webpack_require__(3);
+var _mixins = __webpack_require__(4);
 
 var _mixins2 = _interopRequireDefault(_mixins);
 
@@ -46437,22 +46834,22 @@ function placeHoldersCount (b64) {
 
 function byteLength (b64) {
   // base64 is 4/3 + up to two characters of the original data
-  return b64.length * 3 / 4 - placeHoldersCount(b64)
+  return (b64.length * 3 / 4) - placeHoldersCount(b64)
 }
 
 function toByteArray (b64) {
-  var i, j, l, tmp, placeHolders, arr
+  var i, l, tmp, placeHolders, arr
   var len = b64.length
   placeHolders = placeHoldersCount(b64)
 
-  arr = new Arr(len * 3 / 4 - placeHolders)
+  arr = new Arr((len * 3 / 4) - placeHolders)
 
   // if there are placeholders, only get up to the last complete 4 chars
   l = placeHolders > 0 ? len - 4 : len
 
   var L = 0
 
-  for (i = 0, j = 0; i < l; i += 4, j += 3) {
+  for (i = 0; i < l; i += 4) {
     tmp = (revLookup[b64.charCodeAt(i)] << 18) | (revLookup[b64.charCodeAt(i + 1)] << 12) | (revLookup[b64.charCodeAt(i + 2)] << 6) | revLookup[b64.charCodeAt(i + 3)]
     arr[L++] = (tmp >> 16) & 0xFF
     arr[L++] = (tmp >> 8) & 0xFF
@@ -81237,7 +81634,7 @@ process.umask = function() { return 0; };
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function(Buffer) {/*!
- * Quill Editor v1.2.6
+ * Quill Editor v1.3.0
  * https://quilljs.com/
  * Copyright (c) 2014, Jason Chen
  * Copyright (c) 2013, salesforce.com
@@ -81339,7 +81736,7 @@ var attributor_1 = __webpack_require__(13);
 var class_1 = __webpack_require__(32);
 var style_1 = __webpack_require__(34);
 var store_1 = __webpack_require__(33);
-var Registry = __webpack_require__(1);
+var Registry = __webpack_require__(2);
 var Parchment = {
     Scope: Registry.Scope,
     create: Registry.create,
@@ -81368,161 +81765,8 @@ exports.default = Parchment;
 /* 1 */
 /***/ (function(module, exports, __webpack_require__) {
 
-"use strict";
-
-var __extends = (this && this.__extends) || (function () {
-    var extendStatics = Object.setPrototypeOf ||
-        ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
-        function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
-    return function (d, b) {
-        extendStatics(d, b);
-        function __() { this.constructor = d; }
-        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
-    };
-})();
-Object.defineProperty(exports, "__esModule", { value: true });
-var ParchmentError = (function (_super) {
-    __extends(ParchmentError, _super);
-    function ParchmentError(message) {
-        var _this = this;
-        message = '[Parchment] ' + message;
-        _this = _super.call(this, message) || this;
-        _this.message = message;
-        _this.name = _this.constructor.name;
-        return _this;
-    }
-    return ParchmentError;
-}(Error));
-exports.ParchmentError = ParchmentError;
-var attributes = {};
-var classes = {};
-var tags = {};
-var types = {};
-exports.DATA_KEY = '__blot';
-var Scope;
-(function (Scope) {
-    Scope[Scope["TYPE"] = 3] = "TYPE";
-    Scope[Scope["LEVEL"] = 12] = "LEVEL";
-    Scope[Scope["ATTRIBUTE"] = 13] = "ATTRIBUTE";
-    Scope[Scope["BLOT"] = 14] = "BLOT";
-    Scope[Scope["INLINE"] = 7] = "INLINE";
-    Scope[Scope["BLOCK"] = 11] = "BLOCK";
-    Scope[Scope["BLOCK_BLOT"] = 10] = "BLOCK_BLOT";
-    Scope[Scope["INLINE_BLOT"] = 6] = "INLINE_BLOT";
-    Scope[Scope["BLOCK_ATTRIBUTE"] = 9] = "BLOCK_ATTRIBUTE";
-    Scope[Scope["INLINE_ATTRIBUTE"] = 5] = "INLINE_ATTRIBUTE";
-    Scope[Scope["ANY"] = 15] = "ANY";
-})(Scope = exports.Scope || (exports.Scope = {}));
-;
-function create(input, value) {
-    var match = query(input);
-    if (match == null) {
-        throw new ParchmentError("Unable to create " + input + " blot");
-    }
-    var BlotClass = match;
-    var node = (input instanceof Node || input['nodeType'] === Node.TEXT_NODE) ?
-        input :
-        BlotClass.create(value);
-    return new BlotClass(node, value);
-}
-exports.create = create;
-function find(node, bubble) {
-    if (bubble === void 0) { bubble = false; }
-    if (node == null)
-        return null;
-    if (node[exports.DATA_KEY] != null)
-        return node[exports.DATA_KEY].blot;
-    if (bubble)
-        return find(node.parentNode, bubble);
-    return null;
-}
-exports.find = find;
-function query(query, scope) {
-    if (scope === void 0) { scope = Scope.ANY; }
-    var match;
-    if (typeof query === 'string') {
-        match = types[query] || attributes[query];
-    }
-    else if (query instanceof Text || query['nodeType'] === Node.TEXT_NODE) {
-        match = types['text'];
-    }
-    else if (typeof query === 'number') {
-        if (query & Scope.LEVEL & Scope.BLOCK) {
-            match = types['block'];
-        }
-        else if (query & Scope.LEVEL & Scope.INLINE) {
-            match = types['inline'];
-        }
-    }
-    else if (query instanceof HTMLElement) {
-        var names = (query.getAttribute('class') || '').split(/\s+/);
-        for (var i in names) {
-            match = classes[names[i]];
-            if (match)
-                break;
-        }
-        match = match || tags[query.tagName];
-    }
-    if (match == null)
-        return null;
-    if ((scope & Scope.LEVEL & match.scope) && (scope & Scope.TYPE & match.scope))
-        return match;
-    return null;
-}
-exports.query = query;
-function register() {
-    var Definitions = [];
-    for (var _i = 0; _i < arguments.length; _i++) {
-        Definitions[_i] = arguments[_i];
-    }
-    if (Definitions.length > 1) {
-        return Definitions.map(function (d) {
-            return register(d);
-        });
-    }
-    var Definition = Definitions[0];
-    if (typeof Definition.blotName !== 'string' && typeof Definition.attrName !== 'string') {
-        throw new ParchmentError('Invalid definition');
-    }
-    else if (Definition.blotName === 'abstract') {
-        throw new ParchmentError('Cannot register abstract class');
-    }
-    types[Definition.blotName || Definition.attrName] = Definition;
-    if (typeof Definition.keyName === 'string') {
-        attributes[Definition.keyName] = Definition;
-    }
-    else {
-        if (Definition.className != null) {
-            classes[Definition.className] = Definition;
-        }
-        if (Definition.tagName != null) {
-            if (Array.isArray(Definition.tagName)) {
-                Definition.tagName = Definition.tagName.map(function (tagName) {
-                    return tagName.toUpperCase();
-                });
-            }
-            else {
-                Definition.tagName = Definition.tagName.toUpperCase();
-            }
-            var tagNames = Array.isArray(Definition.tagName) ? Definition.tagName : [Definition.tagName];
-            tagNames.forEach(function (tag) {
-                if (tags[tag] == null || Definition.className == null) {
-                    tags[tag] = Definition;
-                }
-            });
-        }
-    }
-    return Definition;
-}
-exports.register = register;
-
-
-/***/ }),
-/* 2 */
-/***/ (function(module, exports, __webpack_require__) {
-
 var diff = __webpack_require__(54);
-var equal = __webpack_require__(11);
+var equal = __webpack_require__(12);
 var extend = __webpack_require__(3);
 var op = __webpack_require__(20);
 
@@ -81838,6 +82082,159 @@ module.exports = Delta;
 
 
 /***/ }),
+/* 2 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+var __extends = (this && this.__extends) || (function () {
+    var extendStatics = Object.setPrototypeOf ||
+        ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
+        function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
+    return function (d, b) {
+        extendStatics(d, b);
+        function __() { this.constructor = d; }
+        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+    };
+})();
+Object.defineProperty(exports, "__esModule", { value: true });
+var ParchmentError = (function (_super) {
+    __extends(ParchmentError, _super);
+    function ParchmentError(message) {
+        var _this = this;
+        message = '[Parchment] ' + message;
+        _this = _super.call(this, message) || this;
+        _this.message = message;
+        _this.name = _this.constructor.name;
+        return _this;
+    }
+    return ParchmentError;
+}(Error));
+exports.ParchmentError = ParchmentError;
+var attributes = {};
+var classes = {};
+var tags = {};
+var types = {};
+exports.DATA_KEY = '__blot';
+var Scope;
+(function (Scope) {
+    Scope[Scope["TYPE"] = 3] = "TYPE";
+    Scope[Scope["LEVEL"] = 12] = "LEVEL";
+    Scope[Scope["ATTRIBUTE"] = 13] = "ATTRIBUTE";
+    Scope[Scope["BLOT"] = 14] = "BLOT";
+    Scope[Scope["INLINE"] = 7] = "INLINE";
+    Scope[Scope["BLOCK"] = 11] = "BLOCK";
+    Scope[Scope["BLOCK_BLOT"] = 10] = "BLOCK_BLOT";
+    Scope[Scope["INLINE_BLOT"] = 6] = "INLINE_BLOT";
+    Scope[Scope["BLOCK_ATTRIBUTE"] = 9] = "BLOCK_ATTRIBUTE";
+    Scope[Scope["INLINE_ATTRIBUTE"] = 5] = "INLINE_ATTRIBUTE";
+    Scope[Scope["ANY"] = 15] = "ANY";
+})(Scope = exports.Scope || (exports.Scope = {}));
+;
+function create(input, value) {
+    var match = query(input);
+    if (match == null) {
+        throw new ParchmentError("Unable to create " + input + " blot");
+    }
+    var BlotClass = match;
+    var node = (input instanceof Node || input['nodeType'] === Node.TEXT_NODE) ?
+        input :
+        BlotClass.create(value);
+    return new BlotClass(node, value);
+}
+exports.create = create;
+function find(node, bubble) {
+    if (bubble === void 0) { bubble = false; }
+    if (node == null)
+        return null;
+    if (node[exports.DATA_KEY] != null)
+        return node[exports.DATA_KEY].blot;
+    if (bubble)
+        return find(node.parentNode, bubble);
+    return null;
+}
+exports.find = find;
+function query(query, scope) {
+    if (scope === void 0) { scope = Scope.ANY; }
+    var match;
+    if (typeof query === 'string') {
+        match = types[query] || attributes[query];
+    }
+    else if (query instanceof Text || query['nodeType'] === Node.TEXT_NODE) {
+        match = types['text'];
+    }
+    else if (typeof query === 'number') {
+        if (query & Scope.LEVEL & Scope.BLOCK) {
+            match = types['block'];
+        }
+        else if (query & Scope.LEVEL & Scope.INLINE) {
+            match = types['inline'];
+        }
+    }
+    else if (query instanceof HTMLElement) {
+        var names = (query.getAttribute('class') || '').split(/\s+/);
+        for (var i in names) {
+            match = classes[names[i]];
+            if (match)
+                break;
+        }
+        match = match || tags[query.tagName];
+    }
+    if (match == null)
+        return null;
+    if ((scope & Scope.LEVEL & match.scope) && (scope & Scope.TYPE & match.scope))
+        return match;
+    return null;
+}
+exports.query = query;
+function register() {
+    var Definitions = [];
+    for (var _i = 0; _i < arguments.length; _i++) {
+        Definitions[_i] = arguments[_i];
+    }
+    if (Definitions.length > 1) {
+        return Definitions.map(function (d) {
+            return register(d);
+        });
+    }
+    var Definition = Definitions[0];
+    if (typeof Definition.blotName !== 'string' && typeof Definition.attrName !== 'string') {
+        throw new ParchmentError('Invalid definition');
+    }
+    else if (Definition.blotName === 'abstract') {
+        throw new ParchmentError('Cannot register abstract class');
+    }
+    types[Definition.blotName || Definition.attrName] = Definition;
+    if (typeof Definition.keyName === 'string') {
+        attributes[Definition.keyName] = Definition;
+    }
+    else {
+        if (Definition.className != null) {
+            classes[Definition.className] = Definition;
+        }
+        if (Definition.tagName != null) {
+            if (Array.isArray(Definition.tagName)) {
+                Definition.tagName = Definition.tagName.map(function (tagName) {
+                    return tagName.toUpperCase();
+                });
+            }
+            else {
+                Definition.tagName = Definition.tagName.toUpperCase();
+            }
+            var tagNames = Array.isArray(Definition.tagName) ? Definition.tagName : [Definition.tagName];
+            tagNames.forEach(function (tag) {
+                if (tags[tag] == null || Definition.className == null) {
+                    tags[tag] = Definition;
+                }
+            });
+        }
+    }
+    return Definition;
+}
+exports.register = register;
+
+
+/***/ }),
 /* 3 */
 /***/ (function(module, exports) {
 
@@ -81949,7 +82346,7 @@ var _extend = __webpack_require__(3);
 
 var _extend2 = _interopRequireDefault(_extend);
 
-var _quillDelta = __webpack_require__(2);
+var _quillDelta = __webpack_require__(1);
 
 var _quillDelta2 = _interopRequireDefault(_quillDelta);
 
@@ -81957,19 +82354,19 @@ var _parchment = __webpack_require__(0);
 
 var _parchment2 = _interopRequireDefault(_parchment);
 
-var _break = __webpack_require__(17);
+var _break = __webpack_require__(16);
 
 var _break2 = _interopRequireDefault(_break);
 
-var _embed = __webpack_require__(7);
+var _embed = __webpack_require__(5);
 
 var _embed2 = _interopRequireDefault(_embed);
 
-var _inline = __webpack_require__(8);
+var _inline = __webpack_require__(7);
 
 var _inline2 = _interopRequireDefault(_inline);
 
-var _text = __webpack_require__(12);
+var _text = __webpack_require__(8);
 
 var _text2 = _interopRequireDefault(_text);
 
@@ -82129,8 +82526,8 @@ var Block = function (_Parchment$Block) {
     }
   }, {
     key: 'optimize',
-    value: function optimize() {
-      _get(Block.prototype.__proto__ || Object.getPrototypeOf(Block.prototype), 'optimize', this).call(this);
+    value: function optimize(context) {
+      _get(Block.prototype.__proto__ || Object.getPrototypeOf(Block.prototype), 'optimize', this).call(this, context);
       this.cache = {};
     }
   }, {
@@ -82201,18 +82598,19 @@ exports.default = Block;
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
+exports.InlineEmbed = exports.default = undefined;
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
 var _get = function get(object, property, receiver) { if (object === null) object = Function.prototype; var desc = Object.getOwnPropertyDescriptor(object, property); if (desc === undefined) { var parent = Object.getPrototypeOf(object); if (parent === null) { return undefined; } else { return get(parent, property, receiver); } } else if ("value" in desc) { return desc.value; } else { var getter = desc.get; if (getter === undefined) { return undefined; } return getter.call(receiver); } };
 
-var _eventemitter = __webpack_require__(53);
+var _parchment = __webpack_require__(0);
 
-var _eventemitter2 = _interopRequireDefault(_eventemitter);
+var _parchment2 = _interopRequireDefault(_parchment);
 
-var _logger = __webpack_require__(10);
+var _text = __webpack_require__(8);
 
-var _logger2 = _interopRequireDefault(_logger);
+var _text2 = _interopRequireDefault(_text);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -82222,46 +82620,108 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-var debug = (0, _logger2.default)('quill:events');
+var GUARD_TEXT = '\uFEFF';
 
-var Emitter = function (_EventEmitter) {
-  _inherits(Emitter, _EventEmitter);
+var Embed = function (_Parchment$Embed) {
+  _inherits(Embed, _Parchment$Embed);
 
-  function Emitter() {
-    _classCallCheck(this, Emitter);
+  function Embed() {
+    _classCallCheck(this, Embed);
 
-    var _this = _possibleConstructorReturn(this, (Emitter.__proto__ || Object.getPrototypeOf(Emitter)).call(this));
-
-    _this.on('error', debug.error);
-    return _this;
+    return _possibleConstructorReturn(this, (Embed.__proto__ || Object.getPrototypeOf(Embed)).apply(this, arguments));
   }
 
-  _createClass(Emitter, [{
-    key: 'emit',
-    value: function emit() {
-      debug.log.apply(debug, arguments);
-      _get(Emitter.prototype.__proto__ || Object.getPrototypeOf(Emitter.prototype), 'emit', this).apply(this, arguments);
+  return Embed;
+}(_parchment2.default.Embed);
+
+var InlineEmbed = function (_Embed) {
+  _inherits(InlineEmbed, _Embed);
+
+  function InlineEmbed(node) {
+    _classCallCheck(this, InlineEmbed);
+
+    var _this2 = _possibleConstructorReturn(this, (InlineEmbed.__proto__ || Object.getPrototypeOf(InlineEmbed)).call(this, node));
+
+    var wrapper = document.createElement('span');
+    wrapper.setAttribute('contenteditable', false);
+    [].slice.call(_this2.domNode.childNodes).forEach(function (childNode) {
+      wrapper.appendChild(childNode);
+    });
+    _this2.leftGuard = document.createTextNode(GUARD_TEXT);
+    _this2.rightGuard = document.createTextNode(GUARD_TEXT);
+    _this2.domNode.appendChild(_this2.leftGuard);
+    _this2.domNode.appendChild(wrapper);
+    _this2.domNode.appendChild(_this2.rightGuard);
+    return _this2;
+  }
+
+  _createClass(InlineEmbed, [{
+    key: 'index',
+    value: function index(node, offset) {
+      if (node === this.leftGuard) return 0;
+      if (node === this.rightGuard) return 1;
+      return _get(InlineEmbed.prototype.__proto__ || Object.getPrototypeOf(InlineEmbed.prototype), 'index', this).call(this, node, offset);
+    }
+  }, {
+    key: 'restore',
+    value: function restore(node) {
+      var range = void 0,
+          textNode = void 0;
+      var text = node.data.split(GUARD_TEXT).join('');
+      if (node === this.leftGuard) {
+        if (this.prev instanceof _text2.default) {
+          var prevLength = this.prev.length();
+          this.prev.insertAt(prevLength, text);
+          range = {
+            startNode: this.prev.domNode,
+            startOffset: prevLength + text.length
+          };
+        } else {
+          textNode = document.createTextNode(text);
+          this.parent.insertBefore(_parchment2.default.create(textNode), this);
+          range = {
+            startNode: textNode,
+            startOffset: text.length
+          };
+        }
+      } else if (node === this.rightGuard) {
+        if (this.next instanceof _text2.default) {
+          this.next.insertAt(0, text);
+          range = {
+            startNode: this.next.domNode,
+            startOffset: text.length
+          };
+        } else {
+          textNode = document.createTextNode(text);
+          this.parent.insertBefore(_parchment2.default.create(textNode), this.next);
+          range = {
+            startNode: textNode,
+            startOffset: text.length
+          };
+        }
+      }
+      node.data = GUARD_TEXT;
+      return range;
+    }
+  }, {
+    key: 'update',
+    value: function update(mutations, context) {
+      var _this3 = this;
+
+      mutations.forEach(function (mutation) {
+        if (mutation.type === 'characterData' && (mutation.target === _this3.leftGuard || mutation.target === _this3.rightGuard)) {
+          var range = _this3.restore(mutation.target);
+          if (range) context.range = range;
+        }
+      });
     }
   }]);
 
-  return Emitter;
-}(_eventemitter2.default);
+  return InlineEmbed;
+}(Embed);
 
-Emitter.events = {
-  EDITOR_CHANGE: 'editor-change',
-  SCROLL_BEFORE_UPDATE: 'scroll-before-update',
-  SCROLL_OPTIMIZE: 'scroll-optimize',
-  SCROLL_UPDATE: 'scroll-update',
-  SELECTION_CHANGE: 'selection-change',
-  TEXT_CHANGE: 'text-change'
-};
-Emitter.sources = {
-  API: 'api',
-  SILENT: 'silent',
-  USER: 'user'
-};
-
-exports.default = Emitter;
+exports.default = Embed;
+exports.InlineEmbed = InlineEmbed;
 
 /***/ }),
 /* 6 */
@@ -82283,7 +82743,7 @@ var _createClass = function () { function defineProperties(target, props) { for 
 
 __webpack_require__(44);
 
-var _quillDelta = __webpack_require__(2);
+var _quillDelta = __webpack_require__(1);
 
 var _quillDelta2 = _interopRequireDefault(_quillDelta);
 
@@ -82291,11 +82751,11 @@ var _editor = __webpack_require__(14);
 
 var _editor2 = _interopRequireDefault(_editor);
 
-var _emitter3 = __webpack_require__(5);
+var _emitter3 = __webpack_require__(9);
 
 var _emitter4 = _interopRequireDefault(_emitter3);
 
-var _module = __webpack_require__(9);
+var _module = __webpack_require__(10);
 
 var _module2 = _interopRequireDefault(_module);
 
@@ -82311,7 +82771,7 @@ var _extend = __webpack_require__(3);
 
 var _extend2 = _interopRequireDefault(_extend);
 
-var _logger = __webpack_require__(10);
+var _logger = __webpack_require__(11);
 
 var _logger2 = _interopRequireDefault(_logger);
 
@@ -82406,7 +82866,6 @@ var Quill = function () {
     this.emitter = new _emitter4.default();
     this.scroll = _parchment2.default.create(this.root, {
       emitter: this.emitter,
-      scrollingContainer: this.scrollingContainer,
       whitelist: this.options.formats
     });
     this.editor = new _editor2.default(this.scroll);
@@ -82493,7 +82952,7 @@ var Quill = function () {
       var scrollTop = this.scrollingContainer.scrollTop;
       this.selection.focus();
       this.scrollingContainer.scrollTop = scrollTop;
-      this.selection.scrollIntoView();
+      this.scrollIntoView();
     }
   }, {
     key: 'format',
@@ -82746,6 +83205,11 @@ var Quill = function () {
       }, source, index);
     }
   }, {
+    key: 'scrollIntoView',
+    value: function scrollIntoView() {
+      this.selection.scrollIntoView(this.scrollingContainer);
+    }
+  }, {
     key: 'setContents',
     value: function setContents(delta) {
       var _this10 = this;
@@ -82781,9 +83245,9 @@ var Quill = function () {
         source = _overload16[3];
 
         this.selection.setRange(new _selection.Range(index, length), source);
-      }
-      if (source !== _emitter4.default.sources.SILENT) {
-        this.selection.scrollIntoView();
+        if (source !== _emitter4.default.sources.SILENT) {
+          this.selection.scrollIntoView(this.scrollingContainer);
+        }
       }
     }
   }, {
@@ -82833,7 +83297,7 @@ Quill.DEFAULTS = {
 Quill.events = _emitter4.default.events;
 Quill.sources = _emitter4.default.sources;
 // eslint-disable-next-line no-undef
-Quill.version =  false ? 'dev' : "1.2.6";
+Quill.version =  false ? 'dev' : "1.3.0";
 
 Quill.imports = {
   'delta': _quillDelta2.default,
@@ -83005,52 +83469,15 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
-var _parchment = __webpack_require__(0);
-
-var _parchment2 = _interopRequireDefault(_parchment);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-var Embed = function (_Parchment$Embed) {
-  _inherits(Embed, _Parchment$Embed);
-
-  function Embed() {
-    _classCallCheck(this, Embed);
-
-    return _possibleConstructorReturn(this, (Embed.__proto__ || Object.getPrototypeOf(Embed)).apply(this, arguments));
-  }
-
-  return Embed;
-}(_parchment2.default.Embed);
-
-exports.default = Embed;
-
-/***/ }),
-/* 8 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
 var _get = function get(object, property, receiver) { if (object === null) object = Function.prototype; var desc = Object.getOwnPropertyDescriptor(object, property); if (desc === undefined) { var parent = Object.getPrototypeOf(object); if (parent === null) { return undefined; } else { return get(parent, property, receiver); } } else if ("value" in desc) { return desc.value; } else { var getter = desc.get; if (getter === undefined) { return undefined; } return getter.call(receiver); } };
 
-var _embed = __webpack_require__(7);
+var _embed = __webpack_require__(5);
 
 var _embed2 = _interopRequireDefault(_embed);
 
-var _text = __webpack_require__(12);
+var _text = __webpack_require__(8);
 
 var _text2 = _interopRequireDefault(_text);
 
@@ -83089,8 +83516,8 @@ var Inline = function (_Parchment$Inline) {
     }
   }, {
     key: 'optimize',
-    value: function optimize() {
-      _get(Inline.prototype.__proto__ || Object.getPrototypeOf(Inline.prototype), 'optimize', this).call(this);
+    value: function optimize(context) {
+      _get(Inline.prototype.__proto__ || Object.getPrototypeOf(Inline.prototype), 'optimize', this).call(this, context);
       if (this.parent instanceof Inline && Inline.compare(this.statics.blotName, this.parent.statics.blotName) > 0) {
         var parent = this.parent.isolate(this.offset(), this.length());
         this.moveChildren(parent);
@@ -83126,7 +83553,160 @@ Inline.order = ['cursor', 'inline', // Must be lower
 exports.default = Inline;
 
 /***/ }),
+/* 8 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _parchment = __webpack_require__(0);
+
+var _parchment2 = _interopRequireDefault(_parchment);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var TextBlot = function (_Parchment$Text) {
+  _inherits(TextBlot, _Parchment$Text);
+
+  function TextBlot() {
+    _classCallCheck(this, TextBlot);
+
+    return _possibleConstructorReturn(this, (TextBlot.__proto__ || Object.getPrototypeOf(TextBlot)).apply(this, arguments));
+  }
+
+  return TextBlot;
+}(_parchment2.default.Text);
+
+exports.default = TextBlot;
+
+/***/ }),
 /* 9 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _get = function get(object, property, receiver) { if (object === null) object = Function.prototype; var desc = Object.getOwnPropertyDescriptor(object, property); if (desc === undefined) { var parent = Object.getPrototypeOf(object); if (parent === null) { return undefined; } else { return get(parent, property, receiver); } } else if ("value" in desc) { return desc.value; } else { var getter = desc.get; if (getter === undefined) { return undefined; } return getter.call(receiver); } };
+
+var _eventemitter = __webpack_require__(53);
+
+var _eventemitter2 = _interopRequireDefault(_eventemitter);
+
+var _logger = __webpack_require__(11);
+
+var _logger2 = _interopRequireDefault(_logger);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var debug = (0, _logger2.default)('quill:events');
+
+var EVENTS = ['selectionchange'];
+
+EVENTS.forEach(function (eventName) {
+  document.addEventListener(eventName, function () {
+    for (var _len = arguments.length, args = Array(_len), _key = 0; _key < _len; _key++) {
+      args[_key] = arguments[_key];
+    }
+
+    [].slice.call(document.querySelectorAll('.ql-container')).forEach(function (node) {
+      // TODO use WeakMap
+      if (node.__quill && node.__quill.emitter) {
+        var _node$__quill$emitter;
+
+        (_node$__quill$emitter = node.__quill.emitter).handleDOM.apply(_node$__quill$emitter, args);
+      }
+    });
+  });
+});
+
+var Emitter = function (_EventEmitter) {
+  _inherits(Emitter, _EventEmitter);
+
+  function Emitter() {
+    _classCallCheck(this, Emitter);
+
+    var _this = _possibleConstructorReturn(this, (Emitter.__proto__ || Object.getPrototypeOf(Emitter)).call(this));
+
+    _this.listeners = {};
+    _this.on('error', debug.error);
+    return _this;
+  }
+
+  _createClass(Emitter, [{
+    key: 'emit',
+    value: function emit() {
+      debug.log.apply(debug, arguments);
+      _get(Emitter.prototype.__proto__ || Object.getPrototypeOf(Emitter.prototype), 'emit', this).apply(this, arguments);
+    }
+  }, {
+    key: 'handleDOM',
+    value: function handleDOM(event) {
+      for (var _len2 = arguments.length, args = Array(_len2 > 1 ? _len2 - 1 : 0), _key2 = 1; _key2 < _len2; _key2++) {
+        args[_key2 - 1] = arguments[_key2];
+      }
+
+      (this.listeners[event.type] || []).forEach(function (_ref) {
+        var node = _ref.node,
+            handler = _ref.handler;
+
+        if (event.target === node) {
+          handler.apply(undefined, [event].concat(args));
+        }
+      });
+    }
+  }, {
+    key: 'listenDOM',
+    value: function listenDOM(eventName, node, handler) {
+      if (!this.listeners[eventName]) {
+        this.listeners[eventName] = [];
+      }
+      this.listeners[eventName].push({ node: node, handler: handler });
+    }
+  }]);
+
+  return Emitter;
+}(_eventemitter2.default);
+
+Emitter.events = {
+  EDITOR_CHANGE: 'editor-change',
+  SCROLL_BEFORE_UPDATE: 'scroll-before-update',
+  SCROLL_OPTIMIZE: 'scroll-optimize',
+  SCROLL_UPDATE: 'scroll-update',
+  SELECTION_CHANGE: 'selection-change',
+  TEXT_CHANGE: 'text-change'
+};
+Emitter.sources = {
+  API: 'api',
+  SILENT: 'silent',
+  USER: 'user'
+};
+
+exports.default = Emitter;
+
+/***/ }),
+/* 10 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -83152,7 +83732,7 @@ Module.DEFAULTS = {};
 exports.default = Module;
 
 /***/ }),
-/* 10 */
+/* 11 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -83166,11 +83746,13 @@ var level = 'warn';
 
 function debug(method) {
   if (levels.indexOf(method) <= levels.indexOf(level)) {
+    var _console;
+
     for (var _len = arguments.length, args = Array(_len > 1 ? _len - 1 : 0), _key = 1; _key < _len; _key++) {
       args[_key - 1] = arguments[_key];
     }
 
-    console[method].apply(console, args); // eslint-disable-line no-console
+    (_console = console)[method].apply(_console, args); // eslint-disable-line no-console
   }
 }
 
@@ -83188,7 +83770,7 @@ debug.level = namespace.level = function (newLevel) {
 exports.default = namespace;
 
 /***/ }),
-/* 11 */
+/* 12 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var pSlice = Array.prototype.slice;
@@ -83288,50 +83870,13 @@ function objEquiv(a, b, opts) {
 
 
 /***/ }),
-/* 12 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-
-var _parchment = __webpack_require__(0);
-
-var _parchment2 = _interopRequireDefault(_parchment);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-var TextBlot = function (_Parchment$Text) {
-  _inherits(TextBlot, _Parchment$Text);
-
-  function TextBlot() {
-    _classCallCheck(this, TextBlot);
-
-    return _possibleConstructorReturn(this, (TextBlot.__proto__ || Object.getPrototypeOf(TextBlot)).apply(this, arguments));
-  }
-
-  return TextBlot;
-}(_parchment2.default.Text);
-
-exports.default = TextBlot;
-
-/***/ }),
 /* 13 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 Object.defineProperty(exports, "__esModule", { value: true });
-var Registry = __webpack_require__(1);
+var Registry = __webpack_require__(2);
 var Attributor = (function () {
     function Attributor(attrName, keyName, options) {
         if (options === void 0) { options = {}; }
@@ -83395,7 +83940,7 @@ var _slicedToArray = function () { function sliceIterator(arr, i) { var _arr = [
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-var _quillDelta = __webpack_require__(2);
+var _quillDelta = __webpack_require__(1);
 
 var _quillDelta2 = _interopRequireDefault(_quillDelta);
 
@@ -83407,7 +83952,7 @@ var _parchment = __webpack_require__(0);
 
 var _parchment2 = _interopRequireDefault(_parchment);
 
-var _code = __webpack_require__(16);
+var _code = __webpack_require__(17);
 
 var _code2 = _interopRequireDefault(_code);
 
@@ -83419,11 +83964,15 @@ var _block = __webpack_require__(4);
 
 var _block2 = _interopRequireDefault(_block);
 
+var _break = __webpack_require__(16);
+
+var _break2 = _interopRequireDefault(_break);
+
 var _clone = __webpack_require__(19);
 
 var _clone2 = _interopRequireDefault(_clone);
 
-var _deepEqual = __webpack_require__(11);
+var _deepEqual = __webpack_require__(12);
 
 var _deepEqual2 = _interopRequireDefault(_deepEqual);
 
@@ -83455,7 +84004,7 @@ var Editor = function () {
       var consumeNextNewline = false;
       this.scroll.update();
       var scrollLength = this.scroll.length();
-      this.scroll.batch = true;
+      this.scroll.batchStart();
       delta = normalizeDelta(delta);
       delta.reduce(function (index, op) {
         var length = op.retain || op.delete || op.insert.length || 1;
@@ -83505,8 +84054,7 @@ var Editor = function () {
         }
         return index + (op.retain || op.insert.length || 1);
       }, 0);
-      this.scroll.batch = false;
-      this.scroll.optimize();
+      this.scroll.batchEnd();
       return this.update(delta);
     }
   }, {
@@ -83635,7 +84183,7 @@ var Editor = function () {
       if (this.scroll.children.length == 0) return true;
       if (this.scroll.children.length > 1) return false;
       var child = this.scroll.children.head;
-      return child.length() <= 1 && Object.keys(child.formats()).length == 0;
+      return child.length() <= 1 && child instanceof _break2.default;
     }
   }, {
     key: 'removeFormat',
@@ -83761,19 +84309,21 @@ var _parchment = __webpack_require__(0);
 
 var _parchment2 = _interopRequireDefault(_parchment);
 
+var _embed = __webpack_require__(5);
+
 var _clone = __webpack_require__(19);
 
 var _clone2 = _interopRequireDefault(_clone);
 
-var _deepEqual = __webpack_require__(11);
+var _deepEqual = __webpack_require__(12);
 
 var _deepEqual2 = _interopRequireDefault(_deepEqual);
 
-var _emitter3 = __webpack_require__(5);
+var _emitter3 = __webpack_require__(9);
 
 var _emitter4 = _interopRequireDefault(_emitter3);
 
-var _logger = __webpack_require__(10);
+var _logger = __webpack_require__(11);
 
 var _logger2 = _interopRequireDefault(_logger);
 
@@ -83809,16 +84359,32 @@ var Selection = function () {
     });
     this.root.addEventListener('compositionend', function () {
       _this.composing = false;
+      if (_this.cursor.parent) {
+        var range = _this.cursor.restore();
+        if (!range) return;
+        setTimeout(function () {
+          _this.setNativeRange(range.startNode, range.startOffset, range.endNode, range.endOffset);
+        }, 1);
+      }
     });
     this.cursor = _parchment2.default.create('cursor', this);
     // savedRange is last non-null range
     this.lastRange = this.savedRange = new Range(0, 0);
-    ['keyup', 'mouseup', 'mouseleave', 'touchend', 'touchleave', 'focus', 'blur'].forEach(function (eventName) {
-      _this.root.addEventListener(eventName, function () {
-        // When range used to be a selection and user click within the selection,
-        // the range now being a cursor has not updated yet without setTimeout
-        setTimeout(_this.update.bind(_this, _emitter4.default.sources.USER), 100);
-      });
+    this.root.addEventListener('click', function (e) {
+      var blot = _parchment2.default.find(e.target, true);
+      var selectedNode = document.querySelector('.ql-embed-selected');
+      if (selectedNode) {
+        selectedNode.classList.remove('ql-embed-selected');
+      }
+      if (blot instanceof _parchment2.default.Embed) {
+        blot.domNode.classList.add('ql-embed-selected');
+        var range = new Range(blot.offset(scroll), blot.length());
+        _this.setRange(range, _emitter4.default.sources.USER);
+        e.stopPropagation();
+      }
+    });
+    this.emitter.listenDOM('selectionchange', document, function () {
+      setTimeout(_this.update.bind(_this, _emitter4.default.sources.USER), 1);
     });
     this.emitter.on(_emitter4.default.events.EDITOR_CHANGE, function (type, delta) {
       if (type === _emitter4.default.events.TEXT_CHANGE && delta.length() > 0) {
@@ -83837,10 +84403,61 @@ var Selection = function () {
         } catch (ignored) {}
       });
     });
+    this.emitter.on(_emitter4.default.events.SCROLL_OPTIMIZE, function (mutations, context) {
+      if (context.range) {
+        var _context$range = context.range,
+            startNode = _context$range.startNode,
+            startOffset = _context$range.startOffset,
+            endNode = _context$range.endNode,
+            endOffset = _context$range.endOffset;
+
+        _this.setNativeRange(startNode, startOffset, endNode, endOffset);
+      }
+    });
     this.update(_emitter4.default.sources.SILENT);
   }
 
   _createClass(Selection, [{
+    key: 'fixInlineEmbed',
+    value: function fixInlineEmbed(native) {
+      if (native == null) return;
+
+      var _map = [native.start, native.end].map(function (pos) {
+        var blot = _parchment2.default.find(pos.node, true);
+        if (blot instanceof _embed.InlineEmbed) {
+          var node = void 0,
+              offset = void 0;
+          if (pos.node === blot.leftGuard && pos.offset === 1) {
+            var _blot$position = blot.position(blot.length());
+
+            var _blot$position2 = _slicedToArray(_blot$position, 2);
+
+            node = _blot$position2[0];
+            offset = _blot$position2[1];
+
+            return { node: node, offset: offset };
+          } else if (pos.node === blot.rightGuard && pos.offset === 0) {
+            var _blot$position3 = blot.position(0);
+
+            var _blot$position4 = _slicedToArray(_blot$position3, 2);
+
+            node = _blot$position4[0];
+            offset = _blot$position4[1];
+
+            return { node: node, offset: offset };
+          }
+        }
+        return pos;
+      }),
+          _map2 = _slicedToArray(_map, 2),
+          start = _map2[0],
+          end = _map2[1];
+
+      if (native.start !== start || native.end !== end) {
+        this.setNativeRange(start.node, start.offset, end.node, end.offset);
+      }
+    }
+  }, {
     key: 'focus',
     value: function focus() {
       if (this.hasFocus()) return;
@@ -84054,9 +84671,8 @@ var Selection = function () {
     }
   }, {
     key: 'scrollIntoView',
-    value: function scrollIntoView() {
-      var range = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : this.lastRange;
-
+    value: function scrollIntoView(scrollingContainer) {
+      var range = this.lastRange;
       if (range == null) return;
       var bounds = this.getBounds(range.index, range.length);
       if (bounds == null) return;
@@ -84075,12 +84691,11 @@ var Selection = function () {
         last = _scroll$line4[0];
       }
       if (first == null || last == null) return;
-      var scroller = this.scroll.scrollingContainer;
-      var scrollBounds = scroller.getBoundingClientRect();
+      var scrollBounds = scrollingContainer.getBoundingClientRect();
       if (bounds.top < scrollBounds.top) {
-        scroller.scrollTop -= scrollBounds.top - bounds.top;
+        scrollingContainer.scrollTop -= scrollBounds.top - bounds.top;
       } else if (bounds.bottom > scrollBounds.bottom) {
-        scroller.scrollTop += bounds.bottom - scrollBounds.bottom;
+        scrollingContainer.scrollTop += bounds.bottom - scrollBounds.bottom;
       }
     }
   }, {
@@ -84152,6 +84767,7 @@ var Selection = function () {
           lastRange = _getRange2[0],
           nativeRange = _getRange2[1];
 
+      this.fixInlineEmbed(nativeRange);
       this.lastRange = lastRange;
       if (this.lastRange != null) {
         this.savedRange = this.lastRange;
@@ -84204,6 +84820,76 @@ exports.default = Selection;
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _get = function get(object, property, receiver) { if (object === null) object = Function.prototype; var desc = Object.getOwnPropertyDescriptor(object, property); if (desc === undefined) { var parent = Object.getPrototypeOf(object); if (parent === null) { return undefined; } else { return get(parent, property, receiver); } } else if ("value" in desc) { return desc.value; } else { var getter = desc.get; if (getter === undefined) { return undefined; } return getter.call(receiver); } };
+
+var _embed = __webpack_require__(5);
+
+var _embed2 = _interopRequireDefault(_embed);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var Break = function (_Embed) {
+  _inherits(Break, _Embed);
+
+  function Break() {
+    _classCallCheck(this, Break);
+
+    return _possibleConstructorReturn(this, (Break.__proto__ || Object.getPrototypeOf(Break)).apply(this, arguments));
+  }
+
+  _createClass(Break, [{
+    key: 'insertInto',
+    value: function insertInto(parent, ref) {
+      if (parent.children.length === 0) {
+        _get(Break.prototype.__proto__ || Object.getPrototypeOf(Break.prototype), 'insertInto', this).call(this, parent, ref);
+      } else {
+        this.remove();
+      }
+    }
+  }, {
+    key: 'length',
+    value: function length() {
+      return 0;
+    }
+  }, {
+    key: 'value',
+    value: function value() {
+      return '';
+    }
+  }], [{
+    key: 'value',
+    value: function value() {
+      return undefined;
+    }
+  }]);
+
+  return Break;
+}(_embed2.default);
+
+Break.blotName = 'break';
+Break.tagName = 'BR';
+
+exports.default = Break;
+
+/***/ }),
+/* 17 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
 exports.default = exports.Code = undefined;
 
 var _slicedToArray = function () { function sliceIterator(arr, i) { var _arr = []; var _n = true; var _d = false; var _e = undefined; try { for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"]) _i["return"](); } finally { if (_d) throw _e; } } return _arr; } return function (arr, i) { if (Array.isArray(arr)) { return arr; } else if (Symbol.iterator in Object(arr)) { return sliceIterator(arr, i); } else { throw new TypeError("Invalid attempt to destructure non-iterable instance"); } }; }();
@@ -84212,7 +84898,7 @@ var _createClass = function () { function defineProperties(target, props) { for 
 
 var _get = function get(object, property, receiver) { if (object === null) object = Function.prototype; var desc = Object.getOwnPropertyDescriptor(object, property); if (desc === undefined) { var parent = Object.getPrototypeOf(object); if (parent === null) { return undefined; } else { return get(parent, property, receiver); } } else if ("value" in desc) { return desc.value; } else { var getter = desc.get; if (getter === undefined) { return undefined; } return getter.call(receiver); } };
 
-var _quillDelta = __webpack_require__(2);
+var _quillDelta = __webpack_require__(1);
 
 var _quillDelta2 = _interopRequireDefault(_quillDelta);
 
@@ -84224,11 +84910,11 @@ var _block = __webpack_require__(4);
 
 var _block2 = _interopRequireDefault(_block);
 
-var _inline = __webpack_require__(8);
+var _inline = __webpack_require__(7);
 
 var _inline2 = _interopRequireDefault(_inline);
 
-var _text = __webpack_require__(12);
+var _text = __webpack_require__(8);
 
 var _text2 = _interopRequireDefault(_text);
 
@@ -84345,14 +85031,14 @@ var CodeBlock = function (_Block) {
     }
   }, {
     key: 'optimize',
-    value: function optimize() {
+    value: function optimize(context) {
       if (!this.domNode.textContent.endsWith('\n')) {
         this.appendChild(_parchment2.default.create('text', '\n'));
       }
-      _get(CodeBlock.prototype.__proto__ || Object.getPrototypeOf(CodeBlock.prototype), 'optimize', this).call(this);
+      _get(CodeBlock.prototype.__proto__ || Object.getPrototypeOf(CodeBlock.prototype), 'optimize', this).call(this, context);
       var next = this.next;
       if (next != null && next.prev === this && next.statics.blotName === this.statics.blotName && this.statics.formats(this.domNode) === next.statics.formats(next.domNode)) {
-        next.optimize();
+        next.optimize(context);
         next.moveChildren(this);
         next.remove();
       }
@@ -84397,76 +85083,6 @@ exports.Code = Code;
 exports.default = CodeBlock;
 
 /***/ }),
-/* 17 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-var _get = function get(object, property, receiver) { if (object === null) object = Function.prototype; var desc = Object.getOwnPropertyDescriptor(object, property); if (desc === undefined) { var parent = Object.getPrototypeOf(object); if (parent === null) { return undefined; } else { return get(parent, property, receiver); } } else if ("value" in desc) { return desc.value; } else { var getter = desc.get; if (getter === undefined) { return undefined; } return getter.call(receiver); } };
-
-var _embed = __webpack_require__(7);
-
-var _embed2 = _interopRequireDefault(_embed);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-var Break = function (_Embed) {
-  _inherits(Break, _Embed);
-
-  function Break() {
-    _classCallCheck(this, Break);
-
-    return _possibleConstructorReturn(this, (Break.__proto__ || Object.getPrototypeOf(Break)).apply(this, arguments));
-  }
-
-  _createClass(Break, [{
-    key: 'insertInto',
-    value: function insertInto(parent, ref) {
-      if (parent.children.length === 0) {
-        _get(Break.prototype.__proto__ || Object.getPrototypeOf(Break.prototype), 'insertInto', this).call(this, parent, ref);
-      } else {
-        this.remove();
-      }
-    }
-  }, {
-    key: 'length',
-    value: function length() {
-      return 0;
-    }
-  }, {
-    key: 'value',
-    value: function value() {
-      return '';
-    }
-  }], [{
-    key: 'value',
-    value: function value() {
-      return undefined;
-    }
-  }]);
-
-  return Break;
-}(_embed2.default);
-
-Break.blotName = 'break';
-Break.tagName = 'BR';
-
-exports.default = Break;
-
-/***/ }),
 /* 18 */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -84487,7 +85103,7 @@ var _parchment = __webpack_require__(0);
 
 var _parchment2 = _interopRequireDefault(_parchment);
 
-var _emitter = __webpack_require__(5);
+var _emitter = __webpack_require__(9);
 
 var _emitter2 = _interopRequireDefault(_emitter);
 
@@ -84495,7 +85111,7 @@ var _block = __webpack_require__(4);
 
 var _block2 = _interopRequireDefault(_block);
 
-var _break = __webpack_require__(17);
+var _break = __webpack_require__(16);
 
 var _break2 = _interopRequireDefault(_break);
 
@@ -84503,7 +85119,7 @@ var _container = __webpack_require__(24);
 
 var _container2 = _interopRequireDefault(_container);
 
-var _code = __webpack_require__(16);
+var _code = __webpack_require__(17);
 
 var _code2 = _interopRequireDefault(_code);
 
@@ -84528,7 +85144,6 @@ var Scroll = function (_Parchment$Scroll) {
     var _this = _possibleConstructorReturn(this, (Scroll.__proto__ || Object.getPrototypeOf(Scroll)).call(this, domNode));
 
     _this.emitter = config.emitter;
-    _this.scrollingContainer = config.scrollingContainer;
     if (Array.isArray(config.whitelist)) {
       _this.whitelist = config.whitelist.reduce(function (whitelist, format) {
         whitelist[format] = true;
@@ -84543,6 +85158,17 @@ var Scroll = function (_Parchment$Scroll) {
   }
 
   _createClass(Scroll, [{
+    key: 'batchStart',
+    value: function batchStart() {
+      this.batch = true;
+    }
+  }, {
+    key: 'batchEnd',
+    value: function batchEnd() {
+      this.batch = false;
+      this.optimize();
+    }
+  }, {
     key: 'deleteAt',
     value: function deleteAt(index, length) {
       var _line = this.line(index),
@@ -84648,11 +85274,12 @@ var Scroll = function (_Parchment$Scroll) {
     key: 'optimize',
     value: function optimize() {
       var mutations = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : [];
+      var context = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
 
       if (this.batch === true) return;
-      _get(Scroll.prototype.__proto__ || Object.getPrototypeOf(Scroll.prototype), 'optimize', this).call(this, mutations);
+      _get(Scroll.prototype.__proto__ || Object.getPrototypeOf(Scroll.prototype), 'optimize', this).call(this, mutations, context);
       if (mutations.length > 0) {
-        this.emitter.emit(_emitter2.default.events.SCROLL_OPTIMIZE, mutations);
+        this.emitter.emit(_emitter2.default.events.SCROLL_OPTIMIZE, mutations, context);
       }
     }
   }, {
@@ -84953,7 +85580,7 @@ if (typeof module === 'object' && module.exports) {
 /* 20 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var equal = __webpack_require__(11);
+var equal = __webpack_require__(12);
 var extend = __webpack_require__(3);
 
 
@@ -85113,7 +85740,7 @@ var __extends = (this && this.__extends) || (function () {
 Object.defineProperty(exports, "__esModule", { value: true });
 var linked_list_1 = __webpack_require__(61);
 var shadow_1 = __webpack_require__(35);
-var Registry = __webpack_require__(1);
+var Registry = __webpack_require__(2);
 var ContainerBlot = (function (_super) {
     __extends(ContainerBlot, _super);
     function ContainerBlot() {
@@ -85216,13 +85843,13 @@ var ContainerBlot = (function (_super) {
             targetParent.insertBefore(child, refNode);
         });
     };
-    ContainerBlot.prototype.optimize = function () {
-        _super.prototype.optimize.call(this);
+    ContainerBlot.prototype.optimize = function (context) {
+        _super.prototype.optimize.call(this, context);
         if (this.children.length === 0) {
             if (this.statics.defaultChild != null) {
                 var child = Registry.create(this.statics.defaultChild);
                 this.appendChild(child);
-                child.optimize();
+                child.optimize(context);
             }
             else {
                 this.remove();
@@ -85270,7 +85897,7 @@ var ContainerBlot = (function (_super) {
         this.moveChildren(this.parent, this.next);
         this.remove();
     };
-    ContainerBlot.prototype.update = function (mutations) {
+    ContainerBlot.prototype.update = function (mutations, context) {
         var _this = this;
         var addedNodes = [], removedNodes = [];
         mutations.forEach(function (mutation) {
@@ -85359,7 +85986,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 var attributor_1 = __webpack_require__(13);
 var store_1 = __webpack_require__(33);
 var container_1 = __webpack_require__(21);
-var Registry = __webpack_require__(1);
+var Registry = __webpack_require__(2);
 var FormatBlot = (function (_super) {
     __extends(FormatBlot, _super);
     function FormatBlot() {
@@ -85402,9 +86029,9 @@ var FormatBlot = (function (_super) {
         this.attributes.copy(replacement);
         return replacement;
     };
-    FormatBlot.prototype.update = function (mutations) {
+    FormatBlot.prototype.update = function (mutations, context) {
         var _this = this;
-        _super.prototype.update.call(this, mutations);
+        _super.prototype.update.call(this, mutations, context);
         if (mutations.some(function (mutation) {
             return mutation.target === _this.domNode && mutation.type === 'attributes';
         })) {
@@ -85441,7 +86068,7 @@ var __extends = (this && this.__extends) || (function () {
 })();
 Object.defineProperty(exports, "__esModule", { value: true });
 var shadow_1 = __webpack_require__(35);
-var Registry = __webpack_require__(1);
+var Registry = __webpack_require__(2);
 var LeafBlot = (function (_super) {
     __extends(LeafBlot, _super);
     function LeafBlot() {
@@ -85451,9 +86078,11 @@ var LeafBlot = (function (_super) {
         return true;
     };
     LeafBlot.prototype.index = function (node, offset) {
-        if (node !== this.domNode)
-            return -1;
-        return Math.min(offset, 1);
+        if (this.domNode === node ||
+            this.domNode.compareDocumentPosition(node) & Node.DOCUMENT_POSITION_CONTAINED_BY) {
+            return Math.min(offset, 1);
+        }
+        return -1;
     };
     LeafBlot.prototype.position = function (index, inclusive) {
         var offset = [].indexOf.call(this.parent.domNode.childNodes, this.domNode);
@@ -85535,17 +86164,13 @@ var _parchment = __webpack_require__(0);
 
 var _parchment2 = _interopRequireDefault(_parchment);
 
-var _embed = __webpack_require__(7);
+var _embed = __webpack_require__(5);
 
 var _embed2 = _interopRequireDefault(_embed);
 
-var _text = __webpack_require__(12);
+var _text = __webpack_require__(8);
 
 var _text2 = _interopRequireDefault(_text);
-
-var _emitter = __webpack_require__(5);
-
-var _emitter2 = _interopRequireDefault(_emitter);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -85627,10 +86252,7 @@ var Cursor = function (_Embed) {
   }, {
     key: 'restore',
     value: function restore() {
-      var _this2 = this;
-
-      if (this.selection.composing) return;
-      if (this.parent == null) return;
+      if (this.selection.composing || this.parent == null) return;
       var textNode = this.textNode;
       var range = this.selection.getNativeRange();
       var restoreText = void 0,
@@ -85660,8 +86282,7 @@ var Cursor = function (_Embed) {
         }
       }
       this.remove();
-      if (start == null) return;
-      this.selection.emitter.once(_emitter2.default.events.SCROLL_OPTIMIZE, function () {
+      if (start != null) {
         var _map = [start, end].map(function (offset) {
           return Math.max(0, Math.min(restoreText.data.length, offset - 1));
         });
@@ -85671,19 +86292,25 @@ var Cursor = function (_Embed) {
         start = _map2[0];
         end = _map2[1];
 
-        _this2.selection.setNativeRange(restoreText, start, restoreText, end);
-      });
+        return {
+          startNode: restoreText,
+          startOffset: start,
+          endNode: restoreText,
+          endOffset: end
+        };
+      }
     }
   }, {
     key: 'update',
-    value: function update(mutations) {
-      var _this3 = this;
+    value: function update(mutations, context) {
+      var _this2 = this;
 
-      mutations.forEach(function (mutation) {
-        if (mutation.type === 'characterData' && mutation.target === _this3.textNode) {
-          _this3.restore();
-        }
-      });
+      if (mutations.some(function (mutation) {
+        return mutation.type === 'characterData' && mutation.target === _this2.textNode;
+      })) {
+        var range = this.restore();
+        if (range) context.range = range;
+      }
     }
   }, {
     key: 'value',
@@ -85782,7 +86409,7 @@ var _createClass = function () { function defineProperties(target, props) { for 
 
 var _get = function get(object, property, receiver) { if (object === null) object = Function.prototype; var desc = Object.getOwnPropertyDescriptor(object, property); if (desc === undefined) { var parent = Object.getPrototypeOf(object); if (parent === null) { return undefined; } else { return get(parent, property, receiver); } } else if ("value" in desc) { return desc.value; } else { var getter = desc.get; if (getter === undefined) { return undefined; } return getter.call(receiver); } };
 
-var _inline = __webpack_require__(8);
+var _inline = __webpack_require__(7);
 
 var _inline2 = _interopRequireDefault(_inline);
 
@@ -85827,7 +86454,7 @@ var Link = function (_Inline) {
   }, {
     key: 'sanitize',
     value: function sanitize(url) {
-      return _sanitize(url, ['http', 'https', 'mailto']) ? url : this.SANITIZED_URL;
+      return _sanitize(url, this.PROTOCOL_WHITELIST) ? url : this.SANITIZED_URL;
     }
   }]);
 
@@ -85837,6 +86464,7 @@ var Link = function (_Inline) {
 Link.blotName = 'link';
 Link.tagName = 'A';
 Link.SANITIZED_URL = 'about:blank';
+Link.PROTOCOL_WHITELIST = ['http', 'https', 'mailto', 'tel'];
 
 function _sanitize(url, protocols) {
   var anchor = document.createElement('a');
@@ -85925,7 +86553,7 @@ var Picker = function () {
       [].slice.call(this.select.options).forEach(function (option) {
         var item = _this3.buildItem(option);
         options.appendChild(item);
-        if (option.hasAttribute('selected')) {
+        if (option.selected === true) {
           _this3.selectItem(item);
         }
       });
@@ -86023,7 +86651,7 @@ var _block = __webpack_require__(4);
 
 var _block2 = _interopRequireDefault(_block);
 
-var _break = __webpack_require__(17);
+var _break = __webpack_require__(16);
 
 var _break2 = _interopRequireDefault(_break);
 
@@ -86035,11 +86663,11 @@ var _cursor = __webpack_require__(25);
 
 var _cursor2 = _interopRequireDefault(_cursor);
 
-var _embed = __webpack_require__(7);
+var _embed = __webpack_require__(5);
 
 var _embed2 = _interopRequireDefault(_embed);
 
-var _inline = __webpack_require__(8);
+var _inline = __webpack_require__(7);
 
 var _inline2 = _interopRequireDefault(_inline);
 
@@ -86047,7 +86675,7 @@ var _scroll = __webpack_require__(18);
 
 var _scroll2 = _interopRequireDefault(_scroll);
 
-var _text = __webpack_require__(12);
+var _text = __webpack_require__(8);
 
 var _text2 = _interopRequireDefault(_text);
 
@@ -86163,13 +86791,17 @@ var _clone = __webpack_require__(19);
 
 var _clone2 = _interopRequireDefault(_clone);
 
-var _deepEqual = __webpack_require__(11);
+var _deepEqual = __webpack_require__(12);
 
 var _deepEqual2 = _interopRequireDefault(_deepEqual);
 
 var _extend = __webpack_require__(3);
 
 var _extend2 = _interopRequireDefault(_extend);
+
+var _quillDelta = __webpack_require__(1);
+
+var _quillDelta2 = _interopRequireDefault(_quillDelta);
 
 var _op = __webpack_require__(20);
 
@@ -86183,11 +86815,11 @@ var _quill = __webpack_require__(6);
 
 var _quill2 = _interopRequireDefault(_quill);
 
-var _logger = __webpack_require__(10);
+var _logger = __webpack_require__(11);
 
 var _logger2 = _interopRequireDefault(_logger);
 
-var _module = __webpack_require__(9);
+var _module = __webpack_require__(10);
 
 var _module2 = _interopRequireDefault(_module);
 
@@ -86226,6 +86858,9 @@ var Keyboard = function (_Module) {
 
     _this.bindings = {};
     Object.keys(_this.options.bindings).forEach(function (name) {
+      if (name === 'list autofill' && quill.scroll.whitelist != null && !quill.scroll.whitelist['list']) {
+        return;
+      }
       if (_this.options.bindings[name]) {
         _this.addBinding(_this.options.bindings[name]);
       }
@@ -86410,11 +87045,11 @@ Keyboard.DEFAULTS = {
     },
     'tab': {
       key: Keyboard.keys.TAB,
-      handler: function handler(range, context) {
-        if (!context.collapsed) {
-          this.quill.scroll.deleteAt(range.index, range.length);
-        }
-        this.quill.insertText(range.index, '\t', _quill2.default.sources.USER);
+      handler: function handler(range) {
+        this.quill.history.cutoff();
+        var delta = new _quillDelta2.default().retain(range.index).delete(range.length).insert('\t');
+        this.quill.updateContents(delta, _quill2.default.sources.USER);
+        this.quill.history.cutoff();
         this.quill.setSelection(range.index + 1, _quill2.default.sources.SILENT);
       }
     },
@@ -86435,16 +87070,15 @@ Keyboard.DEFAULTS = {
       collapsed: true,
       format: { list: 'checked' },
       handler: function handler(range) {
-        this.quill.scroll.insertAt(range.index, '\n');
+        var _quill$getLine3 = this.quill.getLine(range.index),
+            _quill$getLine4 = _slicedToArray(_quill$getLine3, 2),
+            line = _quill$getLine4[0],
+            offset = _quill$getLine4[1];
 
-        var _quill$getLine3 = this.quill.getLine(range.index + 1),
-            _quill$getLine4 = _slicedToArray(_quill$getLine3, 1),
-            line = _quill$getLine4[0];
-
-        line.format('list', 'unchecked');
-        this.quill.update(_quill2.default.sources.USER);
+        var delta = new _quillDelta2.default().retain(range.index).insert('\n', { list: 'checked' }).retain(line.length() - offset - 1).retain(1, { list: 'unchecked' });
+        this.quill.updateContents(delta, _quill2.default.sources.USER);
         this.quill.setSelection(range.index + 1, _quill2.default.sources.SILENT);
-        this.quill.selection.scrollIntoView();
+        this.quill.scrollIntoView();
       }
     },
     'header enter': {
@@ -86452,11 +87086,16 @@ Keyboard.DEFAULTS = {
       collapsed: true,
       format: ['header'],
       suffix: /^$/,
-      handler: function handler(range) {
-        this.quill.scroll.insertAt(range.index, '\n');
-        this.quill.formatText(range.index + 1, 1, 'header', false, _quill2.default.sources.USER);
+      handler: function handler(range, context) {
+        var _quill$getLine5 = this.quill.getLine(range.index),
+            _quill$getLine6 = _slicedToArray(_quill$getLine5, 2),
+            line = _quill$getLine6[0],
+            offset = _quill$getLine6[1];
+
+        var delta = new _quillDelta2.default().retain(range.index).insert('\n', { header: context.format.header }).retain(line.length() - offset - 1).retain(1, { header: null });
+        this.quill.updateContents(delta, _quill2.default.sources.USER);
         this.quill.setSelection(range.index + 1, _quill2.default.sources.SILENT);
-        this.quill.selection.scrollIntoView();
+        this.quill.scrollIntoView();
       }
     },
     'list autofill': {
@@ -86465,7 +87104,6 @@ Keyboard.DEFAULTS = {
       format: { list: false },
       prefix: /^\s*?(1\.|-|\[ ?\]|\[x\])$/,
       handler: function handler(range, context) {
-        if (this.quill.scroll.whitelist != null && !this.quill.scroll.whitelist['list']) return true;
         var length = context.prefix.length;
         var value = void 0;
         switch (context.prefix.trim()) {
@@ -86481,8 +87119,17 @@ Keyboard.DEFAULTS = {
           default:
             value = 'ordered';
         }
-        this.quill.scroll.deleteAt(range.index - length, length);
-        this.quill.formatLine(range.index - length, 1, 'list', value, _quill2.default.sources.USER);
+        this.quill.insertText(range.index, ' ', _quill2.default.sources.USER);
+        this.quill.history.cutoff();
+
+        var _quill$getLine7 = this.quill.getLine(range.index + 1),
+            _quill$getLine8 = _slicedToArray(_quill$getLine7, 2),
+            line = _quill$getLine8[0],
+            offset = _quill$getLine8[1];
+
+        var delta = new _quillDelta2.default().retain(range.index + 1 - offset).delete(length + 1).retain(line.length() - 1 - offset).retain(1, { list: value });
+        this.quill.updateContents(delta, _quill2.default.sources.USER);
+        this.quill.history.cutoff();
         this.quill.setSelection(range.index - length, _quill2.default.sources.SILENT);
       }
     },
@@ -86503,15 +87150,15 @@ Keyboard.DEFAULTS = {
 function handleBackspace(range, context) {
   if (range.index === 0 || this.quill.getLength() <= 1) return;
 
-  var _quill$getLine5 = this.quill.getLine(range.index),
-      _quill$getLine6 = _slicedToArray(_quill$getLine5, 1),
-      line = _quill$getLine6[0];
+  var _quill$getLine9 = this.quill.getLine(range.index),
+      _quill$getLine10 = _slicedToArray(_quill$getLine9, 1),
+      line = _quill$getLine10[0];
 
   var formats = {};
   if (context.offset === 0) {
-    var _quill$getLine7 = this.quill.getLine(range.index - 1),
-        _quill$getLine8 = _slicedToArray(_quill$getLine7, 1),
-        prev = _quill$getLine8[0];
+    var _quill$getLine11 = this.quill.getLine(range.index - 1),
+        _quill$getLine12 = _slicedToArray(_quill$getLine11, 1),
+        prev = _quill$getLine12[0];
 
     if (prev != null && prev.length() > 1) {
       var curFormats = line.formats();
@@ -86525,7 +87172,7 @@ function handleBackspace(range, context) {
   if (Object.keys(formats).length > 0) {
     this.quill.formatLine(range.index - length, length, formats, _quill2.default.sources.USER);
   }
-  this.quill.selection.scrollIntoView();
+  this.quill.focus();
 }
 
 function handleDelete(range, context) {
@@ -86535,14 +87182,14 @@ function handleDelete(range, context) {
   var formats = {},
       nextLength = 0;
 
-  var _quill$getLine9 = this.quill.getLine(range.index),
-      _quill$getLine10 = _slicedToArray(_quill$getLine9, 1),
-      line = _quill$getLine10[0];
+  var _quill$getLine13 = this.quill.getLine(range.index),
+      _quill$getLine14 = _slicedToArray(_quill$getLine13, 1),
+      line = _quill$getLine14[0];
 
   if (context.offset >= line.length() - 1) {
-    var _quill$getLine11 = this.quill.getLine(range.index + 1),
-        _quill$getLine12 = _slicedToArray(_quill$getLine11, 1),
-        next = _quill$getLine12[0];
+    var _quill$getLine15 = this.quill.getLine(range.index + 1),
+        _quill$getLine16 = _slicedToArray(_quill$getLine15, 1),
+        next = _quill$getLine16[0];
 
     if (next) {
       var curFormats = line.formats();
@@ -86558,9 +87205,19 @@ function handleDelete(range, context) {
 }
 
 function handleDeleteRange(range) {
+  var lines = this.quill.getLines(range);
+  var formats = {};
+  if (lines.length > 1) {
+    var firstFormats = lines[0].formats();
+    var lastFormats = lines[lines.length - 1].formats();
+    formats = _op2.default.attributes.diff(lastFormats, firstFormats) || {};
+  }
   this.quill.deleteText(range, _quill2.default.sources.USER);
+  if (Object.keys(formats).length > 0) {
+    this.quill.formatLine(range.index, 1, formats, _quill2.default.sources.USER);
+  }
   this.quill.setSelection(range.index, _quill2.default.sources.SILENT);
-  this.quill.selection.scrollIntoView();
+  this.quill.focus();
 }
 
 function handleEnter(range, context) {
@@ -86579,7 +87236,7 @@ function handleEnter(range, context) {
   // Earlier scroll.deleteAt might have messed up our selection,
   // so insertText's built in selection preservation is not reliable
   this.quill.setSelection(range.index + 1, _quill2.default.sources.SILENT);
-  this.quill.selection.scrollIntoView();
+  this.quill.focus();
   Object.keys(context.format).forEach(function (name) {
     if (lineFormats[name] != null) return;
     if (Array.isArray(context.format[name])) return;
@@ -86741,7 +87398,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 var attributor_1 = __webpack_require__(13);
 var class_1 = __webpack_require__(32);
 var style_1 = __webpack_require__(34);
-var Registry = __webpack_require__(1);
+var Registry = __webpack_require__(2);
 var AttributorStore = (function () {
     function AttributorStore(domNode) {
         this.attributes = {};
@@ -86868,7 +87525,7 @@ exports.default = StyleAttributor;
 "use strict";
 
 Object.defineProperty(exports, "__esModule", { value: true });
-var Registry = __webpack_require__(1);
+var Registry = __webpack_require__(2);
 var ShadowBlot = (function () {
     function ShadowBlot(domNode) {
         this.domNode = domNode;
@@ -86916,7 +87573,7 @@ var ShadowBlot = (function () {
         this.domNode[Registry.DATA_KEY] = { blot: this };
     };
     ShadowBlot.prototype.clone = function () {
-        var domNode = this.domNode.cloneNode();
+        var domNode = this.domNode.cloneNode(false);
         return Registry.create(domNode);
     };
     ShadowBlot.prototype.detach = function () {
@@ -86972,7 +87629,7 @@ var ShadowBlot = (function () {
             return 0;
         return this.parent.children.offset(this) + this.parent.offset(root);
     };
-    ShadowBlot.prototype.optimize = function () {
+    ShadowBlot.prototype.optimize = function (context) {
         // TODO clean up once we use WeakMap
         if (this.domNode[Registry.DATA_KEY] != null) {
             delete this.domNode[Registry.DATA_KEY].mutations;
@@ -86998,8 +87655,7 @@ var ShadowBlot = (function () {
     ShadowBlot.prototype.split = function (index, force) {
         return index === 0 ? this : this.next;
     };
-    ShadowBlot.prototype.update = function (mutations) {
-        if (mutations === void 0) { mutations = []; }
+    ShadowBlot.prototype.update = function (mutations, context) {
         // Nothing to do by default
     };
     ShadowBlot.prototype.wrap = function (name, value) {
@@ -87276,7 +87932,7 @@ var _quill = __webpack_require__(6);
 
 var _quill2 = _interopRequireDefault(_quill);
 
-var _module = __webpack_require__(9);
+var _module = __webpack_require__(10);
 
 var _module2 = _interopRequireDefault(_module);
 
@@ -87326,13 +87982,17 @@ var History = function (_Module) {
       this.ignoreChange = false;
       var index = getLastChangeIndex(delta[source]);
       this.quill.setSelection(index);
-      this.quill.selection.scrollIntoView();
       this.stack[dest].push(delta);
     }
   }, {
     key: 'clear',
     value: function clear() {
       this.stack = { undo: [], redo: [] };
+    }
+  }, {
+    key: 'cutoff',
+    value: function cutoff() {
+      this.lastRecorded = 0;
     }
   }, {
     key: 'record',
@@ -87438,11 +88098,11 @@ var _extend = __webpack_require__(3);
 
 var _extend2 = _interopRequireDefault(_extend);
 
-var _quillDelta = __webpack_require__(2);
+var _quillDelta = __webpack_require__(1);
 
 var _quillDelta2 = _interopRequireDefault(_quillDelta);
 
-var _emitter = __webpack_require__(5);
+var _emitter = __webpack_require__(9);
 
 var _emitter2 = _interopRequireDefault(_emitter);
 
@@ -87732,13 +88392,13 @@ var BaseTooltip = function (_Tooltip) {
 }(_tooltip2.default);
 
 function extractVideoUrl(url) {
-  var match = url.match(/^(https?):\/\/(?:(?:www|m)\.)?youtube\.com\/watch.*v=([a-zA-Z0-9_-]+)/) || url.match(/^(https?):\/\/(?:(?:www|m)\.)?youtu\.be\/([a-zA-Z0-9_-]+)/);
+  var match = url.match(/^(?:(https?):\/\/)?(?:(?:www|m)\.)?youtube\.com\/watch.*v=([a-zA-Z0-9_-]+)/) || url.match(/^(?:(https?):\/\/)?(?:(?:www|m)\.)?youtu\.be\/([a-zA-Z0-9_-]+)/);
   if (match) {
-    return match[1] + '://www.youtube.com/embed/' + match[2] + '?showinfo=0';
+    return (match[1] || 'https') + '://www.youtube.com/embed/' + match[2] + '?showinfo=0';
   }
-  if (match = url.match(/^(https?):\/\/(?:www\.)?vimeo\.com\/(\d+)/)) {
+  if (match = url.match(/^(?:(https?):\/\/)?(?:www\.)?vimeo\.com\/(\d+)/)) {
     // eslint-disable-line no-cond-assign
-    return match[1] + '://player.vimeo.com/video/' + match[2] + '/';
+    return (match[1] || 'https') + '://player.vimeo.com/video/' + match[2] + '/';
   }
   return url;
 }
@@ -87846,7 +88506,7 @@ var _createClass = function () { function defineProperties(target, props) { for 
 
 var _get = function get(object, property, receiver) { if (object === null) object = Function.prototype; var desc = Object.getOwnPropertyDescriptor(object, property); if (desc === undefined) { var parent = Object.getPrototypeOf(object); if (parent === null) { return undefined; } else { return get(parent, property, receiver); } } else if ("value" in desc) { return desc.value; } else { var getter = desc.get; if (getter === undefined) { return undefined; } return getter.call(receiver); } };
 
-var _inline = __webpack_require__(8);
+var _inline = __webpack_require__(7);
 
 var _inline2 = _interopRequireDefault(_inline);
 
@@ -87869,8 +88529,8 @@ var Bold = function (_Inline) {
 
   _createClass(Bold, [{
     key: 'optimize',
-    value: function optimize() {
-      _get(Bold.prototype.__proto__ || Object.getPrototypeOf(Bold.prototype), 'optimize', this).call(this);
+    value: function optimize(context) {
+      _get(Bold.prototype.__proto__ || Object.getPrototypeOf(Bold.prototype), 'optimize', this).call(this, context);
       if (this.domNode.tagName !== this.statics.tagName[0]) {
         this.replaceWith(this.statics.blotName);
       }
@@ -87917,7 +88577,7 @@ var _extend2 = __webpack_require__(3);
 
 var _extend3 = _interopRequireDefault(_extend2);
 
-var _quillDelta = __webpack_require__(2);
+var _quillDelta = __webpack_require__(1);
 
 var _quillDelta2 = _interopRequireDefault(_quillDelta);
 
@@ -87929,11 +88589,11 @@ var _quill = __webpack_require__(6);
 
 var _quill2 = _interopRequireDefault(_quill);
 
-var _logger = __webpack_require__(10);
+var _logger = __webpack_require__(11);
 
 var _logger2 = _interopRequireDefault(_logger);
 
-var _module = __webpack_require__(9);
+var _module = __webpack_require__(10);
 
 var _module2 = _interopRequireDefault(_module);
 
@@ -87952,8 +88612,6 @@ var _size = __webpack_require__(40);
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
-
-function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } else { return Array.from(arr); } }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
@@ -87990,8 +88648,13 @@ var Clipboard = function (_Module) {
     _this.container.setAttribute('contenteditable', true);
     _this.container.setAttribute('tabindex', -1);
     _this.matchers = [];
-    CLIPBOARD_CONFIG.concat(_this.options.matchers).forEach(function (pair) {
-      _this.addMatcher.apply(_this, _toConsumableArray(pair));
+    CLIPBOARD_CONFIG.concat(_this.options.matchers).forEach(function (_ref) {
+      var _ref2 = _slicedToArray(_ref, 2),
+          selector = _ref2[0],
+          matcher = _ref2[1];
+
+      if (!options.matchVisual && matcher === matchSpacing) return;
+      _this.addMatcher(selector, matcher);
     });
     return _this;
   }
@@ -88044,14 +88707,14 @@ var Clipboard = function (_Module) {
       var delta = new _quillDelta2.default().retain(range.index);
       var scrollTop = this.quill.scrollingContainer.scrollTop;
       this.container.focus();
+      this.quill.selection.update(_quill2.default.sources.SILENT);
       setTimeout(function () {
-        _this2.quill.selection.update(_quill2.default.sources.SILENT);
         delta = delta.concat(_this2.convert()).delete(range.length);
         _this2.quill.updateContents(delta, _quill2.default.sources.USER);
         // range.length contributes to delta.length()
         _this2.quill.setSelection(delta.length() - range.length, _quill2.default.sources.SILENT);
         _this2.quill.scrollingContainer.scrollTop = scrollTop;
-        _this2.quill.selection.scrollIntoView();
+        _this2.quill.focus();
       }, 1);
     }
   }, {
@@ -88090,7 +88753,8 @@ var Clipboard = function (_Module) {
 }(_module2.default);
 
 Clipboard.DEFAULTS = {
-  matchers: []
+  matchers: [],
+  matchVisual: true
 };
 
 function applyFormat(delta, format, value) {
@@ -88318,7 +88982,7 @@ var _slicedToArray = function () { function sliceIterator(arr, i) { var _arr = [
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-var _quillDelta = __webpack_require__(2);
+var _quillDelta = __webpack_require__(1);
 
 var _quillDelta2 = _interopRequireDefault(_quillDelta);
 
@@ -88330,11 +88994,11 @@ var _quill = __webpack_require__(6);
 
 var _quill2 = _interopRequireDefault(_quill);
 
-var _logger = __webpack_require__(10);
+var _logger = __webpack_require__(11);
 
 var _logger2 = _interopRequireDefault(_logger);
 
-var _module = __webpack_require__(9);
+var _module = __webpack_require__(10);
 
 var _module2 = _interopRequireDefault(_module);
 
@@ -89921,7 +90585,7 @@ var __extends = (this && this.__extends) || (function () {
 })();
 Object.defineProperty(exports, "__esModule", { value: true });
 var format_1 = __webpack_require__(22);
-var Registry = __webpack_require__(1);
+var Registry = __webpack_require__(2);
 var BlockBlot = (function (_super) {
     __extends(BlockBlot, _super);
     function BlockBlot() {
@@ -89963,12 +90627,12 @@ var BlockBlot = (function (_super) {
             after.parent.insertBefore(blot, after);
         }
     };
-    BlockBlot.prototype.update = function (mutations) {
+    BlockBlot.prototype.update = function (mutations, context) {
         if (navigator.userAgent.match(/Trident/)) {
             this.attach();
         }
         else {
-            _super.prototype.update.call(this, mutations);
+            _super.prototype.update.call(this, mutations, context);
         }
     };
     return BlockBlot;
@@ -90045,7 +90709,7 @@ var __extends = (this && this.__extends) || (function () {
 })();
 Object.defineProperty(exports, "__esModule", { value: true });
 var format_1 = __webpack_require__(22);
-var Registry = __webpack_require__(1);
+var Registry = __webpack_require__(2);
 // Shallow object comparison
 function isEqual(obj1, obj2) {
     if (Object.keys(obj1).length !== Object.keys(obj2).length)
@@ -90090,8 +90754,8 @@ var InlineBlot = (function (_super) {
             _super.prototype.formatAt.call(this, index, length, name, value);
         }
     };
-    InlineBlot.prototype.optimize = function () {
-        _super.prototype.optimize.call(this);
+    InlineBlot.prototype.optimize = function (context) {
+        _super.prototype.optimize.call(this, context);
         var formats = this.formats();
         if (Object.keys(formats).length === 0) {
             return this.unwrap(); // unformatted span
@@ -90128,7 +90792,7 @@ var __extends = (this && this.__extends) || (function () {
 })();
 Object.defineProperty(exports, "__esModule", { value: true });
 var container_1 = __webpack_require__(21);
-var Registry = __webpack_require__(1);
+var Registry = __webpack_require__(2);
 var OBSERVER_CONFIG = {
     attributes: true,
     characterData: true,
@@ -90171,10 +90835,11 @@ var ScrollBlot = (function (_super) {
         this.update();
         _super.prototype.insertAt.call(this, index, value, def);
     };
-    ScrollBlot.prototype.optimize = function (mutations) {
+    ScrollBlot.prototype.optimize = function (mutations, context) {
         var _this = this;
         if (mutations === void 0) { mutations = []; }
-        _super.prototype.optimize.call(this);
+        if (context === void 0) { context = {}; }
+        _super.prototype.optimize.call(this, context);
         // We must modify mutations directly, cannot make copy and then modify
         var records = [].slice.call(this.observer.takeRecords());
         // Array.push currently seems to be implemented by a non-tail recursive function
@@ -90201,7 +90866,7 @@ var ScrollBlot = (function (_super) {
             if (blot instanceof container_1.default) {
                 blot.children.forEach(optimize);
             }
-            blot.optimize();
+            blot.optimize(context);
         };
         var remaining = mutations;
         for (var i = 0; remaining.length > 0; i += 1) {
@@ -90238,8 +90903,9 @@ var ScrollBlot = (function (_super) {
                 mutations.push(records.pop());
         }
     };
-    ScrollBlot.prototype.update = function (mutations) {
+    ScrollBlot.prototype.update = function (mutations, context) {
         var _this = this;
+        if (context === void 0) { context = {}; }
         mutations = mutations || this.observer.takeRecords();
         // TODO use WeakMap
         mutations.map(function (mutation) {
@@ -90257,12 +90923,12 @@ var ScrollBlot = (function (_super) {
         }).forEach(function (blot) {
             if (blot == null || blot === _this || blot.domNode[Registry.DATA_KEY] == null)
                 return;
-            blot.update(blot.domNode[Registry.DATA_KEY].mutations || []);
+            blot.update(blot.domNode[Registry.DATA_KEY].mutations || [], context);
         });
         if (this.domNode[Registry.DATA_KEY].mutations != null) {
-            _super.prototype.update.call(this, this.domNode[Registry.DATA_KEY].mutations);
+            _super.prototype.update.call(this, this.domNode[Registry.DATA_KEY].mutations, context);
         }
-        this.optimize(mutations);
+        this.optimize(mutations, context);
     };
     return ScrollBlot;
 }(container_1.default));
@@ -90291,7 +90957,7 @@ var __extends = (this && this.__extends) || (function () {
 })();
 Object.defineProperty(exports, "__esModule", { value: true });
 var leaf_1 = __webpack_require__(23);
-var Registry = __webpack_require__(1);
+var Registry = __webpack_require__(2);
 var TextBlot = (function (_super) {
     __extends(TextBlot, _super);
     function TextBlot(node) {
@@ -90329,8 +90995,8 @@ var TextBlot = (function (_super) {
     TextBlot.prototype.length = function () {
         return this.text.length;
     };
-    TextBlot.prototype.optimize = function () {
-        _super.prototype.optimize.call(this);
+    TextBlot.prototype.optimize = function (context) {
+        _super.prototype.optimize.call(this, context);
         this.text = this.statics.value(this.domNode);
         if (this.text.length === 0) {
             this.remove();
@@ -90357,7 +91023,7 @@ var TextBlot = (function (_super) {
         this.text = this.statics.value(this.domNode);
         return after;
     };
-    TextBlot.prototype.update = function (mutations) {
+    TextBlot.prototype.update = function (mutations, context) {
         var _this = this;
         if (mutations.some(function (mutation) {
             return mutation.type === 'characterData' && mutation.target === _this.domNode;
@@ -90582,7 +91248,7 @@ var _video = __webpack_require__(73);
 
 var _video2 = _interopRequireDefault(_video);
 
-var _code = __webpack_require__(16);
+var _code = __webpack_require__(17);
 
 var _code2 = _interopRequireDefault(_code);
 
@@ -90711,7 +91377,7 @@ var _extend = __webpack_require__(3);
 
 var _extend2 = _interopRequireDefault(_extend);
 
-var _emitter = __webpack_require__(5);
+var _emitter = __webpack_require__(9);
 
 var _emitter2 = _interopRequireDefault(_emitter);
 
@@ -90974,7 +91640,7 @@ var _createClass = function () { function defineProperties(target, props) { for 
 
 var _get = function get(object, property, receiver) { if (object === null) object = Function.prototype; var desc = Object.getOwnPropertyDescriptor(object, property); if (desc === undefined) { var parent = Object.getPrototypeOf(object); if (parent === null) { return undefined; } else { return get(parent, property, receiver); } } else if ("value" in desc) { return desc.value; } else { var getter = desc.get; if (getter === undefined) { return undefined; } return getter.call(receiver); } };
 
-var _embed = __webpack_require__(7);
+var _embed = __webpack_require__(5);
 
 var _embed2 = _interopRequireDefault(_embed);
 
@@ -91332,8 +91998,8 @@ var List = function (_Container) {
     }
   }, {
     key: 'optimize',
-    value: function optimize() {
-      _get(List.prototype.__proto__ || Object.getPrototypeOf(List.prototype), 'optimize', this).call(this);
+    value: function optimize(context) {
+      _get(List.prototype.__proto__ || Object.getPrototypeOf(List.prototype), 'optimize', this).call(this, context);
       var next = this.next;
       if (next != null && next.prev === this && next.statics.blotName === this.statics.blotName && next.domNode.tagName === this.domNode.tagName && next.domNode.getAttribute('data-checked') === this.domNode.getAttribute('data-checked')) {
         next.moveChildren(this);
@@ -91379,7 +92045,7 @@ var _createClass = function () { function defineProperties(target, props) { for 
 
 var _get = function get(object, property, receiver) { if (object === null) object = Function.prototype; var desc = Object.getOwnPropertyDescriptor(object, property); if (desc === undefined) { var parent = Object.getPrototypeOf(object); if (parent === null) { return undefined; } else { return get(parent, property, receiver); } } else if ("value" in desc) { return desc.value; } else { var getter = desc.get; if (getter === undefined) { return undefined; } return getter.call(receiver); } };
 
-var _inline = __webpack_require__(8);
+var _inline = __webpack_require__(7);
 
 var _inline2 = _interopRequireDefault(_inline);
 
@@ -91439,7 +92105,7 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
-var _inline = __webpack_require__(8);
+var _inline = __webpack_require__(7);
 
 var _inline2 = _interopRequireDefault(_inline);
 
@@ -91479,7 +92145,7 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
-var _inline = __webpack_require__(8);
+var _inline = __webpack_require__(7);
 
 var _inline2 = _interopRequireDefault(_inline);
 
@@ -91617,15 +92283,13 @@ var _createClass = function () { function defineProperties(target, props) { for 
 
 var _get = function get(object, property, receiver) { if (object === null) object = Function.prototype; var desc = Object.getOwnPropertyDescriptor(object, property); if (desc === undefined) { var parent = Object.getPrototypeOf(object); if (parent === null) { return undefined; } else { return get(parent, property, receiver); } } else if ("value" in desc) { return desc.value; } else { var getter = desc.get; if (getter === undefined) { return undefined; } return getter.call(receiver); } };
 
-var _embed = __webpack_require__(7);
-
-var _embed2 = _interopRequireDefault(_embed);
+var _embed = __webpack_require__(5);
 
 var _quill = __webpack_require__(6);
 
 var _quill2 = _interopRequireDefault(_quill);
 
-var _module = __webpack_require__(9);
+var _module = __webpack_require__(10);
 
 var _module2 = _interopRequireDefault(_module);
 
@@ -91637,8 +92301,8 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-var FormulaBlot = function (_Embed) {
-  _inherits(FormulaBlot, _Embed);
+var FormulaBlot = function (_InlineEmbed) {
+  _inherits(FormulaBlot, _InlineEmbed);
 
   function FormulaBlot() {
     _classCallCheck(this, FormulaBlot);
@@ -91646,12 +92310,7 @@ var FormulaBlot = function (_Embed) {
     return _possibleConstructorReturn(this, (FormulaBlot.__proto__ || Object.getPrototypeOf(FormulaBlot)).apply(this, arguments));
   }
 
-  _createClass(FormulaBlot, [{
-    key: 'index',
-    value: function index() {
-      return 1;
-    }
-  }], [{
+  _createClass(FormulaBlot, null, [{
     key: 'create',
     value: function create(value) {
       var node = _get(FormulaBlot.__proto__ || Object.getPrototypeOf(FormulaBlot), 'create', this).call(this, value);
@@ -91659,7 +92318,6 @@ var FormulaBlot = function (_Embed) {
         window.katex.render(value, node);
         node.setAttribute('data-value', value);
       }
-      node.setAttribute('contenteditable', false);
       return node;
     }
   }, {
@@ -91670,7 +92328,7 @@ var FormulaBlot = function (_Embed) {
   }]);
 
   return FormulaBlot;
-}(_embed2.default);
+}(_embed.InlineEmbed);
 
 FormulaBlot.blotName = 'formula';
 FormulaBlot.className = 'ql-formula';
@@ -91727,11 +92385,11 @@ var _quill = __webpack_require__(6);
 
 var _quill2 = _interopRequireDefault(_quill);
 
-var _module = __webpack_require__(9);
+var _module = __webpack_require__(10);
 
 var _module2 = _interopRequireDefault(_module);
 
-var _code = __webpack_require__(16);
+var _code = __webpack_require__(17);
 
 var _code2 = _interopRequireDefault(_code);
 
@@ -91762,13 +92420,14 @@ var SyntaxCodeBlock = function (_CodeBlock) {
   }, {
     key: 'highlight',
     value: function highlight(_highlight) {
-      if (this.cachedHTML !== this.domNode.innerHTML) {
-        var text = this.domNode.textContent;
-        if (text.trim().length > 0 || this.cachedHTML == null) {
+      var text = this.domNode.textContent;
+      if (this.cachedText !== text) {
+        if (text.trim().length > 0 || this.cachedText == null) {
           this.domNode.innerHTML = _highlight(text);
+          this.domNode.normalize();
           this.attach();
         }
-        this.cachedHTML = this.domNode.innerHTML;
+        this.cachedText = text;
       }
     }
   }]);
@@ -91803,11 +92462,11 @@ var Syntax = function (_Module) {
     }
     var timer = null;
     _this2.quill.on(_quill2.default.events.SCROLL_OPTIMIZE, function () {
-      if (timer != null) return;
+      clearTimeout(timer);
       timer = setTimeout(function () {
         _this2.highlight();
         timer = null;
-      }, 100);
+      }, _this2.options.interval);
     });
     _this2.highlight();
     return _this2;
@@ -91819,6 +92478,7 @@ var Syntax = function (_Module) {
       var _this3 = this;
 
       if (this.quill.selection.composing) return;
+      this.quill.update(_quill2.default.sources.USER);
       var range = this.quill.getSelection();
       this.quill.scroll.descendants(SyntaxCodeBlock).forEach(function (code) {
         code.highlight(_this3.options.highlight);
@@ -91840,7 +92500,8 @@ Syntax.DEFAULTS = {
       var result = window.hljs.highlightAuto(text);
       return result.value;
     };
-  }()
+  }(),
+  interval: 1000
 };
 
 exports.CodeBlock = SyntaxCodeBlock;
@@ -91867,7 +92528,7 @@ var _extend = __webpack_require__(3);
 
 var _extend2 = _interopRequireDefault(_extend);
 
-var _emitter = __webpack_require__(5);
+var _emitter = __webpack_require__(9);
 
 var _emitter2 = _interopRequireDefault(_emitter);
 
@@ -92252,7 +92913,7 @@ module.exports = __webpack_require__(62);
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /*!
- * vue-i18n v7.0.3 
+ * vue-i18n v7.0.5 
  * (c) 2017 kazuya kawaguchi
  * Released under the MIT License.
  */
@@ -92341,6 +93002,15 @@ function looseClone (obj) {
   return JSON.parse(JSON.stringify(obj))
 }
 
+function remove (arr, item) {
+  if (arr.length) {
+    var index = arr.indexOf(item);
+    if (index > -1) {
+      return arr.splice(index, 1)
+    }
+  }
+}
+
 var canUseDateTimeFormat =
   typeof Intl !== 'undefined' && typeof Intl.DateTimeFormat !== 'undefined';
 
@@ -92392,8 +93062,6 @@ function extend (Vue) {
 
 var mixin = {
   beforeCreate: function beforeCreate () {
-    var this$1 = this;
-
     var options = this.$options;
     options.i18n = options.i18n || (options.__i18n ? {} : null);
 
@@ -92413,7 +93081,9 @@ var mixin = {
           }
         }
         this._i18n = options.i18n;
-        this._i18nWatcher = this._i18n.watchI18nData(function () { return this$1.$forceUpdate(); });
+        this._i18nWatcher = this._i18n.watchI18nData();
+        this._i18n.subscribeDataChanging(this);
+        this._subscribing = true;
       } else if (isPlainObject(options.i18n)) {
         // component local i18n
         if (this.$root && this.$root.$i18n && this.$root.$i18n instanceof VueI18n) {
@@ -92434,10 +93104,12 @@ var mixin = {
         }
 
         this._i18n = new VueI18n(options.i18n);
-        this._i18nWatcher = this._i18n.watchI18nData(function () { return this$1.$forceUpdate(); });
+        this._i18nWatcher = this._i18n.watchI18nData();
+        this._i18n.subscribeDataChanging(this);
+        this._subscribing = true;
 
         if (options.i18n.sync === undefined || !!options.i18n.sync) {
-          this._localeWatcher = this.$i18n.watchLocale(function () { return this$1.$forceUpdate(); });
+          this._localeWatcher = this.$i18n.watchLocale();
         }
       } else {
         if (true) {
@@ -92447,12 +93119,18 @@ var mixin = {
     } else if (this.$root && this.$root.$i18n && this.$root.$i18n instanceof VueI18n) {
       // root i18n
       this._i18n = this.$root.$i18n;
-      this._i18nWatcher = this._i18n.watchI18nData(function () { return this$1.$forceUpdate(); });
+      this._i18n.subscribeDataChanging(this);
+      this._subscribing = true;
     }
   },
 
   beforeDestroy: function beforeDestroy () {
     if (!this._i18n) { return }
+
+    if (this._subscribing) {
+      this._i18n.unsubscribeDataChanging(this);
+      delete this._subscribing;
+    }
 
     if (this._i18nWatcher) {
       this._i18nWatcher();
@@ -92589,6 +93267,9 @@ function parse (format) {
       tokens.push({ value: sub, type: type });
     } else if (char === '%') {
       // when found rails i18n syntax, skip text capture
+      if (format[(position)] !== '{') {
+        text += char;
+      }
     } else {
       text += char;
     }
@@ -92990,6 +93671,7 @@ var VueI18n = function VueI18n (options) {
   this._dateTimeFormatters = {};
   this._numberFormatters = {};
   this._path = new I18nPath();
+  this._dataListeners = [];
 
   this._exist = function (message, key) {
     if (!message || !key) { return false }
@@ -93014,19 +93696,33 @@ VueI18n.prototype._initVM = function _initVM (data) {
   Vue.config.silent = silent;
 };
 
-VueI18n.prototype.watchI18nData = function watchI18nData (fn) {
+VueI18n.prototype.subscribeDataChanging = function subscribeDataChanging (vm) {
+  this._dataListeners.push(vm);
+};
+
+VueI18n.prototype.unsubscribeDataChanging = function unsubscribeDataChanging (vm) {
+  remove(this._dataListeners, vm);
+};
+
+VueI18n.prototype.watchI18nData = function watchI18nData () {
+  var self = this;
   return this._vm.$watch('$data', function () {
-    fn && fn();
+    var i = self._dataListeners.length;
+    while (i--) {
+      Vue.nextTick(function () {
+        self._dataListeners[i] && self._dataListeners[i].$forceUpdate();
+      });
+    }
   }, { deep: true })
 };
 
-VueI18n.prototype.watchLocale = function watchLocale (fn) {
+VueI18n.prototype.watchLocale = function watchLocale () {
   /* istanbul ignore if */
   if (!this._sync || !this._root) { return null }
   var target = this._vm;
   return this._root.vm.$watch('locale', function (val) {
     target.$set(target, 'locale', val);
-    fn && fn();
+    target.$forceUpdate();
   }, { immediate: true })
 };
 
@@ -93142,6 +93838,11 @@ VueI18n.prototype._link = function _link (
   // them with its translation
   var matches = ret.match(/(@:[\w\-_|.]+)/g);
   for (var idx in matches) {
+    // ie compatible: filter custom array
+    // prototype method
+    if (!matches.hasOwnProperty(idx)) {
+      continue
+    }
     var link = matches[idx];
     // Remove the leading @:
     var linkPlaceholder = link.substr(2);
@@ -93211,7 +93912,7 @@ VueI18n.prototype._t = function _t (key, _locale, messages, host) {
   if (!key) { return '' }
 
   var parsedArgs = parseArgs.apply(void 0, values);
-  var locale = parsedArgs.locale || _locale;
+    var locale = parsedArgs.locale || _locale;
 
   var ret = this._translate(
     messages, locale, this.fallbackLocale, key,
@@ -93260,7 +93961,7 @@ VueI18n.prototype.i = function i (key) {
     var values = [], len = arguments.length - 1;
     while ( len-- > 0 ) values[ len ] = arguments[ len + 1 ];
 
-    /* istanbul ignore if */
+  /* istanbul ignore if */
   if (!key) { return '' }
 
   var locale = this.locale;
@@ -93273,9 +93974,9 @@ VueI18n.prototype.i = function i (key) {
   var params = [];
   for (var i = index; i < values.length; i++) {
     params.push(values[i]);
-  }
+    }
 
-  return (ref = this)._i.apply(ref, [ key, locale, this._getMessages(), null ].concat( params ))
+    return (ref = this)._i.apply(ref, [ key, locale, this._getMessages(), null ].concat( params ))
     var ref;
 };
 
@@ -93303,9 +94004,9 @@ VueI18n.prototype.tc = function tc (key, choice) {
 
   return (ref = this)._tc.apply(ref, [ key, this.locale, this._getMessages(), null, choice ].concat( values ))
     var ref;
-  };
+};
 
-  VueI18n.prototype._te = function _te (key, locale, messages) {
+VueI18n.prototype._te = function _te (key, locale, messages) {
     var args = [], len = arguments.length - 3;
     while ( len-- > 0 ) args[ len ] = arguments[ len + 3 ];
 
@@ -93388,7 +94089,7 @@ VueI18n.prototype._d = function _d (value, locale, key) {
     this._localizeDateTime(value, locale, this.fallbackLocale, this._getDateTimeFormats(), key);
   if (this._isFallbackRoot(ret)) {
     if (true) {
-        warn(("Fall back to datetime localization of root: key '" + key + "' ."));
+      warn(("Fall back to datetime localization of root: key '" + key + "' ."));
     }
     /* istanbul ignore if */
     if (!this._root) { throw Error('unexpected error') }
@@ -93411,13 +94112,13 @@ VueI18n.prototype.d = function d (value) {
     } else if (isObject(args[0])) {
       if (args[0].locale) {
         locale = args[0].locale;
-      }
-      if (args[0].key) {
+        }
+        if (args[0].key) {
         key = args[0].key;
       }
     }
   } else if (args.length === 2) {
-    if (typeof args[0] === 'string') {
+      if (typeof args[0] === 'string') {
       key = args[0];
     }
     if (typeof args[1] === 'string') {
@@ -93494,10 +94195,10 @@ VueI18n.prototype._n = function _n (value, locale, key) {
     return this._root.n(value, key, locale)
   } else {
     return ret || ''
-    }
-  };
+  }
+};
 
-  VueI18n.prototype.n = function n (value) {
+VueI18n.prototype.n = function n (value) {
     var args = [], len = arguments.length - 1;
     while ( len-- > 0 ) args[ len ] = arguments[ len + 1 ];
 
@@ -93505,7 +94206,7 @@ VueI18n.prototype._n = function _n (value, locale, key) {
   var key = null;
 
   if (args.length === 1) {
-      if (typeof args[0] === 'string') {
+    if (typeof args[0] === 'string') {
       key = args[0];
     } else if (isObject(args[0])) {
       if (args[0].locale) {
@@ -93521,10 +94222,10 @@ VueI18n.prototype._n = function _n (value, locale, key) {
     }
     if (typeof args[1] === 'string') {
       locale = args[1];
+      }
     }
-  }
 
-  return this._n(value, locale, key)
+    return this._n(value, locale, key)
 };
 
 Object.defineProperties( VueI18n.prototype, prototypeAccessors );
@@ -93534,7 +94235,7 @@ VueI18n.availabilities = {
   numberFormat: canUseNumberFormat
 };
 VueI18n.install = install;
-VueI18n.version = '7.0.3';
+VueI18n.version = '7.0.5';
 
 /* istanbul ignore if */
 if (typeof window !== 'undefined' && window.Vue) {
@@ -95682,9 +96383,6 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       "input": function($event) {
         if ($event.target.composing) { return; }
         _vm.log.length = $event.target.value
-      },
-      "blur": function($event) {
-        _vm.$forceUpdate()
       }
     }
   })]), _vm._v(" "), _c('div', {
@@ -97732,7 +98430,7 @@ if (false) {
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /**
-  * vue-router v2.5.3
+  * vue-router v2.7.0
   * (c) 2017 Evan You
   * @license MIT
   */
@@ -97748,6 +98446,10 @@ function warn (condition, message) {
   if ("development" !== 'production' && !condition) {
     typeof console !== 'undefined' && console.warn(("[vue-router] " + message));
   }
+}
+
+function isError (err) {
+  return Object.prototype.toString.call(err).indexOf('Error') > -1
 }
 
 var View = {
@@ -97778,7 +98480,7 @@ var View = {
     // has been toggled inactive but kept-alive.
     var depth = 0;
     var inactive = false;
-    while (parent) {
+    while (parent && parent._routerRoot !== parent) {
       if (parent.$vnode && parent.$vnode.data.routerView) {
         depth++;
       }
@@ -97929,7 +98631,7 @@ function stringifyQuery (obj) {
 
     if (Array.isArray(val)) {
       var result = [];
-      val.slice().forEach(function (val2) {
+      val.forEach(function (val2) {
         if (val2 === undefined) {
           return
         }
@@ -98033,7 +98735,15 @@ function isObjectEqual (a, b) {
   if (aKeys.length !== bKeys.length) {
     return false
   }
-  return aKeys.every(function (key) { return String(a[key]) === String(b[key]); })
+  return aKeys.every(function (key) {
+    var aVal = a[key];
+    var bVal = b[key];
+    // check nested equality
+    if (typeof aVal === 'object' && typeof bVal === 'object') {
+      return isObjectEqual(aVal, bVal)
+    }
+    return String(aVal) === String(bVal)
+  })
 }
 
 function isIncludedRoute (current, target) {
@@ -98164,7 +98874,7 @@ var Link = {
 
 function guardEvent (e) {
   // don't redirect with control keys
-  if (e.metaKey || e.ctrlKey || e.shiftKey) { return }
+  if (e.metaKey || e.altKey || e.ctrlKey || e.shiftKey) { return }
   // don't redirect when preventDefault called
   if (e.defaultPrevented) { return }
   // don't redirect on right click
@@ -98204,14 +98914,6 @@ function install (Vue) {
 
   _Vue = Vue;
 
-  Object.defineProperty(Vue.prototype, '$router', {
-    get: function get () { return this.$root._router }
-  });
-
-  Object.defineProperty(Vue.prototype, '$route', {
-    get: function get () { return this.$root._route }
-  });
-
   var isDef = function (v) { return v !== undefined; };
 
   var registerInstance = function (vm, callVal) {
@@ -98224,9 +98926,12 @@ function install (Vue) {
   Vue.mixin({
     beforeCreate: function beforeCreate () {
       if (isDef(this.$options.router)) {
+        this._routerRoot = this;
         this._router = this.$options.router;
         this._router.init(this);
         Vue.util.defineReactive(this, '_route', this._router.history.current);
+      } else {
+        this._routerRoot = (this.$parent && this.$parent._routerRoot) || this;
       }
       registerInstance(this, this);
     },
@@ -98235,12 +98940,20 @@ function install (Vue) {
     }
   });
 
+  Object.defineProperty(Vue.prototype, '$router', {
+    get: function get () { return this._routerRoot._router }
+  });
+
+  Object.defineProperty(Vue.prototype, '$route', {
+    get: function get () { return this._routerRoot._route }
+  });
+
   Vue.component('router-view', View);
   Vue.component('router-link', Link);
 
   var strats = Vue.config.optionMergeStrategies;
   // use the same hook merging strategy for route hooks
-  strats.beforeRouteEnter = strats.beforeRouteLeave = strats.created;
+  strats.beforeRouteEnter = strats.beforeRouteLeave = strats.beforeRouteUpdate = strats.created;
 }
 
 /*  */
@@ -98827,9 +99540,15 @@ function addRouteRecord (
   }
 
   var normalizedPath = normalizePath(path, parent);
+  var pathToRegexpOptions = route.pathToRegexpOptions || {};
+
+  if (typeof route.caseSensitive === 'boolean') {
+    pathToRegexpOptions.sensitive = route.caseSensitive;
+  }
+
   var record = {
     path: normalizedPath,
-    regex: compileRouteRegex(normalizedPath),
+    regex: compileRouteRegex(normalizedPath, pathToRegexpOptions),
     components: route.components || { default: route.component },
     instances: {},
     name: name,
@@ -98846,11 +99565,11 @@ function addRouteRecord (
   };
 
   if (route.children) {
-    // Warn if route is named and has a default child route.
+    // Warn if route is named, does not redirect and has a default child route.
     // If users navigate to this route by name, the default child will
     // not be rendered (GH Issue #629)
     if (true) {
-      if (route.name && route.children.some(function (child) { return /^\/?$/.test(child.path); })) {
+      if (route.name && !route.redirect && route.children.some(function (child) { return /^\/?$/.test(child.path); })) {
         warn(
           false,
           "Named Route '" + (route.name) + "' has a default child route. " +
@@ -98870,21 +99589,24 @@ function addRouteRecord (
   }
 
   if (route.alias !== undefined) {
-    if (Array.isArray(route.alias)) {
-      route.alias.forEach(function (alias) {
-        var aliasRoute = {
-          path: alias,
-          children: route.children
-        };
-        addRouteRecord(pathList, pathMap, nameMap, aliasRoute, parent, record.path);
-      });
-    } else {
+    var aliases = Array.isArray(route.alias)
+      ? route.alias
+      : [route.alias];
+
+    aliases.forEach(function (alias) {
       var aliasRoute = {
-        path: route.alias,
+        path: alias,
         children: route.children
       };
-      addRouteRecord(pathList, pathMap, nameMap, aliasRoute, parent, record.path);
-    }
+      addRouteRecord(
+        pathList,
+        pathMap,
+        nameMap,
+        aliasRoute,
+        parent,
+        record.path || '/' // matchAs
+      );
+    });
   }
 
   if (!pathMap[record.path]) {
@@ -98905,8 +99627,8 @@ function addRouteRecord (
   }
 }
 
-function compileRouteRegex (path) {
-  var regex = index(path);
+function compileRouteRegex (path, pathToRegexpOptions) {
+  var regex = index(path, [], pathToRegexpOptions);
   if (true) {
     var keys = {};
     regex.keys.forEach(function (key) {
@@ -98947,7 +99669,7 @@ function normalizeLocation (
     if (current.name) {
       next.name = current.name;
       next.params = params;
-    } else if (current.matched) {
+    } else if (current.matched.length) {
       var rawPath = current.matched[current.matched.length - 1].path;
       next.path = fillParams(rawPath, params, ("path " + (current.path)));
     } else if (true) {
@@ -99017,6 +99739,7 @@ function createMatcher (
       if (true) {
         warn(record, ("Route with name '" + name + "' does not exist"));
       }
+      if (!record) { return _createRoute(null, location) }
       var paramNames = record.regex.keys
         .filter(function (key) { return !key.optional; })
         .map(function (key) { return key.name; });
@@ -99227,7 +99950,9 @@ function handleScroll (
     if (isObject && typeof shouldScroll.selector === 'string') {
       var el = document.querySelector(shouldScroll.selector);
       if (el) {
-        position = getElementPosition(el);
+        var offset = shouldScroll.offset && typeof shouldScroll.offset === 'object' ? shouldScroll.offset : {};
+        offset = normalizeOffset(offset);
+        position = getElementPosition(el, offset);
       } else if (isValidPosition(shouldScroll)) {
         position = normalizePosition(shouldScroll);
       }
@@ -99258,13 +99983,13 @@ function getScrollPosition () {
   }
 }
 
-function getElementPosition (el) {
+function getElementPosition (el, offset) {
   var docEl = document.documentElement;
   var docRect = docEl.getBoundingClientRect();
   var elRect = el.getBoundingClientRect();
   return {
-    x: elRect.left - docRect.left,
-    y: elRect.top - docRect.top
+    x: elRect.left - docRect.left - offset.x,
+    y: elRect.top - docRect.top - offset.y
   }
 }
 
@@ -99276,6 +100001,13 @@ function normalizePosition (obj) {
   return {
     x: isNumber(obj.x) ? obj.x : window.pageXOffset,
     y: isNumber(obj.y) ? obj.y : window.pageYOffset
+  }
+}
+
+function normalizeOffset (obj) {
+  return {
+    x: isNumber(obj.x) ? obj.x : 0,
+    y: isNumber(obj.y) ? obj.y : 0
   }
 }
 
@@ -99357,6 +100089,107 @@ function runQueue (queue, fn, cb) {
     }
   };
   step(0);
+}
+
+/*  */
+
+function resolveAsyncComponents (matched) {
+  return function (to, from, next) {
+    var hasAsync = false;
+    var pending = 0;
+    var error = null;
+
+    flatMapComponents(matched, function (def, _, match, key) {
+      // if it's a function and doesn't have cid attached,
+      // assume it's an async component resolve function.
+      // we are not using Vue's default async resolving mechanism because
+      // we want to halt the navigation until the incoming component has been
+      // resolved.
+      if (typeof def === 'function' && def.cid === undefined) {
+        hasAsync = true;
+        pending++;
+
+        var resolve = once(function (resolvedDef) {
+          if (resolvedDef.__esModule && resolvedDef.default) {
+            resolvedDef = resolvedDef.default;
+          }
+          // save resolved on async factory in case it's used elsewhere
+          def.resolved = typeof resolvedDef === 'function'
+            ? resolvedDef
+            : _Vue.extend(resolvedDef);
+          match.components[key] = resolvedDef;
+          pending--;
+          if (pending <= 0) {
+            next();
+          }
+        });
+
+        var reject = once(function (reason) {
+          var msg = "Failed to resolve async component " + key + ": " + reason;
+          "development" !== 'production' && warn(false, msg);
+          if (!error) {
+            error = isError(reason)
+              ? reason
+              : new Error(msg);
+            next(error);
+          }
+        });
+
+        var res;
+        try {
+          res = def(resolve, reject);
+        } catch (e) {
+          reject(e);
+        }
+        if (res) {
+          if (typeof res.then === 'function') {
+            res.then(resolve, reject);
+          } else {
+            // new syntax in Vue 2.3
+            var comp = res.component;
+            if (comp && typeof comp.then === 'function') {
+              comp.then(resolve, reject);
+            }
+          }
+        }
+      }
+    });
+
+    if (!hasAsync) { next(); }
+  }
+}
+
+function flatMapComponents (
+  matched,
+  fn
+) {
+  return flatten(matched.map(function (m) {
+    return Object.keys(m.components).map(function (key) { return fn(
+      m.components[key],
+      m.instances[key],
+      m, key
+    ); })
+  }))
+}
+
+function flatten (arr) {
+  return Array.prototype.concat.apply([], arr)
+}
+
+// in Webpack 2, require.ensure now also returns a Promise
+// so the resolve/reject functions may get called an extra time
+// if the user uses an arrow function shorthand that happens to
+// return that Promise.
+function once (fn) {
+  var called = false;
+  return function () {
+    var args = [], len = arguments.length;
+    while ( len-- ) args[ len ] = arguments[ len ];
+
+    if (called) { return }
+    called = true;
+    return fn.apply(this, args)
+  }
 }
 
 /*  */
@@ -99531,6 +100364,8 @@ function normalizeBase (base) {
       // respect <base> tag
       var baseEl = document.querySelector('base');
       base = (baseEl && baseEl.getAttribute('href')) || '/';
+      // strip full URL origin
+      base = base.replace(/^https?:\/\/[^\/]+/, '');
     } else {
       base = '/';
     }
@@ -99654,103 +100489,6 @@ function poll (
   }
 }
 
-function resolveAsyncComponents (matched) {
-  return function (to, from, next) {
-    var hasAsync = false;
-    var pending = 0;
-    var error = null;
-
-    flatMapComponents(matched, function (def, _, match, key) {
-      // if it's a function and doesn't have cid attached,
-      // assume it's an async component resolve function.
-      // we are not using Vue's default async resolving mechanism because
-      // we want to halt the navigation until the incoming component has been
-      // resolved.
-      if (typeof def === 'function' && def.cid === undefined) {
-        hasAsync = true;
-        pending++;
-
-        var resolve = once(function (resolvedDef) {
-          // save resolved on async factory in case it's used elsewhere
-          def.resolved = typeof resolvedDef === 'function'
-            ? resolvedDef
-            : _Vue.extend(resolvedDef);
-          match.components[key] = resolvedDef;
-          pending--;
-          if (pending <= 0) {
-            next();
-          }
-        });
-
-        var reject = once(function (reason) {
-          var msg = "Failed to resolve async component " + key + ": " + reason;
-          "development" !== 'production' && warn(false, msg);
-          if (!error) {
-            error = isError(reason)
-              ? reason
-              : new Error(msg);
-            next(error);
-          }
-        });
-
-        var res;
-        try {
-          res = def(resolve, reject);
-        } catch (e) {
-          reject(e);
-        }
-        if (res) {
-          if (typeof res.then === 'function') {
-            res.then(resolve, reject);
-          } else {
-            // new syntax in Vue 2.3
-            var comp = res.component;
-            if (comp && typeof comp.then === 'function') {
-              comp.then(resolve, reject);
-            }
-          }
-        }
-      }
-    });
-
-    if (!hasAsync) { next(); }
-  }
-}
-
-function flatMapComponents (
-  matched,
-  fn
-) {
-  return flatten(matched.map(function (m) {
-    return Object.keys(m.components).map(function (key) { return fn(
-      m.components[key],
-      m.instances[key],
-      m, key
-    ); })
-  }))
-}
-
-function flatten (arr) {
-  return Array.prototype.concat.apply([], arr)
-}
-
-// in Webpack 2, require.ensure now also returns a Promise
-// so the resolve/reject functions may get called an extra time
-// if the user uses an arrow function shorthand that happens to
-// return that Promise.
-function once (fn) {
-  var called = false;
-  return function () {
-    if (called) { return }
-    called = true;
-    return fn.apply(this, arguments)
-  }
-}
-
-function isError (err) {
-  return Object.prototype.toString.call(err).indexOf('Error') > -1
-}
-
 /*  */
 
 
@@ -99767,9 +100505,10 @@ var HTML5History = (function (History$$1) {
     }
 
     window.addEventListener('popstate', function (e) {
+      var current = this$1.current;
       this$1.transitionTo(getLocation(this$1.base), function (route) {
         if (expectScroll) {
-          handleScroll(router, route, this$1.current, true);
+          handleScroll(router, route, current, true);
         }
       });
     });
@@ -99925,10 +100664,10 @@ function pushHash (path) {
 }
 
 function replaceHash (path) {
-  var i = window.location.href.indexOf('#');
-  window.location.replace(
-    window.location.href.slice(0, i >= 0 ? i : 0) + '#' + path
-  );
+  var href = window.location.href;
+  var i = href.indexOf('#');
+  var base = i >= 0 ? href.slice(0, i) : href;
+  window.location.replace((base + "#" + path));
 }
 
 /*  */
@@ -100004,7 +100743,7 @@ var VueRouter = function VueRouter (options) {
   this.matcher = createMatcher(options.routes || [], this);
 
   var mode = options.mode || 'hash';
-  this.fallback = mode === 'history' && !supportsPushState;
+  this.fallback = mode === 'history' && !supportsPushState && options.fallback !== false;
   if (this.fallback) {
     mode = 'hash';
   }
@@ -100188,7 +100927,7 @@ function createHref (base, fullPath, mode) {
 }
 
 VueRouter.install = install;
-VueRouter.version = '2.5.3';
+VueRouter.version = '2.7.0';
 
 if (inBrowser && window.Vue) {
   window.Vue.use(VueRouter);

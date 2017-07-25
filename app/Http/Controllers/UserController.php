@@ -51,7 +51,7 @@ class UserController extends Controller
                 $password = Str::random(6);
                 $request->merge(['password' => $password]);
             }
-            $request->merge(['event_url' => Str::random(24)]);
+            $request->merge(['event_url' => Str::random(24), 'image' => null]);
             $user = User::create($request->all());
 
             if ($password) {
@@ -96,7 +96,6 @@ class UserController extends Controller
      */
     public function destroy(User $user)
     {
-        $accountService = app()->make('AccountService');
-        $accountService->account->users()->detach($user->id);
+        $user->delete();
     }
 }
