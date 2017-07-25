@@ -5,22 +5,24 @@
 Vend is a project management tool built on Laravel and Vue.js
 
 ## Features
-- Manage projects, project members, project columns (statuses)
-- Create project cards, assign to project member
-- Add tasks, comments, files and time tracking logs to cards
-- Create discussions and messages
-- Attach files or events to messages
+- Create projects, assign project members, set project columns
+- Manage project cards (due dates, assign to users, add card description)
+- Add tasks, comments, files and time logs to cards
+- Create discussion topics to collaborate with team members
+- Create messages, attach event and files to messages
+- Timetracking
+- Filterable timesheets and reports
 
 ## Installation
 
-Vend is built on Laravel, the installation process is the same. [See installation](https://laravel.com/docs/5.4/installation)
+Vend is built on Laravel, the installation process is the same. [See installation on Laravel's website](https://laravel.com/docs/5.4/installation)
 
 After laravel installation, migrate and seed the database:
 ```
 php artisan migrate --seed
 ```
 
-**Complete installation:**
+**Detailed installation:**
 
 After checkout, run the following:
 ```
@@ -38,10 +40,6 @@ After you login with the seeded default account:
 
 ## Development status
 Vend is currently under development, do not use in production.
-
-## Contributing
-
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](http://laravel.com/docs/contributions).
 
 ## Security Vulnerabilities
 
