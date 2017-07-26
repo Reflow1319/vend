@@ -42,10 +42,10 @@
                     </a>
                 </div>
 
-                @if(env('demo_user'))
+                @if(env('DEMO_USER'))
                 <div class="alert alert-info">
-                    Username: <b>{{ env('demo_user') }}</b><br>
-                    Password: <b>{{ env('demo_pass') }}</b><br>
+                    Username: <b>{{ env('DEMO_USER') }}</b><br>
+                    Password: <b>{{ env('DEMO_PASS') }}</b><br>
                 </div>
                 @endif
             </form>
