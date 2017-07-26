@@ -2,7 +2,7 @@
     <div class="notifications">
         <span class="small text-muted">{{ $t('notifications.title') }}</span>
         <div class="mb-md">
-            <div v-for="notification in notifications" v-bind:key="notification"
+            <div v-for="notification in notifications" v-bind:key="notification.id"
                  class="media media-sm media-dark small cursor-pointer" @click="showNotification(notification)">
                 <div class="media-left">
                     <div class="notification-dot" :class="{'unread' : notification.read_at == null }"></div>
