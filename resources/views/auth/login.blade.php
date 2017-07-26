@@ -41,6 +41,13 @@
                         {{ __('auth.forgot_password') }}
                     </a>
                 </div>
+
+                @if(env('demo_user'))
+                <div class="alert alert-info">
+                    Username: <b>{{ env('demo_user') }}</b><br>
+                    Password: <b>{{ env('demo_pass') }}</b><br>
+                </div>
+                @endif
             </form>
         </div>
     </div>
