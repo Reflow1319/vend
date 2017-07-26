@@ -44931,7 +44931,9 @@ exports.default = {
     props: ['tasks', 'url'],
     data: function data() {
         return {
-            newTask: {}
+            newTask: {
+                is_completed: 0
+            }
         };
     },
 

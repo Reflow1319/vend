@@ -27,7 +27,9 @@
         props: ['tasks', 'url'],
         data() {
             return {
-                newTask: {},
+                newTask: {
+                    is_completed: 0
+                },
             }
         },
         computed: {
