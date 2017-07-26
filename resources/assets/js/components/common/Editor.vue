@@ -38,6 +38,9 @@
         methods: {
             getContent() {
                 return this.editor.root.innerHTML
+            },
+            setContent(content) {
+                this.editor.setContents(content || '')
             }
         }
     }

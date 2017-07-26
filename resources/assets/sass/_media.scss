@@ -52,6 +52,9 @@
             display: block;
             margin-right: 10px;
         }
+        p {
+            margin: 5px 0;
+        }
     }
     &-header a {
         color: $common;

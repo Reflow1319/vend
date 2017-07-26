@@ -10,7 +10,7 @@
                         <b>{{ comment.user.name }}</b>
                         <span class="text-muted"> - {{ fromNow(comment.created_at) }}</span>
                     </div>
-                    {{ comment.content }}
+                    <div v-html="comment.content"></div>
                 </div>
                 <div class="media-right">
                     <a @click="deleteComment(comment)" v-if="comment.user.id == currentUser.id">
@@ -21,10 +21,7 @@
         </div>
         <form action="#" @submit.prevent="save()">
             <div class="form-group">
-                <textarea v-model="newComment.content"
-                          class="form-control"
-                          :placeholder="$t('comments.placeholder')"
-                          id="comment-text"></textarea>
+                <editor ref="editor" :content="newComment.content" :placeholder="$t('comments.placeholder')"></editor>
             </div>
             <div class="text-right">
                 <button class="btn btn-primary">{{ $t('comments.create') }}</button>
@@ -34,11 +31,14 @@
 </template>
 
 <script>
-    import autosize from 'autosize'
+    import Editor from '../common/Editor.vue'
     import {mapGetters} from 'vuex'
 
     export default {
         props: ['comments', 'url'],
+        components: {
+            Editor
+        },
         computed: {
             ...mapGetters({
                 currentUser: 'currentUser'
@@ -52,14 +52,13 @@
                 newComment: {},
             }
         },
-        mounted() {
-            autosize(document.getElementById('comment-text'))
-        },
         methods: {
             save() {
+                this.newComment.content = this.$refs.editor.getContent()
                 axios.post(this.url + '/comments', this.newComment).then(res => {
                     this.innerComments.push(res.data)
                     this.newComment.content = ''
+                    this.$refs.editor.setContent()
                     this.$emit('change', this.innerComments)
                 })
             },
