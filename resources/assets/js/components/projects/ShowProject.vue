@@ -37,7 +37,7 @@
                         </a>
                         <div class="column-title">
                             <i class="icon icon-checked" v-if="markToComplete(column)"></i>
-                            {{ column.title }}
+                            {{ column.title }} <span v-if="markToComplete(column)" class="text-muted small">{{ $t('projects.completedColumn') }}</span>
                         </div>
                     </div>
                     <div class="column-cards">

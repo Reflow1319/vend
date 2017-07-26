@@ -18,6 +18,7 @@ export default {
         archive: 'Archive',
         active: 'Active',
         isArchive: 'Archive project',
+        completedColumn: '(Completed)',
         toggleArchive: 'Toggle archive columns',
         form: {
             title: 'Title',
