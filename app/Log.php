@@ -11,6 +11,8 @@ class Log extends Model
         'card_id',
         'is_running',
         'user_id',
+	    'created_at',
+	    'updated_at'
     ];
 
     /**
