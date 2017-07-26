@@ -119,10 +119,15 @@
                 })
             },
             removeSortable() {
-                this.columns.sortable('destroy')
+                if (this.columns) {
+                    this.columns.sortable('destroy')
+                }
             },
             bindSortable() {
                 this.columns = $(this.$el).find('.column-cards')
+                if (this.columns.length === 0) {
+                    return
+                }
                 this.sortable = this.columns.sortable({
                     connectWith: '.column-cards',
                     receive: (e, ui) => {
@@ -174,14 +179,16 @@
                     id: this.project.id
                 })
             },
-            setLastColumn(project) {
+            updateProject(project) {
                 this.lastColumn = _.filter(project.columns, {is_archive: false}).reverse()[0]
+                this.removeSortable()
+                this.bindSortable()
             }
         },
         watch: {
             '$route': 'navigateTo',
             'project': {
-                handler: 'setLastColumn',
+                handler: 'updateProject',
                 deep: true
             }
         }
