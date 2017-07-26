@@ -43870,7 +43870,9 @@ exports.default = {
             var _this = this;
 
             this.log.card_id = this.card.id;
+            this.log.length = parseInt(this.log.length);
             axios.post('logs', this.log).then(function (res) {
+                _this.log = {};
                 _this.innerLogs.push(res.data);
                 _this.$emit('changed', _this.innerLogs);
             });
@@ -98280,7 +98282,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     staticClass: "mb-md"
   }, _vm._l((_vm.notifications), function(notification) {
     return _c('div', {
-      key: notification,
+      key: notification.id,
       staticClass: "media media-sm media-dark small cursor-pointer",
       on: {
         "click": function($event) {

@@ -60,7 +60,9 @@
         methods: {
             saveLog() {
                 this.log.card_id = this.card.id
+                this.log.length = parseInt(this.log.length)
                 axios.post('logs', this.log).then(res => {
+                    this.log = {};
                     this.innerLogs.push(res.data)
                     this.$emit('changed', this.innerLogs)
                 })
