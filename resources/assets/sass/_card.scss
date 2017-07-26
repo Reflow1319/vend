@@ -31,6 +31,10 @@
     &-body {
         padding: 10px 15px;
     }
+    &-project .card-title {
+        margin-right: 40px;
+        display: block;
+    }
     &-lg &-body {
         min-height: 65px;
     }

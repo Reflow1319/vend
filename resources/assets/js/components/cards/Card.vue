@@ -1,7 +1,7 @@
 <template>
     <a href="#"
        @click.prevent="showCard(card)"
-       class="card"
+       class="card card-project"
        :data-id="card.id">
         <div class="card-body">
             <span class="card-title">{{ card.title }}</span>
