@@ -22,8 +22,8 @@ class ProjectController extends Controller
         $projects = Project::with('users', 'columns')
             ->withCount('completedCards', 'cards')
             ->where(function ($query) {
-                if (! is_null(request('archive'))) {
-                    $query->where('is_archive', request('archive'));
+                if (request('archive') === '1') {
+                    $query->where('is_archive', 1);
                 }
             })->whereHas('users', function ($query) {
                 $query->where('id', Auth::user()->id);
