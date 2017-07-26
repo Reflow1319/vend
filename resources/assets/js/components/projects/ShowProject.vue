@@ -76,7 +76,7 @@
                 currentUser: 'currentUser'
             }),
             archiveColumns() {
-                return _.filter(this.project.columns, {is_archive: 1})
+                return _.filter(this.project.columns, {is_archive: true})
             }
         },
         data() {
@@ -175,12 +175,15 @@
                 })
             },
             setLastColumn(project) {
-                this.lastColumn = _.filter(project.columns, {is_archive: 0}).reverse()[0]
+                this.lastColumn = _.filter(project.columns, {is_archive: false}).reverse()[0]
             }
         },
         watch: {
             '$route': 'navigateTo',
-            'project': 'setLastColumn'
+            'project': {
+                handler: 'setLastColumn',
+                deep: true
+            }
         }
     }
 </script>

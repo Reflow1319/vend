@@ -28,7 +28,7 @@
         data() {
             return {
                 newTask: {
-                    is_completed: 0
+                    is_completed: false
                 },
             }
         },

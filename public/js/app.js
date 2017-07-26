@@ -42018,14 +42018,15 @@ exports.default = {
     props: ['card'],
     computed: _extends({}, (0, _vuex.mapGetters)({
         currentLog: 'currentLog'
-    })),
+    }), {
+        completedTaskCount: function completedTaskCount() {
+            return _.filter(this.card.tasks, { is_completed: true }).length;
+        }
+    }),
     methods: {
         showCard: function showCard(card) {
             this.$store.commit('setCard', card);
             this.$root.$emit('showModal', 'show-card');
-        },
-        completedTaskCount: function completedTaskCount(tasks) {
-            return _.filter(tasks, { is_completed: 1 }).length;
         }
     }
 };
@@ -44782,7 +44783,7 @@ exports.default = {
         currentUser: 'currentUser'
     }), {
         archiveColumns: function archiveColumns() {
-            return _.filter(this.project.columns, { is_archive: 1 });
+            return _.filter(this.project.columns, { is_archive: true });
         }
     }),
     data: function data() {
@@ -44888,12 +44889,15 @@ exports.default = {
             });
         },
         setLastColumn: function setLastColumn(project) {
-            this.lastColumn = _.filter(project.columns, { is_archive: 0 }).reverse()[0];
+            this.lastColumn = _.filter(project.columns, { is_archive: false }).reverse()[0];
         }
     },
     watch: {
         '$route': 'navigateTo',
-        'project': 'setLastColumn'
+        'project': {
+            handler: 'setLastColumn',
+            deep: true
+        }
     }
 };
 
@@ -44937,7 +44941,7 @@ exports.default = {
     data: function data() {
         return {
             newTask: {
-                is_completed: 0
+                is_completed: false
             }
         };
     },
@@ -97955,11 +97959,11 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
   }, [(_vm.card.tasks.length === 0 && _vm.card.is_completed) ? _c('span', [_c('i', {
     staticClass: "icon icon-checked text-green"
   })]) : _vm._e(), _vm._v(" "), (_vm.card.tasks.length) ? _c('span', [_c('i', {
-    staticClass: "icon icon-checked",
-    class: {
+    staticClass: "icon",
+    class: [{
       'text-green': _vm.card.is_completed
-    }
-  }), _vm._v("\n            " + _vm._s(_vm.completedTaskCount(_vm.card.tasks)) + "/" + _vm._s(_vm.card.tasks.length) + "\n        ")]) : _vm._e(), _vm._v(" "), (_vm.card.files.length) ? _c('span', [_c('i', {
+    }, _vm.completedTaskCount == _vm.card.tasks.length || _vm.card.is_completed ? 'icon-checked' : 'icon-unchecked']
+  }), _vm._v("\n            " + _vm._s(_vm.completedTaskCount) + "/" + _vm._s(_vm.card.tasks.length) + "\n        ")]) : _vm._e(), _vm._v(" "), (_vm.card.files.length) ? _c('span', [_c('i', {
     staticClass: "icon-paper-clip"
   })]) : _vm._e(), _vm._v(" "), (_vm.card.comments.length) ? _c('span', [_c('i', {
     staticClass: "icon-bubbles"

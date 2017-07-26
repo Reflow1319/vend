@@ -14,9 +14,9 @@
                 <i class="icon icon-checked text-green"></i>
             </span>
             <span v-if="card.tasks.length">
-                <i class="icon icon-checked"
-                   :class="{'text-green' : card.is_completed}"></i>
-                {{ completedTaskCount(card.tasks) }}/{{ card.tasks.length }}
+                <i class="icon"
+                   :class="[{'text-green' : card.is_completed}, completedTaskCount == card.tasks.length || card.is_completed ? 'icon-checked' : 'icon-unchecked']"></i>
+                {{ completedTaskCount }}/{{ card.tasks.length }}
             </span>
             <span v-if="card.files.length"><i class="icon-paper-clip"></i></span>
             <span v-if="card.comments.length"><i class="icon-bubbles"></i></span>
@@ -39,16 +39,16 @@
         computed: {
             ...mapGetters({
                 currentLog: 'currentLog'
-            })
+            }),
+            completedTaskCount() {
+                return _.filter(this.card.tasks, {is_completed: true}).length
+            }
         },
         methods: {
             showCard(card) {
                 this.$store.commit('setCard', card)
                 this.$root.$emit('showModal', 'show-card')
-            },
-            completedTaskCount(tasks) {
-                return _.filter(tasks, {is_completed: 1}).length
-            },
+            }
         }
     }
 </script>

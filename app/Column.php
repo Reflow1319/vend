@@ -6,6 +6,10 @@ use Illuminate\Database\Eloquent\Model;
 
 class Column extends Model
 {
+    protected $casts = [
+        'is_archive' => 'boolean'
+    ];
+
     protected $fillable = [
         'order',
         'title',
