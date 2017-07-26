@@ -44384,7 +44384,8 @@ exports.default = {
     data: function data() {
         return {
             newColumn: {
-                title: ''
+                title: '',
+                is_archive: false
             },
             innerColumns: [],
             columnsEl: null
@@ -44418,7 +44419,11 @@ exports.default = {
             column.order = e.target.value;
         },
         addColumn: function addColumn() {
-            this.innerColumns.push({ title: this.newColumn.title, order: this.innerColumns.length });
+            this.innerColumns.push({
+                title: this.newColumn.title,
+                order: this.innerColumns.length,
+                is_archive: false
+            });
             this.newColumn.title = '';
             this.$emit('change', this.innerColumns);
         }
