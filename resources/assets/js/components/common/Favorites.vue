@@ -1,7 +1,7 @@
 <template>
     <div v-if="favoritesFetched">
-        <span class="header-subtitle">{{ $t('favorites.title') }}</span>
-        <div v-if="favorites.length == 0">
+        <h4 class="sidebar-subtitle">{{ $t('favorites.title') }}</h4>
+        <div v-if="favorites.length == 0" class="text-muted small">
             {{ $t('favorites.empty') }}
         </div>
         <div @click.prevent="showFavorite(favorite)" v-for="favorite in favorites" class="media media-sm small media-dark cursor-pointer">

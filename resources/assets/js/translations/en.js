@@ -138,7 +138,7 @@ export default {
     },
     favorites: {
         title: 'Favorites',
-        empty: 'No favorites'
+        empty: 'You don\'t have any favorites'
     },
     common: {
         search: 'Search',

@@ -1,8 +1,11 @@
 <template>
-    <div v-if="currentLog" class="timer" :class="{'active' : currentLog && currentLog.is_running }">
+    <div v-if="currentLog" class="timer" :class="{'active' : running }">
         <div class="timer-left cursor-pointer" @click="toggleTimer(currentLog.card)">
-            <div>{{ currentLog.card.title }}</div>
-            <b>{{ elapsedFormat(timer) }}</b>
+            <div class="timer-toggle"><i :class="running ? 'icon-pause' : 'icon-play'"></i></div>
+            <div class="timer-title">
+                {{ currentLog.card.title }}
+                <b>{{ elapsedFormat(timer) }}</b>
+            </div>
         </div>
         <div class="timer-right">
             <dropdown :top="true" class="timer-dropdown">
@@ -39,7 +42,10 @@
                 currentUser: 'currentUser',
                 timer: 'timer',
                 logs: 'logs'
-            })
+            }),
+            running() {
+                return this.currentLog && this.currentLog.is_running
+            }
         },
         methods: {
             toggleTimer(card) {
