@@ -34,8 +34,14 @@ cp .env.example .env
 php artisan key:generate
 php artisan migrate --seed
 ```
+*Build asset files*
+```
+npm install
+npm run dev // For development or `npm run watch`
+npm run prod // For minified version
+```
 
-After you login with the seeded default account:
+After you can login with the seeded default account:
 **admin@admin.com** - **password**
 
 ## Development status
