@@ -20,6 +20,14 @@
     line-height: 1.45em;
 }
 
+.icon-pause:before {
+    content: "\e91e";
+}
+
+.icon-play:before {
+    content: "\e91f";
+}
+
 .icon-chevron-up:before {
     content: "\e91c";
 }
