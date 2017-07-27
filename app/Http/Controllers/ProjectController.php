@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Column;
 use App\Favorite;
@@ -11,13 +10,19 @@ use App\Project;
 
 class ProjectController extends Controller
 {
-    public function __construct()
+	/**
+	 * ProjectController constructor.
+	 */
+	public function __construct()
     {
         $this->middleware('role:admin', ['only' => ['store', 'update', 'destroy']]);
         $this->middleware('member:project', ['only' => ['show', 'favorite', 'update']]);
     }
 
-    public function index()
+	/**
+	 * @return \Illuminate\Http\Response
+	 */
+	public function index()
     {
         $projects = Project::with('users', 'columns')
             ->withCount('completedCards', 'cards')
@@ -32,14 +37,24 @@ class ProjectController extends Controller
         return response()->make($projects);
     }
 
-    public function show(Project $project)
+	/**
+	 * @param Project $project
+	 *
+	 * @return \Illuminate\Http\Response
+	 */
+	public function show(Project $project)
     {
         $project->load('users', 'columns');
 
         return response()->make($project);
     }
 
-    public function store(ProjectRequest $request)
+	/**
+	 * @param ProjectRequest $request
+	 *
+	 * @return \Illuminate\Http\Response
+	 */
+	public function store(ProjectRequest $request)
     {
         $project = Project::create($request->all());
         $this->save($project, $request);
@@ -47,7 +62,13 @@ class ProjectController extends Controller
         return $this->show($project);
     }
 
-    public function update(Request $request, Project $project)
+	/**
+	 * @param ProjectRequest $request
+	 * @param Project $project
+	 *
+	 * @return \Illuminate\Http\Response
+	 */
+	public function update(ProjectRequest $request, Project $project)
     {
         $project->update($request->all());
         $this->save($project, $request);
@@ -55,14 +76,23 @@ class ProjectController extends Controller
         return $this->show($project);
     }
 
-    public function favorite(Project $project)
+	/**
+	 * @param Project $project
+	 *
+	 * @return \Illuminate\Http\Response
+	 */
+	public function favorite(Project $project)
     {
         $created = Favorite::toggleFavorite($project);
 
         return response()->make($created ?: []);
     }
 
-    private function save($project, $request)
+	/**
+	 * @param Project $project
+	 * @param ProjectRequest $request
+	 */
+	private function save(Project $project, $request)
     {
         // Sync users
         $userIds = array_pluck($request->input('users'), 'id');
@@ -90,7 +120,10 @@ class ProjectController extends Controller
         $project->columns()->saveMany($columns);
     }
 
-    public function destroy(Project $project)
+	/**
+	 * @param Project $project
+	 */
+	public function destroy(Project $project)
     {
         $project->delete();
     }
