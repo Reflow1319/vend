@@ -2,11 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Account;
 use App\Card;
+use App\Http\Requests\TaskRequest;
 use App\Project;
 use App\Task;
-use Illuminate\Http\Request;
 
 class CardTaskController extends Controller
 {
@@ -16,15 +15,15 @@ class CardTaskController extends Controller
         $this->middleware('member:project');
     }
 
-    /**
-     * @param Project $project
-     * @param Card    $card
-     * @param Request $request
-     *
-     * @return \Illuminate\Http\Response
-     * @internal param Account $account
-     */
-    public function store(Project $project, Card $card, Request $request)
+	/**
+	 * @param Project $project
+	 * @param Card $card
+	 * @param TaskRequest $request
+	 *
+	 * @return \Illuminate\Http\Response
+	 * @internal param Account $account
+	 */
+    public function store(Project $project, Card $card, TaskRequest $request)
     {
         $task = $card->tasks()->save(new Task($request->all()));
 
@@ -35,12 +34,12 @@ class CardTaskController extends Controller
      * @param Project $project
      * @param Card    $card
      * @param Task    $task
-     * @param Request $request
+     * @param TaskRequest $request
      *
      * @return \Illuminate\Http\Response
      * @internal param Account $account
      */
-    public function update(Project $project, Card $card, Task $task, Request $request)
+    public function update(Project $project, Card $card, Task $task, TaskRequest $request)
     {
         $task->update($request->all());
 

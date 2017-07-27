@@ -1,10 +1,4 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: iamzozo
- * Date: 2017. 06. 08.
- * Time: 9:20
- */
 
 namespace App\Http\Requests;
 
@@ -13,7 +7,15 @@ use Illuminate\Http\JsonResponse;
 
 class CustomFormRequest extends FormRequest
 {
-    public function response(array $errors)
+	/**
+	 * Return a formatted error message in json if
+	 * request type is json
+	 *
+	 * @param array $errors
+	 *
+	 * @return JsonResponse
+	 */
+	public function response(array $errors)
     {
         if ($this->expectsJson()) {
             return new JsonResponse([
