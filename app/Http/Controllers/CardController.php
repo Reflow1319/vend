@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use App\Account;
 use App\Card;
 use App\Http\Requests\CardRequest;
 use App\Project;
@@ -132,7 +131,6 @@ class CardController extends Controller
     }
 
     /**
-     * @param Account                  $account
      * @param Project                  $project
      * @param \Illuminate\Http\Request $request
      * @param Card                     $card
