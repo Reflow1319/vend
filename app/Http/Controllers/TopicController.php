@@ -15,8 +15,7 @@ class TopicController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('role:editor',
-            ['only' => ['store', 'update', 'destroy']]);
+        $this->middleware('role:editor', ['only' => ['store', 'update', 'destroy']]);
         $this->middleware('member:topic', ['except' => ['store', 'index']]);
     }
 
@@ -67,6 +66,8 @@ class TopicController extends Controller
      */
     public function update(TopicRequest $request, Topic $topic)
     {
+	    $this->authorize('update', $topic);
+
         $topic->update($request->all());
         $this->attachUsers($topic, $request);
 
@@ -81,6 +82,8 @@ class TopicController extends Controller
      */
     public function destroy(Topic $topic)
     {
+    	$this->authorize('update', $topic);
+
         $topic->delete();
     }
 
