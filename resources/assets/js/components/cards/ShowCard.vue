@@ -49,7 +49,7 @@
                         <file-list :files="card.files" :small="true"></file-list>
                     </div>
                     <div class="tabs-panel" id="logs">
-                        <logs-list :logs="card.logs" :small="true" :add="true" :card="card"></logs-list>
+                        <logs-list :logs="card.logs" :small="true" :add="true" :show-card="false" :card="card"></logs-list>
                     </div>
                 </div>
             </tabs>

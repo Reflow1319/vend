@@ -16,12 +16,12 @@
                 <td width="5%">
                     <div class="label label-primary">{{ elapsedFormat(log.length) }}</div>
                 </td>
-                <td width="35%">
+                <td width="35%" v-if="showCard">
                     <b>{{ log.card.title }}</b><br>
                     <span class="text-muted">{{ dateFormat(log.created_at) }}</span>
                 </td>
                 <td width="2%"><img :src="log.user.image" alt="" class="avatar" v-if="log.user"></td>
-                <td width="58%">
+                <td :width="showCard ? '58%' : '82%'">
                     <a @click="deleteLog(log)" class="pull-right" v-if="log.user.id == currentUser.id">
                         <i class="icon-delete"></i>
                     </a>
@@ -40,7 +40,7 @@
     import {mapGetters} from 'vuex'
 
     export default {
-        props: ['logs', 'small', 'add', 'card'],
+        props: ['logs', 'small', 'add', 'card', 'show-card'],
         components: {
             Datepicker
         },

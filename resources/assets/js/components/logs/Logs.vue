@@ -39,7 +39,7 @@
             <div class="wbox">
                 <loader ref="loader"></loader>
                 <div class="no-record" v-if="empty">{{ $t('logs.empty') }}</div>
-                <logs-list :logs="logs" v-if="loaded"></logs-list>
+                <logs-list :logs="logs" v-if="loaded" :show-card="true"></logs-list>
             </div>
         </div>
     </div>
