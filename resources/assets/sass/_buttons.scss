@@ -1,6 +1,6 @@
 @mixin make-button($color, $bgcolor, $border-color) {
     color: $color;
-    border-color: $bgcolor;
+    border-color: $border-color;
     background: $bgcolor;
     &:hover {
         border-color: darken($bgcolor, 5);
@@ -20,7 +20,7 @@
     text-transform: uppercase;
     font-size: 13px;
     line-height: 21px;
-    @include shadow-sm;
+    //@include shadow-sm;
 
     &:hover {
         position: relative;
@@ -39,8 +39,7 @@
     }
 
     &-default {
-        @include make-button($common, #fff, #fff);
-        //@include shadow-sm-light;
+        @include make-button($common, #fff, $light-gray);
         &:hover {
             border-color: $blue;
             background: #fff;

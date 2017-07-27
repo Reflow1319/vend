@@ -1,19 +1,32 @@
 <template>
-    <div class="notifications">
-        <span class="small text-muted">{{ $t('notifications.title') }}</span>
-        <div class="mb-md">
-            <div v-for="notification in notifications" v-bind:key="notification.id"
-                 class="media media-sm media-dark small cursor-pointer" @click="showNotification(notification)">
-                <div class="media-left">
-                    <div class="notification-dot" :class="{'unread' : notification.read_at == null }"></div>
-                </div>
-                <div class="media-body">
-                    <div>{{ getNotificationText(notification) }}</div>
-                    <span class="text-muted">{{ fromNow(notification.created_at) }}</span>
+    <div>
+        <div class="title-bar">
+            <div class="title-bar-title">
+                {{ $t('notifications.index') }}
+            </div>
+            <div class="title-bar-right">
+                <a href="#" class="btn btn-primary title-bar-btn">{{ $t('notifications.clear') }}</a>
+            </div>
+        </div>
+        <div class="container">
+            <div class="wbox">
+                <div class="notifications">
+                    <div v-for="notification in notifications" v-bind:key="notification.id"
+                         class="media cursor-pointer" @click="showNotification(notification)">
+                        <div class="media-left">
+                            <div class="notification-dot" :class="{'unread' : notification.read_at == null }"></div>
+                        </div>
+                        <div class="media-left">
+                            <img :src="notification.actor.image" alt="" class="avatar">
+                        </div>
+                        <div class="media-body">
+                            <div>{{ getNotificationText(notification) }}</div>
+                            <span class="text-muted">{{ fromNow(notification.created_at) }}</span>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
-        <a @click="clear()" class="btn btn-dark btn-sm">{{ $t('notifications.clear') }}</a>
     </div>
 </template>
 

@@ -44,8 +44,10 @@
 
                 @if(env('DEMO_USER'))
                 <div class="alert alert-info">
+                    Editor:<br>
                     Username: <b>{{ env('DEMO_USER') }}</b><br>
                     Password: <b>{{ env('DEMO_PASS') }}</b><br>
+                    This role has limited capabilities.
                 </div>
                 @endif
             </form>

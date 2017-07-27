@@ -1,7 +1,7 @@
 .wbox {
     border-radius: 3px;
     background: #fff;
-    box-shadow: 0 2px 10px rgba(0, 15, 25, 0.08);
+    @include shadow-sm;
     &-content {
         padding: 20px 30px;
     }

@@ -6,7 +6,7 @@
     bottom: 0;
     left: 0;
     z-index: $zindex-modal;
-    background: rgba(15, 40, 90, 0.7);
+    background: rgba(120, 140, 180, 0.7);
     opacity: 0;
     transition: opacity linear .3s;
     overflow-y: auto;
@@ -41,8 +41,8 @@
         position: relative;
         max-width: 700px;
         margin: 50px auto;
-        //background: #FFF;
-        background: lighten($light-gray, 4);
+        background: #FFF;
+        //background: lighten($light-gray, 4);
         border-radius: 4px;
     }
     &-body {

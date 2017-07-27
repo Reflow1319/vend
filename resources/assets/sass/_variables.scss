@@ -95,7 +95,7 @@ $zindex-dropdown: 100;
 }
 
 @mixin shadow() {
-    box-shadow: 0 5px 15px rgba(0, 30, 50, 0.25);
+    box-shadow: 0 5px 15px rgba(0, 60, 125, 0.25);
 }
 
 @mixin shadow-lg() {
@@ -103,7 +103,7 @@ $zindex-dropdown: 100;
 }
 
 @mixin shadow-sm() {
-    box-shadow: 0 1px 1px rgba(0, 30, 50, 0.15);
+    box-shadow: 0 1px 1px rgba(0, 40, 65, 0.08);
 }
 
 @mixin shadow-sm-light() {

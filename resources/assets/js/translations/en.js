@@ -76,7 +76,7 @@ export default {
         }
     },
     logs: {
-        index: 'Logs',
+        index: 'Reports',
         tracked: 'Tracked',
         entries: 'Entries',
         length: 'Length (seconds)',
@@ -125,6 +125,7 @@ export default {
         empty: 'No files'
     },
     notifications: {
+        index: 'Notifications',
         title: 'Notifications',
         markAsRead: 'Mark as read',
         clear: 'Clear notifications',

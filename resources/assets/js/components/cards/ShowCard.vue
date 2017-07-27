@@ -20,12 +20,8 @@
                 </a>
             </div>
         </div>
-
-        <div class="modal-body modal-body-highlight">
-            <div v-html="card.description" v-if="card.description !== ''"></div>
-        </div>
-
         <div class="modal-body">
+            <div v-html="card.description" v-if="card.description !== ''"></div>
             <tabs>
                 <div slot="tabs">
                     <a data-target="#tasks" class="active">{{ $t('cards.tasks') }}</a>

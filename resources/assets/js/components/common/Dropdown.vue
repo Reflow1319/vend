@@ -1,5 +1,5 @@
 <template>
-    <div class="dropdown" :class="[{'open': show, 'dropdown-right': right, 'dropdown-inline': inline, 'dropdown-top': top}, classes]">
+    <div class="dropdown" :class="[{'open': show, 'dropdown-right pull-right': right, 'dropdown-inline': inline, 'dropdown-top': top}, classes]">
         <a href="#" @click.prevent="toggle()" class="dropdown-toggle">
             <slot name="dropdownToggle"></slot>
         </a>

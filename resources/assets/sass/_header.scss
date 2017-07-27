@@ -1,10 +1,10 @@
 .header {
-    background-color: $sidebar;
+    background-color: #424d73;
     position: fixed;
     left: 0;
     top: 0;
     bottom: 0;
-    padding: 0 20px;
+    padding: 5px 20px;
     width: 230px;
     z-index: 30;
     display: flex;
@@ -18,15 +18,24 @@
 
     &-title {
         background: url('../images/logo-dark.svg') no-repeat 0 center;
-        display: block;
         background-size: contain;
-        height: 26px;
-        margin: 18px 0;
+        float: left;
+        width: 50px;
+        height: 50px;
+    }
+
+    &-top {
+        display: flex;
+        &-right {
+            flex: 1;
+            padding-top: 10px;
+            text-align: right;
+        }
     }
 
     &-nav {
         display: block;
-        padding: 55px 0;
+        margin: 75px 0;
         a {
             padding: 10px 10px;
             border-radius: 3px;
@@ -38,6 +47,9 @@
             }
             i {
                 margin-right: 10px;
+            }
+            .badge {
+                float: right;
             }
         }
     }
@@ -51,18 +63,6 @@
 
     &-bottom-nav {
         padding: 20px 0;
-    }
-
-    .counter {
-        background: $warn;
-        padding: 0 4px;
-        font-size: 10px;
-        color: #fff;
-        border-radius: 10px;
-        position: absolute;
-        top: 0;
-        right: 20%;
-        line-height: 1.4em;
     }
 
     .text-muted {

@@ -18,6 +18,7 @@ import TopicMessages from './components/topics/TopicMessages.vue'
 import TopicFiles from './components/topics/TopicFiles.vue'
 import TopicEvents from './components/topics/TopicEvents.vue'
 import Account from './components/account/Account.vue'
+import Notifications from './components/common/Notifications.vue'
 import mixins from './mixins'
 
 Vue.use(VueI18n)
@@ -27,6 +28,7 @@ Vue.mixin(mixins)
 
 const routes = [
     {path: '/', name: 'projects', component: ProjectList},
+    {path: '/notifications', name: 'notifications', component: Notifications},
     {path: '/projects/archive', name: 'projects-archive', component: ProjectList},
     {path: '/files', name: 'files', component: Files},
     {path: '/projects/:id', name: 'project', component: ShowProject},
