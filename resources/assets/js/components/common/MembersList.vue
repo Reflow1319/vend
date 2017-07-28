@@ -5,7 +5,7 @@
                 <i :class="inSelected(user) ? 'text-green icon-checked' : 'icon-unchecked'"></i>
             </div>
             <div class="media-body">
-                <img :src="user.image" alt="" class="avatar avatar-sm">
+                <img :src="user.image" alt="" class="avatar">
                 <b>{{ user.name }}</b><br>
                 <span class="text-muted">{{ user.email }}</span>
             </div>
