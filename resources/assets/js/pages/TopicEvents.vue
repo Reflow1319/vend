@@ -7,7 +7,7 @@
                 <div class="no-record" v-if="noRecord">
                     {{ $t('events.empty') }}
                 </div>
-                <event-attachment v-for="event in events" v-bind:key="event" :event="event"></event-attachment>
+                <event-attachment v-for="event in events" v-bind:key="event.id" :event="event"></event-attachment>
             </div>
         </div>
     </div>

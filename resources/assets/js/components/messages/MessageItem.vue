@@ -11,7 +11,7 @@
             <div v-html="message.message"></div>
             <div class="media-grid">
                 <event-attachment :event="message.event" v-if="message.event"></event-attachment>
-                <file-attachment v-for="file in message.files" v-bind:key="file" :file="file"></file-attachment>
+                <file-attachment v-for="file in message.files" v-bind:key="file.id" :file="file"></file-attachment>
             </div>
         </div>
         <div class="media-right">
