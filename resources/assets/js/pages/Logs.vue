@@ -29,12 +29,12 @@
                     </div>
                 </div>
             </div>
-            <div class="pull-right">
+            <h4>
+                {{ $t('logs.entries') }}
                 <span class="label label-warn label-sm" v-if="tracked">
                     {{ $t('logs.tracked') }}: <b>{{ elapsedFormat(tracked) }}</b>
                 </span>
-            </div>
-            <h4>{{ $t('logs.entries') }}</h4>
+            </h4>
 
             <div class="wbox">
                 <loader ref="loader"></loader>
