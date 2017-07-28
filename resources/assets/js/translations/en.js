@@ -79,7 +79,7 @@ export default {
         index: 'Reports',
         tracked: 'Tracked',
         entries: 'Entries',
-        length: 'Length (seconds)',
+        length: 'Length (HH:MM)',
         date: 'Date',
         empty: 'No logs tracked',
         startTimer: 'Start timer',

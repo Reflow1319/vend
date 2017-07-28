@@ -2,7 +2,7 @@
     <div>
         <div v-if="add" class="form-inline">
             <div class="form-group">
-                <input type="number" v-model="log.length" class="form-control" :placeholder="$t('logs.length')">
+                <input type="text" v-model="log.length" class="form-control" :placeholder="$t('logs.length')">
             </div>
             <div class="form-group">
                 <datepicker v-model="log.date" :placeholder="$t('logs.date')"></datepicker>
@@ -60,8 +60,10 @@
         methods: {
             saveLog() {
                 this.log.card_id = this.card.id
-                this.log.length = parseInt(this.log.length)
-                axios.post('logs', this.log).then(res => {
+
+                const log = Object.assign({}, this.log, {length: this.toSeconds(this.log.length)})
+
+                axios.post('logs', log).then(res => {
                     this.log = {};
                     this.innerLogs.push(res.data)
                     this.$emit('changed', this.innerLogs)
