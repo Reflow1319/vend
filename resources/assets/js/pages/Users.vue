@@ -32,10 +32,10 @@
 
 <script>
     import {mapGetters} from 'vuex'
-    import EditUser from './EditUser.vue'
-    import ShowUser from './ShowUser.vue'
-    import Loader from '../common/Loader.vue'
-    import SearchBar from './SearchBar.vue'
+    import EditUser from '../components/users/EditUser.vue'
+    import ShowUser from '../components/users/ShowUser.vue'
+    import Loader from '../components/common/Loader.vue'
+    import SearchBar from '../components/users/SearchBar.vue'
 
     export default {
         name: 'UserList',

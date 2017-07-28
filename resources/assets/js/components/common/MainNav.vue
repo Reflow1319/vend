@@ -19,24 +19,18 @@
         </div>
 
         <div class="header-blocks">
-            <div v-if="activeTab == 'navigation'">
-                <nav class="header-nav">
-                    <router-link :to="{name: 'projects'}" exact><i class="icon-stack"></i> {{ $t('projects.index') }}</router-link>
-                    <router-link :to="{name: 'notifications'}" exact><i class="icon-flame"></i>
-                        {{ $t('notifications.index') }}
-                        <span class="badge badge-warn" v-if="unReadNotifications.length > 0">{{ unReadNotifications.length }}</span>
-                    </router-link>
-                    <router-link :to="{name: 'topics'}"><i class="icon-bubbles"></i> {{ $t('topics.index') }}</router-link>
-                    <router-link :to="{name: 'users'}" v-if="isEditor"><i class="icon-users"></i> {{ $t('users.index') }}</router-link>
-                    <router-link :to="{name: 'calendar'}" v-if="isEditor"><i class="icon-calendar"></i> {{ $t('events.index') }}</router-link>
-                    <router-link :to="{name: 'logs'}" v-if="isEditor"><i class="icon-chart"></i> {{ $t('logs.index') }}</router-link>
-
-                </nav>
-                <favorites></favorites>
-            </div>
-            <div v-if="activeTab == 'notifications'">
-                <notifications></notifications>
-            </div>
+            <nav class="header-nav">
+                <router-link :to="{name: 'projects'}" exact><i class="icon-stack"></i> {{ $t('projects.index') }}</router-link>
+                <router-link :to="{name: 'notifications'}" exact><i class="icon-flame"></i>
+                    {{ $t('notifications.index') }}
+                    <span class="badge badge-warn" v-if="unReadNotifications.length > 0">{{ unReadNotifications.length }}</span>
+                </router-link>
+                <router-link :to="{name: 'topics'}"><i class="icon-bubbles"></i> {{ $t('topics.index') }}</router-link>
+                <router-link :to="{name: 'users'}" v-if="isEditor"><i class="icon-users"></i> {{ $t('users.index') }}</router-link>
+                <router-link :to="{name: 'calendar'}" v-if="isEditor"><i class="icon-calendar"></i> {{ $t('events.index') }}</router-link>
+                <router-link :to="{name: 'logs'}" v-if="isEditor"><i class="icon-chart"></i> {{ $t('logs.index') }}</router-link>
+            </nav>
+            <favorites></favorites>
         </div>
         <div class="header-bottom-nav">
             <timer></timer>
@@ -48,20 +42,13 @@
     import {mapGetters} from 'vuex'
 
     import Timer from '../logs/Timer'
-    import Notifications from './Notifications.vue'
     import Favorites from './Favorites.vue'
     import Dropdown from './Dropdown.vue'
 
     export default {
-        data() {
-            return {
-                activeTab: 'navigation'
-            }
-        },
         components: {
             Timer,
             Favorites,
-            Notifications,
             Dropdown
         },
         computed: {
@@ -72,9 +59,6 @@
             })
         },
         methods: {
-            switchTab(tab) {
-                this.activeTab = tab
-            },
             logout() {
                 axios.get('logout').then(() => {
                     window.location.href = '/login'

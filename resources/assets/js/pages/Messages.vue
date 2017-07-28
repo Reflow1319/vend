@@ -16,10 +16,9 @@
 
 <script>
     import {mapGetters} from 'vuex'
-    import mixin from '../../mixins'
-    import TopicHeader from './TopicHeader.vue'
-    import Loader from '../common/Loader.vue'
-    import MessageItem from '../messages/MessageItem.vue'
+    import TopicHeader from '../components/topics/TopicHeader.vue'
+    import Loader from '../components/common/Loader.vue'
+    import MessageItem from '../components/messages/MessageItem.vue'
 
     export default {
         components: {

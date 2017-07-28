@@ -49,16 +49,14 @@
     import {mapGetters} from 'vuex'
     import moment from 'moment'
     import Chart from 'chart.js/dist/Chart'
-    import LogsList from './LogsList.vue'
-    import Loader from '../common/Loader.vue'
-    import mixins from '../../mixins'
+    import LogsList from '../components/logs/LogsList.vue'
+    import Loader from '../components/common/Loader.vue'
 
     export default {
         components: {
             LogsList,
             Loader
         },
-        mixins: [mixins],
         data() {
             return {
                 view: 'weeks',

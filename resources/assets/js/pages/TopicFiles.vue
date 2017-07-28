@@ -14,14 +14,12 @@
 </template>
 
 <script>
-    import FileList from '../files/FileList.vue'
-    import TopicHeader from './TopicHeader.vue'
-    import Loader from '../common/Loader.vue'
+    import FileList from '../components/files/FileList.vue'
+    import TopicHeader from '../components/topics/TopicHeader.vue'
+    import Loader from '../components/common/Loader.vue'
     import {mapGetters} from 'vuex'
-    import mixins from '../../mixins'
 
     export default {
-        mixins: [mixins],
         data() {
             return {
                 noRecord: false

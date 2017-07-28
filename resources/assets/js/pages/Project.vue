@@ -55,10 +55,10 @@
 </template>
 
 <script>
-    import SearchBar from './SearchBar.vue'
+    import SearchBar from '../components/projects/SearchBar.vue'
     import {mapGetters} from 'vuex'
-    import Loader from '../common/Loader.vue'
-    import Card from '../cards/Card.vue'
+    import Loader from '../components/common/Loader.vue'
+    import Card from '../components/cards/Card.vue'
     import sortable from 'jquery-ui/ui/widgets/sortable'
 
     export default {

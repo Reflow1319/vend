@@ -32,11 +32,9 @@
 
 <script>
     import {mapGetters} from 'vuex'
-    import mixins from '../../mixins'
     import moment from 'moment'
 
     export default {
-        mixins: [mixins],
         data() {
             return {
                 interval: null

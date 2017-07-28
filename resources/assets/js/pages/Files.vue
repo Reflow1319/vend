@@ -13,13 +13,11 @@
 </template>
 
 <script>
-    import TitleBar from '../common/TitleBar.vue'
-    import mixins from '../../mixins'
-    import FileList from './FileList.vue'
-    import Loader from '../common/Loader.vue'
+    import TitleBar from '../components/common/TitleBar.vue'
+    import FileList from '../components/files/FileList.vue'
+    import Loader from '../components/common/Loader.vue'
 
     export default {
-        mixins: [mixins],
         components: {
             FileList,
             TitleBar,

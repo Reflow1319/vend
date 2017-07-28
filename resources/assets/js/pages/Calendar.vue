@@ -23,8 +23,8 @@
 </template>
 
 <script>
-    import Loader from '../common/Loader.vue'
-    import EventAttachment from './EventAttachment.vue'
+    import Loader from '../components/common/Loader.vue'
+    import EventAttachment from '../components/events/EventAttachment.vue'
     import {mapGetters} from 'vuex'
     import moment from 'moment'
 

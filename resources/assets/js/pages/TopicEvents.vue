@@ -15,9 +15,9 @@
 
 <script>
 import {mapGetters} from 'vuex'
-import TopicHeader from '../topics/TopicHeader.vue'
-import Loader from '../common/Loader.vue'
-import EventAttachment from '../events/EventAttachment.vue'
+import TopicHeader from '../components/topics/TopicHeader.vue'
+import Loader from '../components/common/Loader.vue'
+import EventAttachment from '../components/events/EventAttachment.vue'
 
 export default {
     components: {
