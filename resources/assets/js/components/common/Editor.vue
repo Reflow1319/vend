@@ -37,7 +37,7 @@
         },
         methods: {
             getContent() {
-                return this.editor.root.innerHTML
+                return this.editor.root.innerHTML.replace("<p><br></p>", "")
             },
             setContent(content) {
                 this.editor.setContents(content || '')
