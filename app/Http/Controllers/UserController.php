@@ -2,16 +2,12 @@
 
 namespace App\Http\Controllers;
 
-use App\Events\UserCreated;
 use App\Http\Requests\UserRequest;
 use App\Mail\Mailer;
 use App\User;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Mail;
-use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
-use Intervention\Image\Facades\Image;
 
 class UserController extends Controller
 {
@@ -51,7 +47,7 @@ class UserController extends Controller
                 $password = Str::random(6);
                 $request->merge(['password' => $password]);
             }
-            $request->merge(['event_url' => Str::random(24), 'image' => null]);
+            $request->merge(['image' => null]);
             $user = User::create($request->all());
 
             if ($password) {

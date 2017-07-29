@@ -6,6 +6,7 @@ use App\Traits\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Str;
 
 class User extends Authenticatable
 {
@@ -26,6 +27,13 @@ class User extends Authenticatable
             'password',
             'remember_token',
         ];
+
+    public static function boot()
+    {
+        static::creating(function($model) {
+            $model->event_url = Str::random(24);
+        });
+    }
 
     public function notifications()
     {
