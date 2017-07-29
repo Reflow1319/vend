@@ -49,9 +49,7 @@
             showNotification(notification) {
                 notification.read_at = moment().format('YYYY-MM-DD HH:ii:ss')
                 if (notification.type === 'card_updated' || notification.type === 'card_created' || notification.type === 'comment_created') {
-                    this.$store.dispatch('getCard', notification.related).then(card => {
-                        this.$root.$emit('showModal', 'show-card')
-                    })
+                    this.$root.$emit('showModal', 'show-card', this.$store.dispatch('getCard', notification.related))
                 }
                 if (notification.type === 'message_created') {
                     this.$router.push({name: 'topic', params: {id: notification.related.id}})
