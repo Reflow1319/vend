@@ -76,3 +76,8 @@
     padding: 3px 0;
     display: block;
 }
+
+.message-form .form-control {
+    background: #fff;
+    @include shadow-sm;
+}

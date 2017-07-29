@@ -9,11 +9,7 @@
             <nav class="title-bar-tabs">
                 <router-link :to="{name: 'topic', params: {id: topic.id}}" exact>{{ $t('topics.messages') }}</router-link>
                 <router-link :to="{name: 'topic-files', params: {id: topic.id }}">{{ $t('topics.files') }}</router-link>
-                <router-link :to="{name: 'topic-events', params: {id: topic.id}}">{{ $t('topics.events') }}</router-link>
             </nav>
-            <a href="#" @click.prevent="createMessage()" class="btn btn-primary title-bar-btn">
-                {{ $t('messages.create') }}
-            </a>
             <div class="title-bar-nav">
                 <a @click="editTopic()">
                     <i class="icon icon-pencil"></i>
@@ -32,13 +28,6 @@
         methods: {
             editTopic() {
                 this.$root.$emit('showModal', 'topic-form')
-            },
-            createMessage() {
-                this.$store.commit('setMessage', {
-                    files: [],
-                    event: {}
-                })
-                this.$root.$emit('showModal', 'message-form')
             }
         }
     }

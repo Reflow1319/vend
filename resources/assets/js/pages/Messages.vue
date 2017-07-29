@@ -3,6 +3,9 @@
         <topic-header :topic="topic"></topic-header>
 
         <div class="container">
+
+            <message-form></message-form>
+
             <div class="wbox">
                 <message-item :message="message" v-for="message in messages" v-bind:key="message.id"></message-item>
                 <loader ref="loader"></loader>
@@ -19,11 +22,13 @@
     import TopicHeader from '../components/topics/TopicHeader.vue'
     import Loader from '../components/common/Loader.vue'
     import MessageItem from '../components/messages/MessageItem.vue'
+    import MessageForm from '../components/messages/MessageForm.vue'
 
     export default {
         components: {
             TopicHeader,
             MessageItem,
+            MessageForm,
             Loader
         },
         computed: {

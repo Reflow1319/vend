@@ -10,7 +10,6 @@
             </div>
             <div v-html="message.message"></div>
             <div class="media-grid">
-                <event-attachment :event="message.event" v-if="message.event"></event-attachment>
                 <file-attachment v-for="file in message.files" v-bind:key="file.id" :file="file"></file-attachment>
             </div>
         </div>
@@ -31,14 +30,12 @@
 <script>
     import Dropdown from '../common/Dropdown.vue'
     import FileAttachment from '../files/FileAttachment.vue'
-    import EventAttachment from '../events/EventAttachment.vue'
 
     export default {
         props: ['message'],
         components: {
             Dropdown,
             FileAttachment,
-            EventAttachment
         },
         methods: {
             editMessage(message) {

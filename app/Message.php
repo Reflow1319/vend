@@ -22,7 +22,6 @@ class Message extends Model
 
         static::deleting(function($model) {
             $model->files()->delete();
-            $model->event()->delete();
         });
     }
 
@@ -39,11 +38,6 @@ class Message extends Model
     public function topic()
     {
         return $this->belongsTo(Topic::class);
-    }
-
-    public function event()
-    {
-        return $this->hasOne(Event::class);
     }
 
     public function files()

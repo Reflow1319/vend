@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use App\Event;
 use App\File;
 use App\Http\Requests\MessageRequest;
 use App\Message;
@@ -28,7 +27,7 @@ class TopicMessageController extends Controller
      */
     public function index(Topic $topic)
     {
-        $messages = Message::with('user', 'event', 'files')
+        $messages = Message::with('user', 'files')
             ->whereTopicId($topic->id)->latest()->get();
 
         $topic->notificationMarkAsRead();
@@ -45,7 +44,7 @@ class TopicMessageController extends Controller
     public function store(Topic $topic, MessageRequest $request)
     {
         $message = $this->save($topic, $request);
-        $message->load('user', 'event', 'files');
+        $message->load('user', 'files');
 
         Auth::user()->notify(Auth::user(), $topic, 'message:created');
 
@@ -62,7 +61,7 @@ class TopicMessageController extends Controller
     public function update(Topic $topic, Message $message, Request $request)
     {
         $message = $this->save($topic, $request, $message);
-        $message->load('user', 'event', 'files');
+        $message->load('user', 'files');
 
         Auth::user()->notify(Auth::user(), $topic, 'message:updated');
 
@@ -75,10 +74,6 @@ class TopicMessageController extends Controller
      */
     public function destroy(Topic $topic, Message $message)
     {
-        if ($message->event) {
-            $message->event->delete();
-        }
-
         DB::table('files')->where('type', 'message')
             ->where('parent', $message->id)->delete();
 
@@ -105,25 +100,6 @@ class TopicMessageController extends Controller
 
         $topic->messages()->save($message);
         $topic->latestMessage()->save($message);
-
-        $event = $request->input('event');
-        if (isset($event['title']) && isset($event['start'])) {
-            $data = [
-                'title'    => $event['title'],
-                'topic_id' => $topic->id,
-                'start'    => $event['start'],
-                'end'      => isset($event['end']) ? $event['end'] : null,
-                'location' => isset($event['location']) ? $event['location']
-                    : null,
-            ];
-
-            // Create new or update existing event
-            if ($message->event) {
-                $message->event()->update($data);
-            } else {
-                $message->event()->save(new Event($data));
-            }
-        }
 
         // Attach files if we have any
 
