@@ -46,9 +46,9 @@
                 })
                     .then(() => {
                         this.$refs.editor.setContent('')
-                        this.message = {
+                        this.$store.commit('setMessage', {
                             files: []
-                        }
+                        })
                     })
                     .catch(err => {
                         this.setErrors(err)
