@@ -14,35 +14,6 @@
 
             <uploader type="message" :compact="true" :uploaded="attachFile" :text="$t('uploader.attach')"></uploader>
 
-            <a @click="showEventAttachment = true" class="btn btn-default">
-                <i class="icon-calendar"></i>
-                {{ $t('events.attach') }}
-            </a>
-        </div>
-        <div class="modal-footer-meta" v-if="showEventAttachment || event.title">
-            <div class="form-group">
-                <label>{{ $t('events.title') }}</label>
-                <input type="text" class="form-control" v-model="event.title">
-            </div>
-            <div class="row">
-                <div class="col-md-6">
-                    <label>{{ $t('events.start') }}</label>
-                    <div class="form-group">
-                        <datepicker v-model="event.start" :has-time="true"></datepicker>
-                    </div>
-                </div>
-                <div class="col-md-6">
-                    <label>{{ $t('events.end') }}</label>
-                    <div class="form-group">
-                        <datepicker v-model="event.end" :has-time="true"></datepicker>
-                    </div>
-                </div>
-            </div>
-            <div class="form-group">
-                <label>{{ $t('events.location') }}</label>
-                <input type="text" class="form-control" v-model="event.location">
-            </div>
-            <a class="btn btn-default btn-sm" @click="clearEvent()">{{ $t('events.clearAttachments') }}</a>
         </div>
         <div class="modal-footer">
             <button class="btn btn-primary">{{ $t('common.save') }}</button>
@@ -89,8 +60,7 @@
         },
         methods: {
             save() {
-                this.message.message = this.$refs.editor.getContent().replace("<p><br></p>", "")
-                this.message.event = this.event
+                this.message.message = this.$refs.editor.getContent()
 
                 this.$store.dispatch('saveMessage', {
                     topicId: this.$route.params.id,
@@ -100,11 +70,6 @@
                 }).catch(err => {
                     this.setErrors(err)
                 })
-            },
-            clearEvent() {
-                this.event = Object.assign({}, this.defaultEvent)
-                this.message.event = null
-                this.showEventAttachment = false
             },
             attachFile(file) {
                 this.message.files.push(file)

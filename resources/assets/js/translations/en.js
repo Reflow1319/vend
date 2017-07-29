@@ -111,7 +111,17 @@ export default {
         time: 'Time',
         end: 'End',
         location: 'Location',
-        clearAttachments: 'Clear events'
+        clearAttachments: 'Clear events',
+        ics: 'iCal export',
+        typeProject: 'Project',
+        typeCard: 'Card',
+        create: 'New event',
+        edit: 'Edit event',
+        prefix: {
+            project: 'Project',
+            card: 'Card',
+            event: 'Event'
+        }
     },
     messages: {
         create: 'New message',

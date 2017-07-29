@@ -27,6 +27,7 @@
     import datepicker from 'jquery-ui/ui/widgets/datepicker'
 
     export default {
+        name: 'Datepicker',
         props: {
             value: {},
             placeholder: {},

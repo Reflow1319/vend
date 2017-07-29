@@ -9,7 +9,7 @@ export default {
             users: [],
         },
         messages: [],
-        events: [],
+        topicEvents: [],
         files: [],
         topicsFetched: false
     },
@@ -18,7 +18,7 @@ export default {
         message: state => state.message,
         messages: state => state.messages,
         files: state => state.files,
-        events: state => state.events,
+        topicEvents: state => state.topicEvents,
         topics: state => state.topics
     },
     mutations: {
@@ -98,11 +98,11 @@ export default {
         getTopic({state, commit, dispatch}, {topicId, type}) {
             if(state.topic.id !== topicId) {
                 return axios.get('topics/' + topicId).then(topic => {
-                    commit('setTopic', Object.assign(topic.data, {files: [], events: [], messages: []}))
+                    commit('setTopic', Object.assign(topic.data, {files: [], topicEvents: [], messages: []}))
                     return dispatch('getTopicChildren', {topicId, type})
                 })
             } else {
-                commit('setTopic', Object.assign(state.topic, {files: [], events: [], messages: []}))
+                commit('setTopic', Object.assign(state.topic, {files: [], topicEvents: [], messages: []}))
                 return dispatch('getTopicChildren', {topicId, type})
             }
         },

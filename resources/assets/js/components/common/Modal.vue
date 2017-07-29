@@ -19,6 +19,7 @@
     import TopicForm from '../topics/TopicForm.vue'
     import ShowMessage from '../messages/ShowMessage.vue'
     import MessageForm from '../messages/MessageForm.vue'
+    import EventForm from '../events/EventForm.vue'
 
     export default {
         name: 'modal',
@@ -28,6 +29,7 @@
             EditUser,
             TopicForm,
             MessageForm,
+            EventForm,
             ShowMessage,
             EditCard,
             EditProject
@@ -44,10 +46,17 @@
             }
         },
         mounted() {
-            this.$root.$on('showModal', view => {
+            this.$root.$on('showModal', (view, cb) => {
                 this.view = view
                 this.visible = true
-                this.loading = false
+                if(cb) {
+                    this.loading = true
+                    cb.then(() => {
+                        this.loading = false
+                    })
+                } else {
+                    this.loading = false
+                }
                 this.error = null
             })
             this.$root.$on('hideModal', () => {
