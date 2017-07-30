@@ -4,7 +4,7 @@
             <div class="timer-toggle"><i :class="running ? 'icon-pause' : 'icon-play'"></i></div>
             <div class="timer-title">
                 {{ currentLog.card.title }}
-                <b>{{ elapsedFormat(timer) }}</b>
+                <b>{{ elapsedFormat(timer, true) }}</b>
             </div>
         </div>
         <div class="timer-right">
@@ -45,6 +45,9 @@
             }),
             running() {
                 return this.currentLog && this.currentLog.is_running
+            },
+            elapsedTime() {
+
             }
         },
         methods: {
