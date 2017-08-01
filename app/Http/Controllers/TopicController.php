@@ -94,7 +94,7 @@ class TopicController extends Controller
      */
     public function favorite(Topic $topic)
     {
-        $created = Favorite::toggleFavorite($topic);
+        $created = Favorite::toggleFavorite($topic, Auth::user()->id);
 
         return response()->make($created ?: []);
     }

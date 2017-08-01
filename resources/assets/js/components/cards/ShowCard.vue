@@ -14,7 +14,8 @@
                 </span>
                 <span class="label label-dark" v-if="logsLength()">{{ elapsedFormat(logsLength()) }}</span>
                 <span class="label label-primary" v-if="card.due_date">{{ dateFormat(card.due_date) }}</span>
-                <a class="label" :class="{'label-dark' : ! isLogRunning(), 'label-warn' : isLogRunning()}" @click="toggleTimer(card)">
+                <a class="label" :class="{'label-dark' : ! isLogRunning(), 'label-warn' : isLogRunning()}"
+                   @click="toggleTimer(card)">
                     <i class="icon-clock"></i>{{ $t('logs.startTimer') }}
                     <span v-if="isLogRunning()">{{ elapsedFormat(timer) }}</span>
                 </a>
@@ -49,7 +50,8 @@
                         <file-list :files="card.files" :small="true"></file-list>
                     </div>
                     <div class="tabs-panel" id="logs">
-                        <logs-list :logs="card.logs" :small="true" :add="true" :show-card="false" :card="card"></logs-list>
+                        <logs-list :logs="card.logs" :small="true" :add="true" :show-card="false"
+                                   :card="card"></logs-list>
                     </div>
                 </div>
             </tabs>
@@ -103,7 +105,10 @@
                 this.$root.$emit('showModal', 'edit-card')
             },
             deleteCard() {
-                this.$store.dispatch('deleteCard', this.card)
+                this.$store.dispatch('deleteCard', {
+                    _url: `projects/${this.card.project_id}/cards/${this.card.id}`,
+                    id: this.card.id
+                })
                 this.$root.$emit('hideModal')
             },
             toggleTimer(card) {

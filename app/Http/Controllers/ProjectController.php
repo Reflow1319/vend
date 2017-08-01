@@ -83,7 +83,7 @@ class ProjectController extends Controller
 	 */
 	public function favorite(Project $project)
     {
-        $created = Favorite::toggleFavorite($project);
+        $created = Favorite::toggleFavorite($project, Auth::user()->id);
 
         return response()->make($created ?: []);
     }

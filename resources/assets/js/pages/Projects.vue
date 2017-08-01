@@ -80,7 +80,8 @@
                 this.$refs.loader.start()
                 this.$store.commit('setProjects', [])
                 this.empty = false
-                this.$store.dispatch('getProjects', {archive: this.$route.name === 'projects-archive' ? 1 : 0}).then(() => {
+                let isArchive = this.$route.name === 'projects-archive'
+                this.$store.dispatch('getProjects', {_url: 'projects/?archive=' + (isArchive ? 1 : 0)}).then(() => {
                     if (this.projects.length === 0) {
                         this.empty = true
                     }

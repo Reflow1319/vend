@@ -2,9 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Account;
 use App\Card;
 use App\Comment;
+use App\Notifications\NotifiedComment;
+use App\Notifications\Notify;
 use App\Project;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -32,7 +33,9 @@ class CardCommentController extends Controller
         $comment = $card->comments()->save(new Comment($request->all()));
         $comment->load('user');
 
-        Auth::user()->notify(Auth::user(), $card, 'comment:created');
+        (new Notify(new NotifiedComment($comment, $card, $project)))
+            ->to($project->users)
+            ->create();
 
         return response()->make($comment);
     }

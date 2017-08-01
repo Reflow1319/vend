@@ -10,8 +10,10 @@ class NotificationController extends Controller
 {
     public function get()
     {
-        $notifications =  Notification::where('user_id', Auth::user()->id)
-            ->with('actor', 'related')
+        $notifications = Notification::whereHas('users', function ($query) {
+            $query->where('users.id', Auth::user()->id);
+        })
+            ->with('actor')
             ->latest()
             ->get();
 
@@ -22,7 +24,7 @@ class NotificationController extends Controller
     {
         Notification::where('user_id', Auth::user()->id)
             ->update([
-                'read_at' => Carbon::now()
+                'read_at' => Carbon::now(),
             ]);
     }
 

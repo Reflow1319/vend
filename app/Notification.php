@@ -7,10 +7,11 @@ use Illuminate\Database\Eloquent\Model;
 class Notification extends Model
 {
     protected $guarded = ['id'];
-    protected $hidden = [
-        'related_id',
-        'related_type'
-    ];
+
+    public function getDataAttribute()
+    {
+        return unserialize($this->attributes['data']);
+    }
 
     public function related()
     {
@@ -20,6 +21,11 @@ class Notification extends Model
     public function actor()
     {
         return $this->belongsTo(User::class, 'actor_id');
+    }
+
+    public function users()
+    {
+        return $this->belongsToMany(User::class);
     }
 
     public function getTypeAttribute()

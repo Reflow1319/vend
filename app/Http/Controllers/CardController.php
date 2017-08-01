@@ -4,13 +4,19 @@ namespace App\Http\Controllers;
 
 use App\Card;
 use App\Http\Requests\CardRequest;
+use App\Notifications\NotifiedCard;
+use App\Notifications\Notify;
 use App\Project;
 use App\Services\UploadService;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
 
 class CardController extends Controller
 {
+    /**
+     * @var Notify
+     */
+    private $notify;
+
     /**
      * CardController constructor.
      */
@@ -28,8 +34,7 @@ class CardController extends Controller
     public function index(Project $project)
     {
         $cards = Card::whereProjectId($project->id)
-            ->with('tasks', 'comments', 'logs', 'logs.user', 'assigned',
-                'files')
+            ->with('tasks', 'comments', 'logs', 'logs.user', 'assigned', 'files')
             ->get();
 
         return response()->make($cards);
@@ -37,7 +42,7 @@ class CardController extends Controller
 
     /**
      * @param \App\Project $project
-     * @param \App\Card    $card
+     * @param \App\Card $card
      *
      * @return \Illuminate\Http\Response
      */
@@ -45,13 +50,13 @@ class CardController extends Controller
     {
         $card->load('tasks', 'comments', 'logs', 'logs.user', 'assigned',
             'files');
-        $card->notificationMarkAsRead();
+//        $card->notificationMarkAsRead();
 
         return response()->make($card);
     }
 
     /**
-     * @param \App\Project                   $project
+     * @param \App\Project $project
      * @param \App\Http\Requests\CardRequest $request
      *
      * @return \Illuminate\Http\Response
@@ -62,9 +67,9 @@ class CardController extends Controller
     }
 
     /**
-     * @param \App\Project                   $project
+     * @param \App\Project $project
      * @param \App\Http\Requests\CardRequest $request
-     * @param \App\Card                      $card
+     * @param \App\Card $card
      *
      * @return \Illuminate\Http\Response
      */
@@ -74,9 +79,9 @@ class CardController extends Controller
     }
 
     /**
-     * @param \App\Project             $project
+     * @param \App\Project $project
      * @param \Illuminate\Http\Request $request
-     * @param \App\Card                $card
+     * @param \App\Card $card
      *
      * @return \Illuminate\Http\Response
      */
@@ -84,20 +89,19 @@ class CardController extends Controller
     {
         $card->update($request->all());
 
-        Auth::user()->notify(Auth::user(), $card, 'card:updated');
-
         return response()->make($card);
     }
 
     /**
-     * @param \App\Project             $project
+     * @param \App\Project $project
      * @param \Illuminate\Http\Request $request
-     * @param \App\Card|null           $card
+     * @param \App\Card|null $card
      *
      * @return \Illuminate\Http\Response
      */
     private function save(Project $project, Request $request, Card $card = null)
     {
+        $previous = $card ? $card->replicate() : new Card();
 
         if (!$card) {
             $data = $request->all();
@@ -110,20 +114,21 @@ class CardController extends Controller
             $card->logs = [];
             $card->comments = [];
         } else {
-            $data = array_only($request->all(), $card->getFillable());
-            $card->update($data);
+            $card->update($request->all());
         }
 
         $card->load('assigned');
 
-        Auth::user()->notify(Auth::user(), $card, 'card:updated');
+        (new Notify(new NotifiedCard($previous, $card, $project)))
+            ->to($project->users)
+            ->create();
 
         return response()->make($card);
     }
 
     /**
      * @param Project $project
-     * @param Card    $card
+     * @param Card $card
      */
     public function destroy(Project $project, Card $card)
     {
@@ -131,9 +136,9 @@ class CardController extends Controller
     }
 
     /**
-     * @param Project                  $project
+     * @param Project $project
      * @param \Illuminate\Http\Request $request
-     * @param Card                     $card
+     * @param Card $card
      *
      * @return \Illuminate\Http\Response
      */

@@ -35,10 +35,10 @@ class Favorite extends Model
      * @param Model $model
      * @return bool
      */
-    public static function toggleFavorite(Model $model)
+    public static function toggleFavorite(Model $model, $userId)
     {
         $favorite = $model->favorites()->firstOrNew([
-                'user_id' => Auth::user()->id,
+                'user_id' => $userId,
             ]);
 
         if ($favorite->exists) {

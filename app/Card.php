@@ -32,13 +32,15 @@ class Card extends Model
             $model->tasks()->delete();
             $model->comments()->delete();
             $model->logs()->delete();
-            $model->notifications()->delete();
+//            $model->notifications()->delete();
         });
     }
 
     public function getDescriptionAttribute()
     {
-        return strip_tags($this->attributes['description']) === '' ? '' : $this->attributes['description'];
+        return ! isset($this->attributes['description']) || strip_tags($this->attributes['description']) === ''
+            ? ''
+            : $this->attributes['description'];
     }
 
     public function setDueDateAttribute($value)
