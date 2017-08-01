@@ -14,7 +14,10 @@ class EventController extends Controller
 {
     public function __construct()
     {
-        $this->middleware('role:editor', ['only' => ['store', 'update', 'destroy']]);
+        $this->middleware(
+            'role:editor',
+            ['only' => ['store', 'update', 'destroy']]
+        );
     }
 
     public function index()
@@ -42,10 +45,14 @@ class EventController extends Controller
             $vcalendar->add('VEVENT', $e);
         }
 
-        return response($vcalendar->serialize(), 200, [
-            'Content-type' => 'text/calendar; charset=utf-8',
-            'Content-Disposition' => 'inline; filename=calendar.ics',
-        ]);
+        return response(
+            $vcalendar->serialize(),
+            200,
+            [
+                'Content-type'        => 'text/calendar; charset=utf-8',
+                'Content-Disposition' => 'inline; filename=calendar.ics',
+            ]
+        );
     }
 
     public function store(EventRequest $eventRequest)
@@ -56,6 +63,7 @@ class EventController extends Controller
     public function update(Event $event, EventRequest $eventRequest)
     {
         $event->update($eventRequest->all());
+
         return $event;
     }
 
@@ -70,17 +78,22 @@ class EventController extends Controller
         }
 
         $events = Event::orderBy('start')
-            ->where(function ($query) use ($user) {
-                if ($user) {
-                    $query->where('event_url', $user->event_url);
+            ->where(
+                function ($query) use ($user) {
+                    if ($user) {
+                        $query->where('event_url', $user->event_url);
+                    }
                 }
-            })
+            )
             ->get();
 
-        $events = $events->map(function ($event) {
-            $event->type = 'event';
-            return $event;
-        });
+        $events = $events->map(
+            function ($event) {
+                $event->type = 'event';
+
+                return $event;
+            }
+        );
 
         $projects = Project::where('due_date', '!=', null)->get();
 
@@ -88,30 +101,38 @@ class EventController extends Controller
 
         $projectEvents = $projects->map(function ($project) {
             return [
-                'id' => $project->id,
-                'title' => $project->title,
-                'start' => $project->due_date,
+                'id'       => $project->id,
+                'title'    => $project->title,
+                'start'    => $project->due_date,
                 'location' => null,
-                'end' => null,
-                'type' => 'project',
+                'end'      => null,
+                'type'     => 'project',
             ];
         });
 
         $cardEvents = $cards->map(function ($card) {
             return [
-                'id' => $card->id,
-                'title' => $card->title,
-                'start' => $card->due_date,
+                'id'       => $card->id,
+                'title'    => $card->title,
+                'start'    => $card->due_date,
                 'location' => null,
-                'end' => null,
-                'type' => 'card',
-                'meta' => [
-                    'project_id' => $card->project_id
-                ]
+                'end'      => null,
+                'type'     => 'card',
+                'meta'     => [
+                    'project_id' => $card->project_id,
+                ],
             ];
         });
+//
+//        if ($projectEvents) {
+//            $events = $events->merge($projectEvents);
+//        }
+//
+//        if ($cardEvents) {
+//            $events->merge($cardEvents);
+//        }
 
-        return $projectEvents->merge($events)->merge($cardEvents);
+        return $events;
     }
 
     public function destroy(Event $event)

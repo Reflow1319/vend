@@ -71,8 +71,8 @@
             ...mapGetters({
                 project: 'project',
                 cards: 'cards',
-                filters: 'filters',
-                filteredCards: 'filteredCards',
+//                filters: 'filters',
+//                filteredCards: 'filteredCards',
                 currentUser: 'currentUser'
             }),
             archiveColumns() {
@@ -86,7 +86,8 @@
                 loaded: false,
                 infoVisible: false,
                 lastColumn: null,
-                showArchiveColumns: false
+                showArchiveColumns: false,
+                filteredCards: []
             }
         },
         mounted() {
@@ -95,18 +96,38 @@
             this.$refs.searchBar.$on('changed', status => {
                 this.infoVisible = status
             })
+
         },
         methods: {
+            filterCards(filters) {
+                let filterUser, filterDate, filterTitle
+                this.filteredCards = this.cards.filter(c => {
+                    filterUser = filterDate = filterTitle = true
+                    if (state.filters.user) {
+                        filterUser = c.assigned_to === state.filters.user.id
+                    }
+                    if (state.filters.title) {
+                        filterTitle = c.title.toLowerCase().indexOf(state.filters.title.toLowerCase()) !== -1
+                    }
+                    if (state.filters.dueDate && state.filters.dueDate.length > 0) {
+                        let dueDate = moment(c.due_date, 'YYYY-MM-DD')
+                        filterDate = dueDate > state.filters.dueDate[0]
+                            && dueDate <= state.filters.dueDate[1]
+                    }
+                    return (filterUser && filterDate && filterTitle)
+                })
+            },
             navigateTo() {
                 let projectId = this.$route.params.id;
 
                 this.$refs.loader.start()
                 this.$store.commit('setCards', [])
                 this.$store.commit('setProject', {})
-                this.$store.dispatch('getProject', projectId).then(() => {
+                this.$store.dispatch('getProject', {id: projectId}).then(() => {
 
-                    axios.get('projects/' + projectId + '/cards').then(cards => {
-                        this.$store.commit('setCards', cards.data)
+                    const url = 'projects/' + projectId + '/cards'
+                    this.$store.dispatch('getCards', {_url: url}).then(cards => {
+                        this.filteredCards = cards
                         this.$refs.loader.stop()
                         this.loaded = true
 

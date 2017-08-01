@@ -99,7 +99,7 @@
                 this.filterCard()
             },
             filterCard() {
-                this.$store.commit('setCardsFilter', this.filter)
+                this.emit('filter:cards', this.filter)
             },
         }
     }

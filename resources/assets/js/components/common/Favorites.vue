@@ -1,5 +1,5 @@
 <template>
-    <div v-if="favoritesFetched">
+    <div>
         <h4 class="sidebar-subtitle">{{ $t('favorites.title') }}</h4>
         <div v-if="favorites.length == 0" class="text-muted small">
             {{ $t('favorites.empty') }}
@@ -27,7 +27,6 @@
         computed: {
             ...mapGetters({
                 favorites: 'favorites',
-                favoritesFetched: 'favoritesFetched'
             })
         },
         mounted() {

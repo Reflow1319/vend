@@ -56,7 +56,8 @@
                 this.filterCard()
             },
             filterCard() {
-                this.$store.commit('setUsersFilter', this.filter)
+                this.emit('filter:users', this.filter)
+//                this.$store.commit('setUsersFilter', this.filter)
             },
         }
     }

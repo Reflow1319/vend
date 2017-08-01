@@ -48,8 +48,11 @@
         methods: {
             fetch() {
                 this.$refs.loader.start()
-                this.$store.dispatch('getTopics', this.$route.params.id).then(() => {
-                    this.$store.dispatch('getTopicChildren', {topicId: this.$route.params.id, type: 'messages'}).then(() => {
+                this.$store.commit('setTopic', {})
+                this.$store.commit('setMessages', [])
+                this.$store.dispatch('getTopic', {id: this.$route.params.id}).then(() => {
+                    const url = 'topics/' + this.$route.params.id + '/messages'
+                    this.$store.dispatch('getMessages', {_url: url}).then(() => {
                         this.$refs.loader.stop()
                     })
                 })

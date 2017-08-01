@@ -9,7 +9,6 @@ import Modal from './components/common/Modal.vue'
 import mixins from './mixins'
 import router from './routes'
 
-
 Vue.mixin(mixins)
 
 import i18n from './localization'
@@ -19,6 +18,10 @@ const app = new Vue({
     store,
     i18n,
     el: '#app',
+    components: {
+        MainNav,
+        Modal,
+    },
     data() {
         return {
             modalVisible: false
@@ -29,25 +32,18 @@ const app = new Vue({
             currentUser: 'currentUser'
         })
     },
+    mounted() {
+        moment.locale('en');
+
+        this.$store.dispatch('getNotifications')
+        this.$store.dispatch('getCurrentUser')
+    },
     methods: {
         getUser(user) {
             if (user && user.role !== 'client') {
                 this.$store.dispatch('getUsers')
             }
         }
-    },
-    components: {
-        MainNav,
-        Modal,
-    },
-    mounted() {
-        moment.locale('en');
-
-        this.$store.dispatch('getNotifications').then(() => {
-            this.$root.$emit('notifications:fetched')
-        })
-
-        this.$store.dispatch('getCurrentUser')
     },
     watch: {
         'currentUser': 'getUser'

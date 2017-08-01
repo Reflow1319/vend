@@ -47,23 +47,42 @@
         },
         data() {
             return {
-                filter: {}
+                filter: {},
+                filteredUsers: []
             }
         },
         computed: {
             ...mapGetters({
                 users: 'users',
-                filteredUsers: 'filteredUsers'
+//                filteredUsers: 'filteredUsers'
             })
         },
         mounted() {
             this.$refs.loader.start()
             this.$store.commit('setUsers', [])
-            this.$store.dispatch('getUsers').then(() => {
+            this.$store.dispatch('getUsers').then(users => {
+                this.filteredUsers = users
                 this.$refs.loader.stop()
             })
+            this.on('filter:users', this.filterUsers)
         },
         methods: {
+            filterUsers(filters) {
+                let filterRole, filterName
+                this.filteredUsers = this.users.filter(u => {
+                    filterRole = filterName = true
+                    if (filters.name) {
+                        filterName = (
+                            u.name.toLowerCase().indexOf(filters.name.toLowerCase()) > -1
+                            || u.email.toLowerCase().indexOf(filters.name.toLowerCase()) > -1
+                        )
+                    }
+                    if (filters.role) {
+                        filterRole = u.role === filters.role
+                    }
+                    return (filterRole && filterName)
+                })
+            },
             create() {
                 this.$store.commit('setUser', {})
                 this.$root.$emit('showModal', 'edit-user')

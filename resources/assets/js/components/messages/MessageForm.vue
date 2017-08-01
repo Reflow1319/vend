@@ -40,13 +40,16 @@
             save() {
                 this.message.message = this.$refs.editor.getContent()
 
+                let url = 'topics/' + this.$route.params.id + '/messages'
                 this.$store.dispatch('saveMessage', {
                     topicId: this.$route.params.id,
-                    message: this.message
+                    message: this.message.message,
+                    _url: url
                 })
                     .then(() => {
-                        this.$refs.editor.setContent('')
+                        this.$refs.editor.setContent('a')
                         this.$store.commit('setMessage', {
+                            message: '',
                             files: []
                         })
                     })

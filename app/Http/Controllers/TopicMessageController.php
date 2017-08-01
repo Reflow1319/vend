@@ -30,7 +30,7 @@ class TopicMessageController extends Controller
         $messages = Message::with('user', 'files')
             ->whereTopicId($topic->id)->latest()->get();
 
-        $topic->notificationMarkAsRead();
+//        $topic->notificationMarkAsRead();
 
         return response()->make($messages);
     }
@@ -46,7 +46,7 @@ class TopicMessageController extends Controller
         $message = $this->save($topic, $request);
         $message->load('user', 'files');
 
-        Auth::user()->notify(Auth::user(), $topic, 'message:created');
+//        Auth::user()->notify(Auth::user(), $topic, 'message:created');
 
         return response()->make($message);
     }
