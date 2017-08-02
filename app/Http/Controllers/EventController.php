@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Card;
 use App\Event;
 use App\Http\Requests\EventRequest;
+use App\Notifications\NotifiedEvent;
+use App\Notifications\Notify;
 use App\Project;
 use App\User;
 use Sabre\VObject\Component\VCalendar;
@@ -57,14 +59,25 @@ class EventController extends Controller
 
     public function store(EventRequest $eventRequest)
     {
-        return Event::create($eventRequest->all());
+        $event = Event::create($eventRequest->all());
+        $this->createNotification($event);
+
+        return response()->make($event);
     }
 
     public function update(Event $event, EventRequest $eventRequest)
     {
         $event->update($eventRequest->all());
+        $this->createNotification($event);
 
-        return $event;
+        return response()->make($event);
+    }
+
+    private function createNotification(Event $event)
+    {
+        (new Notify(new NotifiedEvent($event)))
+            ->to(User::get())
+            ->create();
     }
 
     private function getEvents($hash = null)
@@ -72,7 +85,7 @@ class EventController extends Controller
         $user = null;
         if ($hash) {
             $user = User::whereEventUrl($hash)->first();
-            if (!$user) {
+            if ( ! $user) {
                 throw new NotFoundHttpException();
             }
         }
@@ -133,6 +146,16 @@ class EventController extends Controller
 //        }
 
         return $events;
+    }
+
+    /**
+     * @param Event $event
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function show(Event $event)
+    {
+        return response()->make($event);
     }
 
     public function destroy(Event $event)
