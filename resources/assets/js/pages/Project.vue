@@ -60,6 +60,7 @@
     import Loader from '../components/common/Loader.vue'
     import Card from '../components/cards/Card.vue'
     import sortable from 'jquery-ui/ui/widgets/sortable'
+    import moment from 'moment'
 
     export default {
         components: {
@@ -95,6 +96,8 @@
                 this.infoVisible = status
             })
 
+            this.on('filter:cards', this.filterCards)
+
             this.$store.subscribe((mutation, state) => {
                 if(mutation.type === 'deleteCard') {
                     this.filteredCards = state.cards.cards
@@ -107,16 +110,16 @@
                 let filterUser, filterDate, filterTitle
                 this.filteredCards = this.cards.filter(c => {
                     filterUser = filterDate = filterTitle = true
-                    if (state.filters.user) {
-                        filterUser = c.assigned_to === state.filters.user.id
+                    if (filters.user) {
+                        filterUser = c.assigned_to === filters.user.id
                     }
-                    if (state.filters.title) {
-                        filterTitle = c.title.toLowerCase().indexOf(state.filters.title.toLowerCase()) !== -1
+                    if (filters.title) {
+                        filterTitle = c.title.toLowerCase().indexOf(filters.title.toLowerCase()) !== -1
                     }
-                    if (state.filters.dueDate && state.filters.dueDate.length > 0) {
+                    if (filters.dueDate && filters.dueDate.length > 0) {
                         let dueDate = moment(c.due_date, 'YYYY-MM-DD')
-                        filterDate = dueDate > state.filters.dueDate[0]
-                            && dueDate <= state.filters.dueDate[1]
+                        filterDate = dueDate > filters.dueDate[0]
+                            && dueDate <= filters.dueDate[1]
                     }
                     return (filterUser && filterDate && filterTitle)
                 })
