@@ -85,7 +85,7 @@ class ProjectController extends Controller
     {
         $created = Favorite::toggleFavorite($project, Auth::user()->id);
 
-        return response()->make($created ?: []);
+        return response()->make($created ?: null);
     }
 
 	/**
