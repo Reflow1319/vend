@@ -1,6 +1,8 @@
 import {pluralize, camelize} from 'inflection'
 import stringTemplate from 'string-template'
 
+let options = {}
+
 function getStates (store) {
     const states = {}
 
@@ -32,7 +34,11 @@ function getMutations (store) {
 
     mutations[camelize('create_' + store, true)] = (state, r) => {
         state[store] = r
-        state[camelize(pluralize(store), true)].push(r)
+        if(options.addType === 'prepend') {
+            state[camelize(pluralize(store), true)].unshift(r)
+        } else {
+            state[camelize(pluralize(store), true)].push(r)
+        }
     }
 
     mutations[camelize('update_' + store, true)] = (state, r) => {
@@ -114,7 +120,9 @@ function getUrl (baseUrl, r) {
         : baseUrl
 }
 
-export function makeResource (store, baseUrl, additional) {
+export function makeResource (store, baseUrl, additional, _options) {
+
+    options = Object.assign(options, _options)
 
     if (!baseUrl) baseUrl = pluralize(store)
 
