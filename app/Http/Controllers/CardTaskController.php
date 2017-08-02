@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Card;
 use App\Http\Requests\TaskRequest;
+use App\Notifications\NotifiedTask;
+use App\Notifications\Notify;
 use App\Project;
 use App\Task;
 
@@ -15,33 +17,47 @@ class CardTaskController extends Controller
         $this->middleware('member:project');
     }
 
-	/**
-	 * @param Project $project
-	 * @param Card $card
-	 * @param TaskRequest $request
-	 *
-	 * @return \Illuminate\Http\Response
-	 * @internal param Account $account
-	 */
-    public function store(Project $project, Card $card, TaskRequest $request)
-    {
-        $task = $card->tasks()->save(new Task($request->all()));
-
-        return response()->make($task);
-    }
-
     /**
-     * @param Project $project
-     * @param Card    $card
-     * @param Task    $task
+     * @param Project     $project
+     * @param Card        $card
      * @param TaskRequest $request
      *
      * @return \Illuminate\Http\Response
      * @internal param Account $account
      */
-    public function update(Project $project, Card $card, Task $task, TaskRequest $request)
+    public function store(Project $project, Card $card, TaskRequest $request)
     {
+        $task = $card->tasks()->save(new Task($request->all()));
+
+        (new Notify(new NotifiedTask(new Task, $task, $card, $project, true)))
+            ->to($project->users)
+            ->create();
+
+        return response()->make($task);
+    }
+
+    /**
+     * @param Project     $project
+     * @param Card        $card
+     * @param Task        $task
+     * @param TaskRequest $request
+     *
+     * @return \Illuminate\Http\Response
+     * @internal param Account $account
+     */
+    public function update(
+        Project $project,
+        Card $card,
+        Task $task,
+        TaskRequest $request
+    ) {
+        $previous = $task->replicate();
+
         $task->update($request->all());
+
+        (new Notify(new NotifiedTask($previous, $task, $card, $project, false)))
+            ->to($project->users)
+            ->create();
 
         return response()->make($task);
     }
