@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\File;
 use App\Http\Requests\MessageRequest;
 use App\Message;
+use App\Notifications\NotifiedMessage;
+use App\Notifications\Notify;
 use App\Topic;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -46,8 +48,6 @@ class TopicMessageController extends Controller
         $message = $this->save($topic, $request);
         $message->load('user', 'files');
 
-//        Auth::user()->notify(Auth::user(), $topic, 'message:created');
-
         return response()->make($message);
     }
 
@@ -62,8 +62,6 @@ class TopicMessageController extends Controller
     {
         $message = $this->save($topic, $request, $message);
         $message->load('user', 'files');
-
-        Auth::user()->notify(Auth::user(), $topic, 'message:updated');
 
         return response()->make($message);
     }
@@ -100,6 +98,10 @@ class TopicMessageController extends Controller
 
         $topic->messages()->save($message);
         $topic->latestMessage()->save($message);
+
+        (new Notify(new NotifiedMessage($message, $topic)))
+            ->to($topic->users)
+            ->create();
 
         // Attach files if we have any
 
