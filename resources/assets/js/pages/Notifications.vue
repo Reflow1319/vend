@@ -5,7 +5,7 @@
                 {{ $t('notifications.index') }}
             </div>
             <div class="title-bar-right">
-                <a href="#" class="btn btn-primary title-bar-btn">{{ $t('notifications.clear') }}</a>
+                <a @click="markAsRead()" class="btn btn-primary title-bar-btn">{{ $t('notifications.markAsRead') }}</a>
             </div>
         </div>
         <div class="container">
@@ -20,7 +20,15 @@
                             <img :src="notification.actor.image" alt="" class="avatar">
                         </div>
                         <div class="media-body">
-                            <div>{{ getNotificationText(notification) }}</div>
+                            <div v-html="getNotificationText(notification)"></div>
+                            <div class="notification-changes" v-if="notification.data.changes">
+                                <div v-for="change in notification.data.changes">
+                                    <b>{{ $t('cards.form.' + camelProperty(change.property, true)) }}:</b>
+                                    <span>{{ change.from }}</span>
+                                    <i class="icon-arrow-right"></i>
+                                    <span>{{ change.to }}</span>
+                                </div>
+                            </div>
                             <span class="text-muted">{{ fromNow(notification.created_at) }}</span>
                         </div>
                     </div>
@@ -33,6 +41,7 @@
 <script>
     import {mapGetters} from 'vuex'
     import moment from 'moment'
+    import {camelize} from 'inflection'
 
     export default {
         data() {
@@ -46,6 +55,9 @@
             })
         },
         methods: {
+            camelProperty(prop) {
+                return camelize(prop, true)
+            },
             showNotification(notification) {
                 notification.read_at = moment().format('YYYY-MM-DD HH:ii:ss')
                 if (notification.type === 'card_updated' || notification.type === 'card_created' || notification.type === 'comment_created') {
@@ -56,31 +68,17 @@
                 }
             },
             getNotificationText(notification) {
-                let data = {
-                    actor: notification.actor.name
-                }
-                switch (notification.type) {
-                    case 'card_updated':
-                        data.title = notification.related.title
-                        break
-                    case 'message_created':
-                        data.title = notification.related.title
-                        break
-                    case 'comment_created':
-                        data.title = notification.related.title
-                        break
-                }
-
-                return this.$t('notifications.messages.' + notification.type, data)
+                notification.data.actor = notification.actor.name
+                const key = `${notification.related_type}_${notification.type}`
+                return this.$t('notifications.messages.' + key, notification.data)
+            },
+            getNotificationChanges(notification) {
+                return notification.changes
+                    ? notification.changes
+                    : null
             },
             markAsRead() {
-                axios.get('notifications/read').then(() => {
-                })
-            },
-            clear() {
-                axios.get('notifications/clear').then(() => {
-                    this.$store.commit('setNotifications', [])
-                })
+                axios.get('notifications/read')
             }
         }
     }
