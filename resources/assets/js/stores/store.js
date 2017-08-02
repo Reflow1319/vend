@@ -1,6 +1,5 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
-import cards from './cards'
 import users from './users'
 import events from './events'
 import logs from './logs'
@@ -10,7 +9,7 @@ Vue.use(Vuex)
 
 export default new Vuex.Store({
     modules: {
-        cards,
+        cards: makeResource('card', 'projects/{projectId}/cards'),
         topics: makeResource('topic'),
         topicFiles: makeResource('topic_file', 'topics/{topicId}/files'),
         messages: makeResource('message', 'topics/{topicId}/messages'),
