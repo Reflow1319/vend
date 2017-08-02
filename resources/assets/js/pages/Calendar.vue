@@ -83,6 +83,7 @@
                 return moment(date, 'YYYY-MM').format('MMMM, YYYY')
             },
             create() {
+                this.$store.commit('setEvent', {})
                 this.emit('showModal', 'event-form')
             },
             fetchEvents() {
