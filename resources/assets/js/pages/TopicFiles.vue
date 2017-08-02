@@ -33,13 +33,13 @@
         computed: {
             ...mapGetters({
                 topic: 'topic',
-                files: 'files'
+                files: 'topicFiles'
             })
         },
         mounted() {
             this.$refs.loader.start()
-            this.$store.dispatch('getTopics', this.$route.params.id).then(() => {
-                this.$store.dispatch('getTopicChildren', {topicId: this.$route.params.id, type: 'files'}).then(() => {
+            this.$store.dispatch('getTopic', {id: this.$route.params.id}).then(() => {
+                this.$store.dispatch('getTopicFiles', {urlParams: {topicId: this.$route.params.id}}).then(() => {
                     this.$refs.loader.stop()
                     if(this.files.length === 0) this.noRecord = true
                 })
