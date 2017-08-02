@@ -125,8 +125,7 @@
                 this.$store.commit('setProject', {})
                 this.$store.dispatch('getProject', {id: projectId}).then(() => {
 
-                    const url = 'projects/' + projectId + '/cards'
-                    this.$store.dispatch('getCards', {_url: url}).then(cards => {
+                    this.$store.dispatch('getCards', {urlParams: {projectId: projectId}}).then(cards => {
                         this.filteredCards = cards
                         this.$refs.loader.stop()
                         this.loaded = true

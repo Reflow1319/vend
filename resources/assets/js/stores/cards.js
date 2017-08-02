@@ -1,7 +1,7 @@
 import {makeResource} from './resource'
 import moment from 'moment'
 
-export default makeResource('card', null, {
+export default makeResource('card', 'projects/{projectId}/cards', {
     state: {
         filteredCards: [],
         filters: {}

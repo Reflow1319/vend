@@ -1,6 +1,6 @@
 import {makeResource} from './resource'
 
-export default makeResource('event', null, {
+export default makeResource('event', 'events', {
     getters: {
         eventsGrouped: state => {
             const groups = {}
