@@ -106,7 +106,7 @@
             },
             deleteCard() {
                 this.$store.dispatch('deleteCard', {
-                    _url: `projects/${this.card.project_id}/cards/${this.card.id}`,
+                    urlParams: {projectId: this.card.project_id},
                     id: this.card.id
                 })
                 this.$root.$emit('hideModal')
