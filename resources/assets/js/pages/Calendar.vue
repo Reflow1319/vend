@@ -63,6 +63,12 @@
                     }
                 }
 
+                if(e.type === 'event') {
+                    return () =>{
+                        this.$root.$emit('showModal', 'event-detail', this.$store.dispatch('getEvent', {id: e.id}))
+                    }
+                }
+
                 if (e.type === 'card') {
                     return () => {
                         this.$root.$emit('showModal', 'show-card', this.$store.dispatch('getCard', {id: e.id, project_id: e.meta.project_id}))

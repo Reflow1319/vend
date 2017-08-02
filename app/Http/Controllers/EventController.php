@@ -148,6 +148,16 @@ class EventController extends Controller
         return $events;
     }
 
+    /**
+     * @param Event $event
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function show(Event $event)
+    {
+        return response()->make($event);
+    }
+
     public function destroy(Event $event)
     {
         $event->delete();

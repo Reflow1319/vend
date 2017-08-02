@@ -16,6 +16,7 @@
     import EditProject from '../projects/EditProject.vue'
     import ShowUser from '../users/ShowUser.vue'
     import EditUser from '../users/EditUser.vue'
+    import EventDetail from '../events/EventDetail.vue'
     import TopicForm from '../topics/TopicForm.vue'
     import ShowMessage from '../messages/ShowMessage.vue'
     import MessageForm from '../messages/MessageForm.vue'
@@ -29,6 +30,7 @@
             EditUser,
             TopicForm,
             MessageForm,
+            EventDetail,
             EventForm,
             ShowMessage,
             EditCard,
