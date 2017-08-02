@@ -46,7 +46,6 @@ function getMutations (store) {
     mutations[camelize('delete_' + store, true)] = (state, r) => {
         state[store] = {}
         state[pluralize(store)] = state[pluralize(store)].filter(e => r.id !== e.id)
-        console.log(state[pluralize(store)])
     }
 
     return mutations

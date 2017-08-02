@@ -71,8 +71,6 @@
             ...mapGetters({
                 project: 'project',
                 cards: 'cards',
-//                filters: 'filters',
-//                filteredCards: 'filteredCards',
                 currentUser: 'currentUser'
             }),
             archiveColumns() {
@@ -95,6 +93,12 @@
 
             this.$refs.searchBar.$on('changed', status => {
                 this.infoVisible = status
+            })
+
+            this.$store.subscribe((mutation, state) => {
+                if(mutation.type === 'deleteCard') {
+                    this.filteredCards = state.cards.cards
+                }
             })
 
         },
