@@ -27,17 +27,17 @@ function getMutations (store) {
     }
 
     mutations[camelize('set_' + pluralize(store), true)] = (state, r) => {
-        state[pluralize(store)] = r
+        state[camelize(pluralize(store), true)] = r
     }
 
     mutations[camelize('create_' + store, true)] = (state, r) => {
         state[store] = r
-        state[pluralize(store)].push(r)
+        state[camelize(pluralize(store), true)].push(r)
     }
 
     mutations[camelize('update_' + store, true)] = (state, r) => {
         state[store] = r
-        state[pluralize(store)] = state[pluralize(store)].map(e => {
+        state[camelize(pluralize(store), true)] = state[camelize(pluralize(store), true)].map(e => {
             if (e.id === r.id) return r
             return e
         })
@@ -45,7 +45,7 @@ function getMutations (store) {
 
     mutations[camelize('delete_' + store, true)] = (state, r) => {
         state[store] = {}
-        state[pluralize(store)] = state[pluralize(store)].filter(e => r.id !== e.id)
+        state[camelize(pluralize(store), true)] = state[camelize(pluralize(store), true)].filter(e => r.id !== e.id)
     }
 
     return mutations
