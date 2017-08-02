@@ -8,10 +8,13 @@ import {makeResource} from './resource'
 
 Vue.use(Vuex)
 
+console.log(makeResource('topic_file', 'topics/{topicId}/files'))
+
 export default new Vuex.Store({
     modules: {
         cards,
         topics: makeResource('topic'),
+        topicFiles: makeResource('topic_file', 'topics/{topicId}/files'),
         messages: makeResource('message', 'topics/{topicId}/messages'),
         notifications: makeResource('notification'),
         events,

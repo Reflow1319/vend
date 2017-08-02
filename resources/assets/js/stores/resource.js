@@ -4,8 +4,8 @@ import stringTemplate from 'string-template'
 function getStates (store) {
     const states = {}
 
-    states[store] = {}
-    states[pluralize(store)] = []
+    states[camelize(store, true)] = {}
+    states[camelize(pluralize(store), true)] = []
 
     return states
 }
@@ -13,8 +13,8 @@ function getStates (store) {
 function getGetters (store) {
     const getters = {}
 
-    getters[store] = (state) => state[store]
-    getters[pluralize(store)] = (state) => state[pluralize(store)]
+    getters[camelize(store, true)] = (state) => state[camelize(store, true)]
+    getters[camelize(pluralize(store), true)] = (state) => state[camelize(pluralize(store), true)]
 
     return getters
 }
