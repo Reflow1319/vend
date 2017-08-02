@@ -49,6 +49,10 @@
         },
         mounted() {
             this.fetchEvents()
+
+            if(this.$route.params.id) {
+                this.emit('showModal', 'event-detail', this.$store.dispatch('getEvent', {id: this.$route.params.id}))
+            }
         },
         data() {
             return {
