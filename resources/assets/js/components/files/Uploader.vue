@@ -1,14 +1,10 @@
 <template>
     <div class="uploader" :class="{'uploader-compact btn btn-default': compact}">
         <div class="uploader-text">
-            <i class="icon-upload"></i>
-            {{ text }}
+            <span class="uploader-loading-icon" v-if="loading"></span>
+            <span>{{ loading ? 'Uploading...' : 'Upload files' }}</span>
         </div>
-        <div class="uploader-loading" v-if="loading">
-            <span class="uploader-loading-icon"></span>
-            Uploading...
-        </div>
-        <div v-if="percentCompleted !== 0" class="uploader-percent">{{ percentCompleted + '%' }}</div>
+        <div v-if="percentCompleted !== 0" class="uploader-percent" :style="'width:' + percentCompleted + '%'"></div>
         <input type="file" name="userfile"
                class="uploader-field"
                @change="uploadFile"
