@@ -54,6 +54,9 @@
                 notifications: 'notifications'
             })
         },
+        mounted() {
+            this.$store.dispatch('getNotifications')
+        },
         methods: {
             camelProperty(prop) {
                 return camelize(prop, true)
