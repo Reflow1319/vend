@@ -36,6 +36,7 @@ export default {
         files: 'Files',
         form: {
             title: 'Title',
+            description: 'Description',
             assignedTo: 'Assign to',
             dueDate: 'Due date'
         }
@@ -141,10 +142,10 @@ export default {
         clear: 'Clear notifications',
         empty: 'No ',
         messages: {
-            card_updated: '{actor} updated {title} card',
-            message_created: '{actor} created a message in {title} topic',
+            card_updated: '{actor} updated {title} card in <a href="#/projects/{project_id}">{project_title}</a>',
+            message_created: '{actor} created a message in <a href="#/topics/{topic_id}">{topic_title}</a> topic',
             message_updated: '{actor} updated a message in {title} topic',
-            comment_created: '{actor} commented on {title} card',
+            comment_created: '{actor} commented on {title} card  in <a href="#/projects/{project_id}">{project_title}</a>',
         }
     },
     favorites: {
