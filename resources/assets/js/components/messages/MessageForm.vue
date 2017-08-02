@@ -43,6 +43,7 @@
                 this.$store.dispatch('saveMessage', {
                     topicId: this.$route.params.id,
                     message: this.message.message,
+                    files: this.message.files,
                     urlParams: {topicId: this.$route.params.id}
                 })
                     .then(() => {
@@ -57,6 +58,7 @@
                     })
             },
             attachFile(file) {
+                if( ! this.message.files) this.message.files = []
                 this.message.files.push(file)
             }
         }
