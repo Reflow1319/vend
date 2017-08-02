@@ -15,7 +15,7 @@
                 <nav class="title-bar-nav">
                     <a @click="editProject(project)"><i class="icon-pencil"></i></a>
                     <a @click="toggleInfo()" :class="{'active' : infoVisible}"><i class="icon-search"></i></a>
-                    <a @click="toggleFavorite()"><i class="icon-star"></i></a>
+                    <favorite-button type="projects" :id="project.id"></favorite-button>
                 </nav>
             </div>
         </div>
@@ -59,11 +59,14 @@
     import {mapGetters} from 'vuex'
     import Loader from '../components/common/Loader.vue'
     import Card from '../components/cards/Card.vue'
+    import FavoriteButton from '../components/common/FavoriteButton.vue'
     import sortable from 'jquery-ui/ui/widgets/sortable'
+    import moment from 'moment'
 
     export default {
         components: {
             SearchBar,
+            FavoriteButton,
             Card,
             Loader
         },
@@ -95,6 +98,8 @@
                 this.infoVisible = status
             })
 
+            this.on('filter:cards', this.filterCards)
+
             this.$store.subscribe((mutation, state) => {
                 if(mutation.type === 'deleteCard') {
                     this.filteredCards = state.cards.cards
@@ -107,16 +112,16 @@
                 let filterUser, filterDate, filterTitle
                 this.filteredCards = this.cards.filter(c => {
                     filterUser = filterDate = filterTitle = true
-                    if (state.filters.user) {
-                        filterUser = c.assigned_to === state.filters.user.id
+                    if (filters.user) {
+                        filterUser = c.assigned_to === filters.user.id
                     }
-                    if (state.filters.title) {
-                        filterTitle = c.title.toLowerCase().indexOf(state.filters.title.toLowerCase()) !== -1
+                    if (filters.title) {
+                        filterTitle = c.title.toLowerCase().indexOf(filters.title.toLowerCase()) !== -1
                     }
-                    if (state.filters.dueDate && state.filters.dueDate.length > 0) {
+                    if (filters.dueDate && filters.dueDate.length > 0) {
                         let dueDate = moment(c.due_date, 'YYYY-MM-DD')
-                        filterDate = dueDate > state.filters.dueDate[0]
-                            && dueDate <= state.filters.dueDate[1]
+                        filterDate = dueDate > filters.dueDate[0]
+                            && dueDate <= filters.dueDate[1]
                     }
                     return (filterUser && filterDate && filterTitle)
                 })

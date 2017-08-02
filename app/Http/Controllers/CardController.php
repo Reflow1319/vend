@@ -102,6 +102,7 @@ class CardController extends Controller
     private function save(Project $project, Request $request, Card $card = null)
     {
         $previous = $card ? $card->replicate() : new Card();
+        $isNew = is_null($card);
 
         if (!$card) {
             $data = $request->all();
@@ -119,7 +120,7 @@ class CardController extends Controller
 
         $card->load('assigned');
 
-        (new Notify(new NotifiedCard($previous, $card, $project)))
+        (new Notify(new NotifiedCard($previous, $card, $project, $isNew)))
             ->to($project->users)
             ->create();
 

@@ -26,17 +26,24 @@ class NotifiedCard implements NotifiedResource
     private $previous;
 
     /**
+     * @var boolean
+     */
+    private $isNew;
+
+    /**
      * NotifiedCard constructor.
      *
      * @param Model   $previous
      * @param Card    $card
      * @param Project $project
+     * @param boolean $isNew
      */
-    public function __construct(Model $previous, Card $card, Project $project)
+    public function __construct(Model $previous, Card $card, Project $project, $isNew = false)
     {
         $this->card     = $card;
         $this->project  = $project;
         $this->previous = $previous;
+        $this->isNew = $isNew;
     }
 
     /**
@@ -52,22 +59,20 @@ class NotifiedCard implements NotifiedResource
      */
     public function getData()
     {
-        if($this->previous->exists) {
-            $modelDiff = new ModelDiff($this->previous, $this->card, [
-                'title',
-                'description',
-                'assigned_to',
-                'due_date',
-            ]);
+        $modelDiff = new ModelDiff($this->previous, $this->card, [
+            'title',
+            'description',
+            'assigned_to',
+            'due_date',
+        ]);
 
-            $modelDiff->map('assigned_to', User::class, 'name');
-        }
+        $modelDiff->map('assigned_to', User::class, 'name');
 
         return [
             'title'         => $this->card->title,
             'project_id'    => $this->project->id,
             'project_title' => $this->project->title,
-            'changes'       => $this->previous->exists ? $modelDiff->get(): [],
+            'changes'       => $this->isNew ? null : $modelDiff->get(),
         ];
     }
 

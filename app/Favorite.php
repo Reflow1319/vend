@@ -29,30 +29,8 @@ class Favorite extends Model
     }
 
     /**
-     * Toggle favorites on different models,
-     * which can be favoritable
-     *
-     * @param Model $model
-     * @return bool
+     * @return \Illuminate\Database\Eloquent\Relations\MorphTo
      */
-    public static function toggleFavorite(Model $model, $userId)
-    {
-        $favorite = $model->favorites()->firstOrNew([
-                'user_id' => $userId,
-            ]);
-
-        if ($favorite->exists) {
-            $favorite->delete();
-
-            return false;
-        } else {
-            $favorite = $model->favorites()->save($favorite);
-            $favorite->load('favoritable');
-
-            return $favorite;
-        }
-    }
-
     public function favoritable()
     {
         return $this->morphTo();
