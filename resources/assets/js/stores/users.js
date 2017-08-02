@@ -1,6 +1,6 @@
 import {makeResource} from './resource'
 
-export default makeResource('user', null, {
+export default makeResource('user', 'users', {
     state: {
         currentUser: {},
     },

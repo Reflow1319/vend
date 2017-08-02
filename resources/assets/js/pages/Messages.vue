@@ -47,12 +47,12 @@
         },
         methods: {
             fetch() {
+                const topicId = this.$route.params.id
                 this.$refs.loader.start()
                 this.$store.commit('setTopic', {})
                 this.$store.commit('setMessages', [])
-                this.$store.dispatch('getTopic', {id: this.$route.params.id}).then(() => {
-                    const url = 'topics/' + this.$route.params.id + '/messages'
-                    this.$store.dispatch('getMessages', {_url: url}).then(() => {
+                this.$store.dispatch('getTopic', {id: topicId}).then(() => {
+                    this.$store.dispatch('getMessages', {urlParams: {topicId: topicId}}).then(() => {
                         this.$refs.loader.stop()
                     })
                 })

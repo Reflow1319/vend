@@ -12,7 +12,7 @@ export default new Vuex.Store({
     modules: {
         cards,
         topics: makeResource('topic'),
-        messages: makeResource('message'),
+        messages: makeResource('message', 'topics/{topicId}/messages'),
         notifications: makeResource('notification'),
         events,
         favorites: makeResource('favorite'),

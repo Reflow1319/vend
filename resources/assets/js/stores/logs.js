@@ -1,6 +1,6 @@
 import {makeResource} from './resource'
 
-export default makeResource('log', null, {
+export default makeResource('log', 'logs', {
     state: {
         currentLog: null,
         timer: 0,
