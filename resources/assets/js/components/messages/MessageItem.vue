@@ -43,7 +43,7 @@
                 this.$root.$emit('showModal', 'message-form')
             },
             deleteMessage(message) {
-                this.$store.dispatch('deleteMessage', message)
+                this.$store.dispatch('deleteMessage', {id: message.id, urlParams: {topicId: message.topic_id}})
             }
         }
     }
