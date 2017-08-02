@@ -69,8 +69,7 @@
             },
             save() {
                 this.card.description = this.$refs.editor.getContent()
-                let card = Object.assign(this.card, {_url: `projects/${this.card.project_id}/cards/${this.card.id || ''}`})
-                this.$store.dispatch('saveCard', card)
+                this.$store.dispatch('saveCard', {urlParams: {projectId: this.card.project_id}, ...this.card})
                     .then(() => this.emit('showModal', 'show-card'))
                     .catch(err => this.emit('modalError', err.response.data))
             }
