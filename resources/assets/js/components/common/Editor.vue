@@ -1,6 +1,8 @@
 <template>
     <div class="form-group">
-        <div id="editor" v-html="content" class="form-control"></div>
+        <div id="editor" class="form-control">
+            <p v-html="content"></p>
+        </div>
     </div>
 </template>
 
@@ -24,7 +26,7 @@
             }
         },
         mounted() {
-            let editorEl = this.$el.querySelectorAll('#editor')[0];
+            const editorEl = this.$el.querySelectorAll('#editor')[0];
             this.editor = new Quill(editorEl, {
                 modules: {
                     toolbar: [
@@ -32,7 +34,7 @@
                     ]
                 },
                 placeholder: this.placeholder,
-                theme: 'snow'  // or 'bubble'
+                theme: 'snow'
             })
         },
         methods: {
