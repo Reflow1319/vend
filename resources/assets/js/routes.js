@@ -52,6 +52,11 @@ export default new VueRouter({
             component: require('./pages/Calendar.vue')
         },
         {
+            path: '/calendar/:id',
+            name: 'event',
+            component: require('./pages/Calendar.vue')
+        },
+        {
             path: '/topics',
             name: 'topics',
             component: require('./pages/Topics.vue')
