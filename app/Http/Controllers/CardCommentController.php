@@ -4,10 +4,10 @@ namespace App\Http\Controllers;
 
 use App\Card;
 use App\Comment;
+use App\Project;
 use App\Http\Requests\CommentRequest;
 use App\Notifications\NotifiedComment;
 use App\Notifications\Notify;
-use App\Project;
 
 class CardCommentController extends Controller
 {
