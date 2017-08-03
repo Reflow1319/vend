@@ -63,19 +63,33 @@
             eventClicked(e) {
                 if (e.type === 'project') {
                     return () => {
-                        this.$router.push({name: 'project', params: {id: e.id}})
+                        this.$router.push({
+                            name: 'project',
+                            params: {id: e.id}
+                        })
                     }
                 }
 
                 if(e.type === 'event') {
                     return () =>{
-                        this.$root.$emit('showModal', 'event-detail', this.$store.dispatch('getEvent', {id: e.id}))
+                        this.$root.$emit(
+                            'showModal',
+                            'event-detail',
+                            this.$store.dispatch('getEvent', {id: e.id})
+                        )
                     }
                 }
 
                 if (e.type === 'card') {
                     return () => {
-                        this.$root.$emit('showModal', 'show-card', this.$store.dispatch('getCard', {id: e.id, project_id: e.meta.project_id}))
+                        this.$root.$emit(
+                            'showModal',
+                            'show-card',
+                            this.$store.dispatch('getCard', {
+                                id: e.id,
+                                urlParams: {projectId: e.meta.project_id}
+                            })
+                        )
                     }
                 }
             },
