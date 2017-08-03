@@ -15,7 +15,7 @@ class NotificationController extends Controller
         })
             ->with('actor')
             ->latest()
-            ->get();
+            ->paginate(50);
 
         return response()->make($notifications);
     }

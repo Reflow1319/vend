@@ -60,4 +60,14 @@
         @include make-button(#fff, transparent, rgba(255, 255, 255, .2));
         color: #fff;
     }
+    &-loading {
+        background-size: contain;
+        margin-right: 5px;
+        background: url('../images/loading.svg') no-repeat center;
+        background-size: cover;
+        width: 24px;
+        height: 24px;
+        display: inline-block;
+        vertical-align: middle;
+    }
 }

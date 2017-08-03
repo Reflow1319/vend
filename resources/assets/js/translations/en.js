@@ -161,7 +161,8 @@ export default {
         delete: 'Delete',
         save: 'Save',
         cancel: 'Cancel',
-        clear: 'Clear'
+        clear: 'Clear',
+        loadMore: 'Load more'
     },
     filter: {
         none: 'None',

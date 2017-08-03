@@ -15,7 +15,9 @@ export default new Vuex.Store({
         topics: makeResource('topic'),
         topicFiles: makeResource('topic_file', 'topics/{topicId}/files'),
         messages: makeResource('message', 'topics/{topicId}/messages'),
-        notifications: makeResource('notification'),
+        notifications: makeResource('notification', null, {}, {
+            paginated: true
+        }),
         events,
         favorites: makeResource('favorite'),
         users,

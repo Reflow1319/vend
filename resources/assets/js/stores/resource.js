@@ -65,7 +65,10 @@ function getActions (store, baseUrl) {
     const get = camelize('get_' + pluralize(store), true)
     actions[get] = ({commit}, r) => {
         return axios.get(getUrl(baseUrl, r)).then(res => {
-            commit(camelize('set_' + pluralize(store), true), res.data)
+            const data = options.paginated
+                ? res.data.data
+                : res.data
+            commit(camelize('set_' + pluralize(store), true), data)
             return res.data
         })
     }
