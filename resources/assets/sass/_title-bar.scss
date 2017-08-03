@@ -46,6 +46,9 @@
             &.active {
                 background: $light-gray;
             }
+            &.highlight i {
+                color: $warn;
+            }
         }
     }
     &-arrow {

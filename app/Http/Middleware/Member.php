@@ -11,11 +11,11 @@ class Member
 {
     public function handle(Request $request, Closure $next, $type)
     {
-//        $model = $request->route($type);
-//
-//        if (!$model || !$model->users->contains(Auth::user()->id)) {
-//            throw new AuthorizationException('You don\'t have access to view this page');
-//        }
+        $model = $request->route($type);
+
+        if (!$model || !$model->users->contains(Auth::user()->id)) {
+            throw new AuthorizationException('You don\'t have access to view this page');
+        }
 
         return $next($request);
     }

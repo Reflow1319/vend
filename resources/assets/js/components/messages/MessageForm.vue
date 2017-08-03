@@ -6,7 +6,7 @@
 
             <editor ref="editor" :content="message.message" :placeholder="$t('messages.form.message')"></editor>
             <div class="media-grid">
-                <file-attachment v-for="file in message.files" v-bind:key="file" :file="file"></file-attachment>
+                <file-attachment v-for="file in message.files" v-bind:key="file.id" :file="file"></file-attachment>
             </div>
 
             <uploader type="message" :compact="true" :uploaded="attachFile" :text="$t('uploader.attach')"></uploader>
@@ -47,7 +47,7 @@
                     urlParams: {topicId: this.$route.params.id}
                 })
                     .then(() => {
-                        this.$refs.editor.setContent('')
+                        this.$refs.editor.setContent(null)
                         this.$store.commit('setMessage', {
                             message: '',
                             files: []
@@ -58,7 +58,7 @@
                     })
             },
             attachFile(file) {
-                if( ! this.message.files) this.message.files = []
+                if (!this.message.files) this.$set(this.message, 'files', [])
                 this.message.files.push(file)
             }
         }

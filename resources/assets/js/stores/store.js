@@ -9,7 +9,9 @@ Vue.use(Vuex)
 
 export default new Vuex.Store({
     modules: {
-        cards: makeResource('card', 'projects/{projectId}/cards'),
+        cards: makeResource('card', 'projects/{projectId}/cards', {}, {
+            addType: 'prepend'
+        }),
         topics: makeResource('topic'),
         topicFiles: makeResource('topic_file', 'topics/{topicId}/files'),
         messages: makeResource('message', 'topics/{topicId}/messages'),

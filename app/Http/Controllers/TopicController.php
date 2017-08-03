@@ -88,18 +88,6 @@ class TopicController extends Controller
     }
 
     /**
-     * @param Topic $topic
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function favorite(Topic $topic)
-    {
-        $created = Favorite::toggleFavorite($topic, Auth::user()->id);
-
-        return response()->make($created ?: []);
-    }
-
-    /**
      * @param \App\Topic               $topic
      * @param \Illuminate\Http\Request $request
      *

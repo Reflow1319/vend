@@ -15,7 +15,7 @@
                 <nav class="title-bar-nav">
                     <a @click="editProject(project)"><i class="icon-pencil"></i></a>
                     <a @click="toggleInfo()" :class="{'active' : infoVisible}"><i class="icon-search"></i></a>
-                    <a @click="toggleFavorite()"><i class="icon-star"></i></a>
+                    <favorite-button type="projects" :id="project.id"></favorite-button>
                 </nav>
             </div>
         </div>
@@ -59,12 +59,14 @@
     import {mapGetters} from 'vuex'
     import Loader from '../components/common/Loader.vue'
     import Card from '../components/cards/Card.vue'
+    import FavoriteButton from '../components/common/FavoriteButton.vue'
     import sortable from 'jquery-ui/ui/widgets/sortable'
     import moment from 'moment'
 
     export default {
         components: {
             SearchBar,
+            FavoriteButton,
             Card,
             Loader
         },

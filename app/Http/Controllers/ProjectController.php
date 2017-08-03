@@ -78,18 +78,6 @@ class ProjectController extends Controller
 
 	/**
 	 * @param Project $project
-	 *
-	 * @return \Illuminate\Http\Response
-	 */
-	public function favorite(Project $project)
-    {
-        $created = Favorite::toggleFavorite($project, Auth::user()->id);
-
-        return response()->make($created ?: null);
-    }
-
-	/**
-	 * @param Project $project
 	 * @param ProjectRequest $request
 	 */
 	private function save(Project $project, $request)

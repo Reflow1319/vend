@@ -30,7 +30,7 @@
                 <input type="text" class="form-control" v-model="event.location">
             </div>
 
-            <editor ref="editor" :content="'asad'" :placeholder="$t('events.description')"></editor>
+            <editor ref="editor" :content="event.description" :placeholder="$t('events.description')"></editor>
 
         </div>
         <div class="modal-footer">

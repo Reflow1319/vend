@@ -32,7 +32,6 @@ Route::group(['middleware' => ['auth'], 'prefix' => '/api'], function () {
     Route::resource('projects', 'ProjectController');
     Route::resource('projects.cards', 'CardController');
     Route::post('cards/{card}/favorite', 'CardController@favorite');
-    Route::post('projects/{project}/favorite', 'ProjectController@favorite');
 
     Route::resource('projects.cards.comments', 'CardCommentController');
     Route::resource('projects.cards.tasks', 'CardTaskController');
@@ -45,7 +44,6 @@ Route::group(['middleware' => ['auth'], 'prefix' => '/api'], function () {
     Route::resource('events', 'EventController');
 
     Route::resource('topics', 'TopicController');
-    Route::post('topics/{topic}/favorite', 'TopicController@favorite');
     Route::resource('topics.messages', 'TopicMessageController');
     Route::resource('topics.files', 'TopicFilesController');
     Route::resource('topics.events', 'TopicEventController');
@@ -54,6 +52,8 @@ Route::group(['middleware' => ['auth'], 'prefix' => '/api'], function () {
     Route::get('users/current', 'UserController@currentUser');
     Route::resource('users', 'UserController');
     Route::resource('favorites', 'FavoriteController', ['only' => ['index']]);
+    Route::put('favorites/{type}/{id}', 'FavoriteController@save');
+    Route::delete('favorites/{type}/{id}', 'FavoriteController@destroy');
     Route::post('users/{user}/upload', 'UserController@upload');
 
     Route::post('upload', 'FileController@upload');
