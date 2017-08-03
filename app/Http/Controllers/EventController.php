@@ -90,60 +90,23 @@ class EventController extends Controller
             }
         }
 
+        // Get from db
         $events = Event::orderBy('start')
-            ->where(
-                function ($query) use ($user) {
-                    if ($user) {
-                        $query->where('event_url', $user->event_url);
-                    }
+            ->where(function ($query) use ($user) {
+                if ($user) {
+                    $query->where('event_url', $user->event_url);
                 }
-            )
-            ->get();
+            })->get();
 
-        $events = $events->map(
-            function ($event) {
-                $event->type = 'event';
+        // Add type to events
+        $events = collect($events->map(function ($event) {
+            $event->type = 'event';
 
-                return $event;
-            }
-        );
+            return $event;
+        }));
 
-        $projects = Project::where('due_date', '!=', null)->get();
-
-        $cards = Card::where('due_date', '!=', null)->get();
-
-        $projectEvents = $projects->map(function ($project) {
-            return [
-                'id'       => $project->id,
-                'title'    => $project->title,
-                'start'    => $project->due_date,
-                'location' => null,
-                'end'      => null,
-                'type'     => 'project',
-            ];
-        });
-
-        $cardEvents = $cards->map(function ($card) {
-            return [
-                'id'       => $card->id,
-                'title'    => $card->title,
-                'start'    => $card->due_date,
-                'location' => null,
-                'end'      => null,
-                'type'     => 'card',
-                'meta'     => [
-                    'project_id' => $card->project_id,
-                ],
-            ];
-        });
-//
-//        if ($projectEvents) {
-//            $events = $events->merge($projectEvents);
-//        }
-//
-//        if ($cardEvents) {
-//            $events->merge($cardEvents);
-//        }
+        $events = $events->merge(Project::events());
+        $events = $events->merge(Card::events());
 
         return $events;
     }

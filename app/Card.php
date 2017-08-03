@@ -91,4 +91,25 @@ class Card extends Model
     {
         return $this->hasMany(Log::class);
     }
+
+    public static function events()
+    {
+        $cards = self::where('due_date', '!=', null)->get();
+
+        if(empty($cards)) return collect([]);
+
+        return $cards->map(function ($card) {
+            return [
+                'id'       => $card->id,
+                'title'    => $card->title,
+                'start'    => $card->due_date,
+                'location' => null,
+                'end'      => null,
+                'type'     => 'card',
+                'meta'     => [
+                    'project_id' => $card->project_id,
+                ],
+            ];
+        });
+    }
 }
