@@ -51,7 +51,11 @@
             this.fetchEvents()
 
             if(this.$route.params.id) {
-                this.emit('showModal', 'event-detail', this.$store.dispatch('getEvent', {id: this.$route.params.id}))
+                this.emit(
+                    'showModal',
+                    'event-detail',
+                    this.$store.dispatch('getEvent', {id: this.$route.params.id})
+                )
             }
         },
         data() {
@@ -63,7 +67,10 @@
             eventClicked(e) {
                 if (e.type === 'project') {
                     return () => {
-                        this.$router.push({name: 'project', params: {id: e.id}})
+                        this.$router.push({
+                            name: 'project',
+                            params: {id: e.id}
+                        })
                     }
                 }
 
