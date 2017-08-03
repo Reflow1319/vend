@@ -1,154 +1,162 @@
 import {pluralize, camelize} from 'inflection'
 import stringTemplate from 'string-template'
 
-let options = {}
+function Resource ({store, baseUrl, additional, options}) {
 
-function getStates (store) {
+    if(! this instanceof Resource) {
+        return console.error('Resource is a constructor, you should call with new')
+    }
+
+    this.store = store
+    this.baseUrl = baseUrl
+    this.additional = additional || {}
+    this.options = options || {}
+
+    if (!this.baseUrl) this.baseUrl = pluralize(this.store)
+
+    const resource = {
+        state: this.getStates(),
+        getters: this.getGetters(),
+        mutations: this.getMutations(),
+        actions: this.getActions()
+    }
+
+    return this.mergeInto(resource)
+}
+
+Resource.prototype.getStates = function () {
     const states = {}
 
-    states[camelize(store, true)] = {}
-    states[camelize(pluralize(store), true)] = []
+    states[camelize(this.store, true)] = {}
+    states[camelize(pluralize(this.store), true)] = []
 
     return states
 }
 
-function getGetters (store) {
+Resource.prototype.getGetters = function () {
     const getters = {}
 
-    getters[camelize(store, true)] = (state) => state[camelize(store, true)]
-    getters[camelize(pluralize(store), true)] = (state) => state[camelize(pluralize(store), true)]
+    getters[camelize(this.store, true)] = (state) => state[camelize(this.store, true)]
+    getters[camelize(pluralize(this.store), true)] = (state) => state[camelize(pluralize(this.store), true)]
 
     return getters
 }
 
-function getMutations (store) {
+Resource.prototype.getMutations = function () {
     const mutations = {}
 
-    mutations[camelize('set_' + store, true)] = (state, r) => {
-        state[store] = r
+    mutations[camelize('set_' + this.store, true)] = (state, r) => {
+        state[this.store] = r
     }
 
-    mutations[camelize('set_' + pluralize(store), true)] = (state, r) => {
-        state[camelize(pluralize(store), true)] = r
+    mutations[camelize('set_' + pluralize(this.store), true)] = (state, r) => {
+        state[camelize(pluralize(this.store), true)] = r
     }
 
-    mutations[camelize('create_' + store, true)] = (state, r) => {
-        state[store] = r
-        if(options.addType === 'prepend') {
-            state[camelize(pluralize(store), true)].unshift(r)
+    mutations[camelize('create_' + this.store, true)] = (state, r) => {
+        state[this.store] = r
+        if (this.options.addType === 'prepend') {
+            state[camelize(pluralize(this.store), true)].unshift(r)
         } else {
-            state[camelize(pluralize(store), true)].push(r)
+            state[camelize(pluralize(this.store), true)].push(r)
         }
     }
 
-    mutations[camelize('update_' + store, true)] = (state, r) => {
-        state[store] = r
-        state[camelize(pluralize(store), true)] = state[camelize(pluralize(store), true)].map(e => {
+    mutations[camelize('update_' + this.store, true)] = (state, r) => {
+        state[this.store] = r
+        state[camelize(pluralize(this.store), true)] = state[camelize(pluralize(this.store), true)].map(e => {
             if (e.id === r.id) return r
             return e
         })
     }
 
-    mutations[camelize('delete_' + store, true)] = (state, r) => {
-        state[store] = {}
-        state[camelize(pluralize(store), true)] = state[camelize(pluralize(store), true)].filter(e => r.id !== e.id)
+    mutations[camelize('delete_' + this.store, true)] = (state, r) => {
+        state[this.store] = {}
+        state[camelize(pluralize(this.store), true)] = state[camelize(pluralize(this.store), true)].filter(e => r.id !== e.id)
     }
 
     return mutations
 }
 
-function getActions (store, baseUrl) {
+Resource.prototype.getActions = function () {
 
     const actions = {};
 
     // Index
-    const get = camelize('get_' + pluralize(store), true)
+    const get = camelize('get_' + pluralize(this.store), true)
     actions[get] = ({commit}, r) => {
-        return axios.get(getUrl(baseUrl, r)).then(res => {
-            const data = options.paginated
+        return axios.get(this.getUrl(r)).then(res => {
+            const data = this.options.paginated
                 ? res.data.data
                 : res.data
-            commit(camelize('set_' + pluralize(store), true), data)
+
+            commit(camelize('set_' + pluralize(this.store), true), data)
             return res.data
         })
     }
 
     // GetOne
-    const getOne = camelize('get_' + store, true)
+    const getOne = camelize('get_' + this.store, true)
     actions[getOne] = ({commit}, r) => {
-        return axios.get(getUrl(baseUrl, r) + '/' + r.id).then(res => {
-            commit(camelize('set_' + store, true), res.data)
+        return axios.get(this.getUrl(this.baseUrl, r) + '/' + r.id).then(res => {
+            commit(camelize('set_' + this.store, true), res.data)
             return res.data
         })
     }
 
     // Update
-    const update = camelize('update_' + store, true)
+    const update = camelize('update_' + this.store, true)
     actions[update] = ({commit}, r) => {
-        axios.get(getUrl(baseUrl, r) + '/' + r.id).then(res => {
-            commit(camelize('update_' + pluralize(store), true), res.data)
+        axios.get(this.getUrl(r) + '/' + r.id).then(res => {
+            commit(camelize('update_' + pluralize(this.store), true), res.data)
         })
     }
 
     // Save
-    const save = camelize('save_' + store, true)
+    const save = camelize('save_' + this.store, true)
     actions[save] = ({commit}, r) => {
         if (r.id) {
-            return axios.put(getUrl(baseUrl, r) + '/' + r.id, r).then(res => {
-                commit(camelize('update_' + store, true), res.data)
+            return axios.put(this.getUrl(r) + '/' + r.id, r).then(res => {
+                commit(camelize('update_' + this.store, true), res.data)
                 return res.data
             })
         } else {
-            return axios.post(stringTemplate(baseUrl, r.urlParams), r).then(res => {
-                commit(camelize('create_' + store, true), res.data)
+            return axios.post(stringTemplate(this.baseUrl, r.urlParams), r).then(res => {
+                commit(camelize('create_' + this.store, true), res.data)
                 return res.data
             })
         }
     }
 
     // Destroy
-    const destroy = camelize('delete_' + store, true)
+    const destroy = camelize('delete_' + this.store, true)
     actions[destroy] = ({commit}, r) => {
-        axios.delete(getUrl(baseUrl, r) + '/' + r.id).then(() => {
-            commit(camelize('delete_' + store, true), r)
+        axios.delete(this.getUrl(r) + '/' + r.id).then(() => {
+            commit(camelize('delete_' + this.store, true), r)
         })
     }
 
     return actions
 }
 
-function getUrl (baseUrl, r) {
+Resource.prototype.getUrl = function (r) {
     return r && r.urlParams
-        ? stringTemplate(baseUrl, r.urlParams)
-        : baseUrl
+        ? stringTemplate(this.baseUrl, r.urlParams)
+        : this.baseUrl
 }
 
-export function makeResource (store, baseUrl, additional, _options) {
-
-    options = Object.assign(options, _options)
-
-    if (!baseUrl) baseUrl = pluralize(store)
-
-    const resource = {
-        state: getStates(store),
-        getters: getGetters(store),
-        mutations: getMutations(store),
-        actions: getActions(store, baseUrl)
-    }
-
-    return mergeInto(resource, additional)
-}
-
-export function mergeInto (resource, additional) {
+Resource.prototype.mergeInto = function (resource) {
     const types = ['state', 'getters', 'mutations', 'actions']
 
-    if (!additional) return resource;
+    if (!this.additional) return resource;
 
     for (let i in types) {
-        resource[types[i]] = additional[types[i]]
-            ? Object.assign(additional[types[i]], resource[types[i]])
+        resource[types[i]] = this.additional[types[i]]
+            ? Object.assign(this.additional[types[i]], resource[types[i]])
             : resource[types[i]]
     }
 
     return resource
 }
+
+export default Resource
