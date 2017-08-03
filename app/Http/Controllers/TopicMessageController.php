@@ -5,9 +5,9 @@ namespace App\Http\Controllers;
 use App\File;
 use App\Http\Requests\MessageRequest;
 use App\Message;
+use App\Topic;
 use App\Notifications\NotifiedMessage;
 use App\Notifications\Notify;
-use App\Topic;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
