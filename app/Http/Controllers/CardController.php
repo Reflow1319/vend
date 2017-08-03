@@ -13,11 +13,6 @@ use Illuminate\Http\Request;
 class CardController extends Controller
 {
     /**
-     * @var Notify
-     */
-    private $notify;
-
-    /**
      * CardController constructor.
      */
     public function __construct()
@@ -25,6 +20,7 @@ class CardController extends Controller
         $this->middleware('role:editor', [
             'except' => ['index', 'upload']
         ]);
+
         $this->middleware('member:project');
     }
 
