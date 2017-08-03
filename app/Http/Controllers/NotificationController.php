@@ -27,9 +27,4 @@ class NotificationController extends Controller
                 'read_at' => Carbon::now(),
             ]);
     }
-
-    public function clear()
-    {
-        Auth::user()->notifications()->delete();
-    }
 }
