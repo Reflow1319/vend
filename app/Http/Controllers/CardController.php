@@ -22,7 +22,9 @@ class CardController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('role:editor', ['except' => ['index', 'upload']]);
+        $this->middleware('role:editor', [
+            'except' => ['index', 'upload']
+        ]);
         $this->middleware('member:project');
     }
 
@@ -34,8 +36,14 @@ class CardController extends Controller
     public function index(Project $project)
     {
         $cards = Card::whereProjectId($project->id)
-            ->with('tasks', 'comments', 'logs', 'logs.user', 'assigned', 'files')
-            ->get();
+            ->with(
+                'tasks',
+                'comments',
+                'logs',
+                'logs.user',
+                'assigned',
+                'files'
+            )->get();
 
         return response()->make($cards);
     }
@@ -48,9 +56,14 @@ class CardController extends Controller
      */
     public function show(Project $project, Card $card)
     {
-        $card->load('tasks', 'comments', 'logs', 'logs.user', 'assigned',
-            'files');
-//        $card->notificationMarkAsRead();
+        $card->load(
+            'tasks',
+            'comments',
+            'logs',
+            'logs.user',
+            'assigned',
+            'files'
+        );
 
         return response()->make($card);
     }
