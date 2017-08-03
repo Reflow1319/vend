@@ -10,7 +10,6 @@ use App\Notifications\Notify;
 use App\Topic;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Auth;
 
 class TopicMessageController extends Controller
 {
@@ -30,9 +29,9 @@ class TopicMessageController extends Controller
     public function index(Topic $topic)
     {
         $messages = Message::with('user', 'files')
-            ->whereTopicId($topic->id)->latest()->get();
-
-//        $topic->notificationMarkAsRead();
+            ->whereTopicId($topic->id)
+            ->latest()
+            ->paginate(50);
 
         return response()->make($messages);
     }
