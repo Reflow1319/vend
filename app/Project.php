@@ -48,4 +48,22 @@ class Project extends Model
     {
         return $this->belongsToMany(User::class);
     }
+
+    public static function events()
+    {
+        $projects = self::where('due_date', '!=', null)->get();
+
+        if(empty($projects)) return collect([]);
+
+        return $projects->map(function ($project) {
+            return [
+                'id'       => $project->id,
+                'title'    => $project->title,
+                'start'    => $project->due_date,
+                'location' => null,
+                'end'      => null,
+                'type'     => 'project',
+            ];
+        });
+    }
 }
