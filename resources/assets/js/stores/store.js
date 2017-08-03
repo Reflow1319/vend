@@ -3,23 +3,47 @@ import Vuex from 'vuex'
 import users from './users'
 import events from './events'
 import logs from './logs'
-import {makeResource} from './resource'
+import Resource from './resource'
 
 Vue.use(Vuex)
 
 export default new Vuex.Store({
     modules: {
-        cards: makeResource('card', 'projects/{projectId}/cards', {}, {
-            addType: 'prepend'
+        cards: new Resource({
+            store: 'card',
+            baseUrl: 'projects/{projectId}/cards',
+            options: {
+                addType: 'prepend'
+            }
         }),
-        topics: makeResource('topic'),
-        topicFiles: makeResource('topic_file', 'topics/{topicId}/files'),
-        messages: makeResource('message', 'topics/{topicId}/messages'),
-        notifications: makeResource('notification'),
+        topics: new Resource({
+            store: 'topic'
+        }),
+        topicFiles: new Resource({
+            store: 'topic_file',
+            baseUrl: 'topics/{topicId}/files'
+        }),
+        messages: new Resource({
+            store: 'message',
+            baseUrl: 'topics/{topicId}/messages',
+            options: {
+                paginated: true
+            }
+        }),
+        notifications: new Resource({
+            store: 'notification',
+            options: {
+                paginated: true
+            }
+        }),
         events,
-        favorites: makeResource('favorite'),
+        favorites: new Resource({
+            store: 'favorite'
+        }),
         users,
         logs,
-        projects: makeResource('project'),
+        projects: new Resource({
+            store: 'project'
+        }),
     }
 })
