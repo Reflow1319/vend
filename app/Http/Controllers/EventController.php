@@ -14,6 +14,9 @@ use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 class EventController extends Controller
 {
+    /**
+     * EventController constructor.
+     */
     public function __construct()
     {
         $this->middleware(
@@ -22,6 +25,9 @@ class EventController extends Controller
         );
     }
 
+    /**
+     * @return \Illuminate\Http\Response
+     */
     public function index()
     {
         $events = $this->getEvents();
@@ -57,6 +63,11 @@ class EventController extends Controller
         );
     }
 
+    /**
+     * @param EventRequest $eventRequest
+     *
+     * @return \Illuminate\Http\Response
+     */
     public function store(EventRequest $eventRequest)
     {
         $event = Event::create($eventRequest->all());
@@ -65,6 +76,12 @@ class EventController extends Controller
         return response()->make($event);
     }
 
+    /**
+     * @param Event        $event
+     * @param EventRequest $eventRequest
+     *
+     * @return \Illuminate\Http\Response
+     */
     public function update(Event $event, EventRequest $eventRequest)
     {
         $event->update($eventRequest->all());
@@ -73,6 +90,9 @@ class EventController extends Controller
         return response()->make($event);
     }
 
+    /**
+     * @param Event $event
+     */
     private function createNotification(Event $event)
     {
         (new Notify(new NotifiedEvent($event)))
@@ -80,6 +100,11 @@ class EventController extends Controller
             ->create();
     }
 
+    /**
+     * @param null $hash
+     *
+     * @return \Illuminate\Database\Eloquent\Collection|\Illuminate\Support\Collection|static|static[]
+     */
     private function getEvents($hash = null)
     {
         $user = null;
@@ -121,6 +146,9 @@ class EventController extends Controller
         return response()->make($event);
     }
 
+    /**
+     * @param Event $event
+     */
     public function destroy(Event $event)
     {
         $event->delete();
