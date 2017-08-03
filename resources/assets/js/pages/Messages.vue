@@ -13,6 +13,9 @@
                     {{ $t('messages.empty') }}
                 </div>
             </div>
+
+            <load-more :options="meta" @loaded="addData"></load-more>
+
         </div>
     </div>
 </template>
@@ -23,10 +26,12 @@
     import Loader from '../components/common/Loader.vue'
     import MessageItem from '../components/messages/MessageItem.vue'
     import MessageForm from '../components/messages/MessageForm.vue'
+    import LoadMore from '../components/common/LoadMore.vue'
 
     export default {
         components: {
             TopicHeader,
+            LoadMore,
             MessageItem,
             MessageForm,
             Loader
@@ -39,20 +44,26 @@
         },
         data() {
             return {
-                empty: false
+                empty: false,
+                meta: {}
             }
         },
         mounted() {
             this.fetch()
         },
         methods: {
+            addData(data) {
+                this.meta = data
+                this.$store.commit('setMessages', this.messages.concat(data.data))
+            },
             fetch() {
                 const topicId = this.$route.params.id
                 this.$refs.loader.start()
                 this.$store.commit('setTopic', {})
                 this.$store.commit('setMessages', [])
                 this.$store.dispatch('getTopic', {id: topicId}).then(() => {
-                    this.$store.dispatch('getMessages', {urlParams: {topicId: topicId}}).then(() => {
+                    this.$store.dispatch('getMessages', {urlParams: {topicId: topicId}}).then(data => {
+                        this.meta = data
                         this.$refs.loader.stop()
                     })
                 })

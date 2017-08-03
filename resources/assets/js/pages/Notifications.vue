@@ -34,6 +34,7 @@
                     </div>
                 </div>
             </div>
+            <load-more :options="meta" @loaded="addData"></load-more>
         </div>
     </div>
 </template>
@@ -42,11 +43,16 @@
     import {mapGetters} from 'vuex'
     import moment from 'moment'
     import {camelize} from 'inflection'
+    import LoadMore from '../components/common/LoadMore.vue'
 
     export default {
+        components: {
+            LoadMore
+        },
         data() {
             return {
-                interval: null
+                interval: null,
+                meta: {}
             }
         },
         computed: {
@@ -55,9 +61,15 @@
             })
         },
         mounted() {
-            this.$store.dispatch('getNotifications')
+            this.$store.dispatch('getNotifications').then(res => {
+                this.meta = res
+            })
         },
         methods: {
+            addData(data) {
+                this.meta = data
+                this.$store.commit('setNotifications', this.notifications.concat(data.data))
+            },
             camelProperty(prop) {
                 return camelize(prop, true)
             },
