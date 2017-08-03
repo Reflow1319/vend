@@ -202,12 +202,6 @@
                 this.$store.commit('setProject', project)
                 this.$root.$emit('showModal', 'edit-project')
             },
-            toggleFavorite() {
-                this.$store.dispatch('toggleFavorite', {
-                    type: 'projects',
-                    id: this.project.id
-                })
-            },
             updateProject(project) {
                 this.lastColumn = _.filter(project.columns, {is_archive: false}).reverse()[0]
                 this.removeSortable()
