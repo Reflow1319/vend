@@ -14,19 +14,19 @@
                 <a @click="editTopic()">
                     <i class="icon icon-pencil"></i>
                 </a>
-                <topic-favorite type="topics" :id="topic.id"></topic-favorite>
+                <favorite-button type="topics" :id="topic.id"></favorite-button>
             </div>
         </div>
     </div>
 </template>
 
 <script>
-    import TopicFavorite from '../common/FavoriteButton.vue'
+    import FavoriteButton from '../common/FavoriteButton.vue'
 
     export default {
         props: ['topic'],
         components: {
-            TopicFavorite
+            FavoriteButton
         },
         methods: {
             editTopic() {
