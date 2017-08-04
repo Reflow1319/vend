@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\File;
 use App\Http\Requests\MessageRequest;
 use App\Message;
+use App\Notifications\NotificationRead;
 use App\Topic;
 use App\Notifications\NotifiedMessage;
 use App\Notifications\Notify;
@@ -32,6 +33,9 @@ class TopicMessageController extends Controller
             ->whereTopicId($topic->id)
             ->latest()
             ->paginate(50);
+
+        (new NotificationRead('message', $messages->pluck('id')->toArray()))
+            ->read();
 
         return response()->make($messages);
     }

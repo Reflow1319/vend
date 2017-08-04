@@ -30,7 +30,7 @@ class User extends Authenticatable
 
     public static function boot()
     {
-        static::creating(function($model) {
+        static::creating(function ($model) {
             $model->event_url = Str::random(24);
         });
     }
@@ -80,6 +80,11 @@ class User extends Authenticatable
     public function logs()
     {
         return $this->hasMany(Log::class)->orderBy('updated_at', 'desc');
+    }
+
+    public function notifications()
+    {
+        return $this->belongsToMany(Notification::class);
     }
 
     public function address()
