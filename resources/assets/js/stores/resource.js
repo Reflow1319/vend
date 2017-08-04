@@ -98,7 +98,7 @@ Resource.prototype.getActions = function () {
     // GetOne
     const getOne = camelize('get_' + this.store, true)
     actions[getOne] = ({commit}, r) => {
-        return axios.get(this.getUrl(this.baseUrl, r) + '/' + r.id).then(res => {
+        return axios.get(this.getUrl(r) + '/' + r.id).then(res => {
             commit(camelize('set_' + this.store, true), res.data)
             return res.data
         })
