@@ -48,6 +48,7 @@
             showCard(card) {
                 this.$store.commit('setCard', card)
                 this.$root.$emit('showModal', 'show-card')
+                axios.put('notifications/read/card/' + card.id)
             }
         }
     }

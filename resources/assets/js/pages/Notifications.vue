@@ -74,23 +74,55 @@
                 return camelize(prop, true)
             },
             showNotification(notification) {
+                const type = notification.related_type + '_' + notification.type
+
                 notification.read_at = moment().format('YYYY-MM-DD HH:ii:ss')
-                if (notification.type === 'card_updated' || notification.type === 'card_created' || notification.type === 'comment_created') {
-                    this.$root.$emit('showModal', 'show-card', this.$store.dispatch('getCard', notification.related))
+
+                if (notification.related_type === 'card') {
+                    this.showCard(notification)
                 }
-                if (notification.type === 'message_created') {
+
+                if (notification.related_type === 'comment') {
+                    this.showCard(notification)
+                }
+
+                if (notification.related_type === 'event') {
+                    this.showEvent(notification)
+                }
+
+                if (notification.related_type === 'message') {
                     this.$router.push({name: 'topic', params: {id: notification.related.id}})
                 }
+            },
+            showEvent(notification) {
+                this.$root.$emit(
+                    'showModal',
+                    'event-detail',
+                    this.$store.dispatch('getEvent', {
+                        id: notification.related_id
+                    }).then(() => {
+                        axios.put('notifications/read/' + notification.related_type + '/' + notification.related_id)
+                    })
+                )
+            },
+            showCard(notification) {
+                this.$root.$emit(
+                    'showModal',
+                    'show-card',
+                    this.$store.dispatch('getCard', {
+                        id: notification.related_id,
+                        urlParams: {
+                            projectId: notification.data.project_id
+                        }
+                    }).then(() => {
+                        axios.put('notifications/read/' + notification.related_type + '/' + notification.related_id)
+                    })
+                )
             },
             getNotificationText(notification) {
                 notification.data.actor = notification.actor.name
                 const key = `${notification.related_type}_${notification.type}`
                 return this.$t('notifications.messages.' + key, notification.data)
-            },
-            getNotificationChanges(notification) {
-                return notification.changes
-                    ? notification.changes
-                    : null
             },
             markAsRead() {
                 axios.get('notifications/read')

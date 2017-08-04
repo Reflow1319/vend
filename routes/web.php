@@ -26,7 +26,8 @@ Route::group(['middleware' => 'auth'], function() {
 Route::group(['middleware' => ['auth'], 'prefix' => '/api'], function () {
     Route::put('projects/{project}/cards/{card}/column', 'CardController@column');
     Route::get('notifications', 'NotificationController@get');
-    Route::get('notifications/read', 'NotificationController@read');
+    Route::put('notifications/read', 'NotificationController@read');
+    Route::put('notifications/read/{type}/{id}', 'NotificationController@read');
     Route::get('notifications/clear', 'NotificationController@clear');
 
     Route::resource('projects', 'ProjectController');
