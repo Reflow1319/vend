@@ -129,7 +129,7 @@ class CardController extends Controller
 
         $card->load('assigned');
 
-        (new Notify(new NotifiedCard($previous, $card, $project, $isNew)))
+        notify(new NotifiedCard($previous, $card, $project, $isNew))
             ->to($project->users)
             ->create();
 

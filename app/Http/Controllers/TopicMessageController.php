@@ -102,7 +102,7 @@ class TopicMessageController extends Controller
         $topic->messages()->save($message);
         $topic->latestMessage()->save($message);
 
-        (new Notify(new NotifiedMessage($message, $topic)))
+        notify(new NotifiedMessage($message, $topic))
             ->to($topic->users)
             ->create();
 
