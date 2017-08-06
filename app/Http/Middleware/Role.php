@@ -26,9 +26,9 @@ class Role
             $message = 'You don\'t have permission to make this operation';
             if ($request->expectsJson()) {
                 return response()->make(['error' => [$message]], 403);
+            } else {
+                throw new AuthorizationException();
             }
-
-            throw new UnauthorizedException();
         }
 
         return $next($request);

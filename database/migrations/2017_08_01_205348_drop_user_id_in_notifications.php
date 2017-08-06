@@ -14,7 +14,6 @@ class DropUserIdInNotifications extends Migration
     public function up()
     {
         Schema::table('notifications', function (Blueprint $table) {
-            $table->dropIndex('notifications_user_id_index');
             $table->dropColumn('user_id');
         });
     }
@@ -27,7 +26,7 @@ class DropUserIdInNotifications extends Migration
     public function down()
     {
         Schema::table('notifications', function (Blueprint $table) {
-            $table->integer('user_id')->unsigned()->index();
+            $table->integer('user_id')->unsigned()->index()->nullable();
         });
     }
 }

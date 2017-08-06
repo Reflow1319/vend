@@ -14,7 +14,7 @@ class AddDataToNotifications extends Migration
     public function up()
     {
         Schema::table('notifications', function (Blueprint $table) {
-            $table->text('data');
+            $table->text('data')->nullable();
         });
     }
 
