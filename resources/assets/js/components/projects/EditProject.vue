@@ -6,8 +6,8 @@
                     <a @click="destroy()" onclick="return confirm('Are you sure to delete?')" v-if="project.id">{{ $t('common.delete') }}</a>
                 </div>
                 <div class="modal-header-right">
-                    <a @click="project.is_archive = !project.is_archive">
-                        {{ $t('projects.isArchive') }}
+                    <a @click="toggleArchive">
+                        {{ $t(project.is_archive ? 'projects.unArchiveProject' : 'projects.archiveProject') }}
                     </a>
                 </div>
                 <div class="modal-title">{{ project.id ? $t('projects.edit') : $t('projects.create') }}</div>
@@ -85,6 +85,10 @@
             },
             cancel() {
                 this.emit('hideModal')
+            },
+            toggleArchive() {
+                this.project.is_archive = !this.project.is_archive
+                this.$store.dispatch('saveProject', this.project)
             },
             destroy() {
                 this.$store.dispatch('deleteProject', this.project).then(() => {

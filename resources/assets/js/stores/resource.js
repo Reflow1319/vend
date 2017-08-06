@@ -121,7 +121,7 @@ Resource.prototype.getActions = function () {
                 return res.data
             })
         } else {
-            return axios.post(stringTemplate(this.baseUrl, r.urlParams), r).then(res => {
+            return axios.post(this.getUrl(r), r).then(res => {
                 commit(camelize('create_' + this.store, true), res.data)
                 return res.data
             })
@@ -141,8 +141,8 @@ Resource.prototype.getActions = function () {
 
 Resource.prototype.getUrl = function (r) {
     return r && r.urlParams
-        ? stringTemplate(this.baseUrl, r.urlParams)
-        : this.baseUrl
+        ? stringTemplate((r._url ? r._url : this.baseUrl), r.urlParams)
+        : r && r._url ? r._url : this.baseUrl
 }
 
 Resource.prototype.mergeInto = function (resource) {

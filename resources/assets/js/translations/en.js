@@ -18,6 +18,8 @@ export default {
         archive: 'Archive',
         active: 'Active',
         isArchive: 'Archive project',
+        archiveProject: 'Archive project',
+        unArchiveProject: 'Restore to active',
         completedColumn: '(Completed)',
         toggleArchive: 'Toggle archive columns',
         form: {
