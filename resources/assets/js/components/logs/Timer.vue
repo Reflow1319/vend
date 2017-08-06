@@ -28,11 +28,9 @@
 
 <script>
     import {mapGetters} from 'vuex'
-    import mixins from '../../mixins'
     import Dropdown from '../common/Dropdown.vue'
 
     export default {
-        mixins: [mixins],
         components: {
             Dropdown
         },
@@ -45,9 +43,6 @@
             }),
             running() {
                 return this.currentLog && this.currentLog.is_running
-            },
-            elapsedTime() {
-
             }
         },
         methods: {
