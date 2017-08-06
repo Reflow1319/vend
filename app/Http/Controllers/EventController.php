@@ -95,7 +95,7 @@ class EventController extends Controller
      */
     private function createNotification(Event $event)
     {
-        (new Notify(new NotifiedEvent($event)))
+        notify(new NotifiedEvent($event))
             ->to(User::get())
             ->create();
     }
