@@ -99,7 +99,7 @@ class Card extends Model
         if(empty($cards)) return collect([]);
 
         return $cards->map(function ($card) {
-            return [
+            return new Event([
                 'id'       => $card->id,
                 'title'    => $card->title,
                 'start'    => $card->due_date,
@@ -109,7 +109,7 @@ class Card extends Model
                 'meta'     => [
                     'project_id' => $card->project_id,
                 ],
-            ];
+            ]);
         });
     }
 }

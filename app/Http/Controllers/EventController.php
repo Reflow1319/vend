@@ -116,12 +116,7 @@ class EventController extends Controller
         }
 
         // Get from db
-        $events = Event::orderBy('start')
-            ->where(function ($query) use ($user) {
-                if ($user) {
-                    $query->where('event_url', $user->event_url);
-                }
-            })->get();
+        $events = Event::orderBy('start')->get();
 
         // Add type to events
         $events = collect($events->map(function ($event) {

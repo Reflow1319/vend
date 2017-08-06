@@ -56,14 +56,14 @@ class Project extends Model
         if(empty($projects)) return collect([]);
 
         return $projects->map(function ($project) {
-            return [
+            return new Event([
                 'id'       => $project->id,
                 'title'    => $project->title,
                 'start'    => $project->due_date,
                 'location' => null,
                 'end'      => null,
                 'type'     => 'project',
-            ];
+            ]);
         });
     }
 }
