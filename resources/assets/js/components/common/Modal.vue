@@ -3,7 +3,7 @@
         <div class="modal-dialog" @click.stop="">
             <div class="modal-content">
                 <div class="modal-loading" v-show="loading"></div>
-                <div class="alert alert-danger" v-if="error">{{ error }}</div>
+                <error-message ref="errorMessage"></error-message>
                 <component :is="view" ref="view" v-show=" ! loading"></component>
             </div>
         </div>
@@ -21,6 +21,8 @@
     import ShowMessage from '../messages/ShowMessage.vue'
     import MessageForm from '../messages/MessageForm.vue'
     import EventForm from '../events/EventForm.vue'
+    import MessageDetail from '../messages/MessageDetail.vue'
+    import ErrorMessage from '../common/ErrorMessage.vue'
 
     export default {
         name: 'modal',
@@ -30,11 +32,13 @@
             EditUser,
             TopicForm,
             MessageForm,
+            MessageDetail,
             EventDetail,
             EventForm,
             ShowMessage,
             EditCard,
-            EditProject
+            EditProject,
+            ErrorMessage
         },
         data() {
             return {
@@ -49,17 +53,24 @@
         },
         mounted() {
             this.$root.$on('showModal', (view, cb) => {
-                this.view = view
+                this.error = null
+                this.setErrors(null)
                 this.visible = true
                 if(cb) {
                     this.loading = true
                     cb.then(() => {
+                        this.view = view
                         this.loading = false
                     })
+                        .catch(err => {
+                            this.setErrors(err)
+                            this.loading = false
+                            this.view = ''
+                        })
                 } else {
+                    this.view = view
                     this.loading = false
                 }
-                this.error = null
             })
             this.$root.$on('hideModal', () => {
                 this.view = null
