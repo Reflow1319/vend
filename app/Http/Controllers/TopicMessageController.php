@@ -8,7 +8,6 @@ use App\Message;
 use App\Notifications\NotificationRead;
 use App\Topic;
 use App\Notifications\NotifiedMessage;
-use App\Notifications\Notify;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -50,6 +49,19 @@ class TopicMessageController extends Controller
     {
         $message = $this->save($topic, $request);
         $message->load('user', 'files');
+
+        return response()->make($message);
+    }
+
+    /**
+     * @param Topic   $topic
+     * @param Message $message
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function show(Topic $topic, Message $message)
+    {
+        $message->load('user');
 
         return response()->make($message);
     }
