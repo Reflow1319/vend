@@ -130,7 +130,7 @@
                         }
                     }).then(() => {
                         this.markAsRead(notification)
-                    }).catch(err => this.emit('show'))
+                    })
                 )
             },
             getNotificationText(notification) {
