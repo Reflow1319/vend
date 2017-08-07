@@ -78,12 +78,12 @@
 
                 notification.read_at = moment().format('YYYY-MM-DD HH:ii:ss')
 
-                if (notification.related_type === 'card') {
-                    this.showCard(notification)
-                }
-
-                if (notification.related_type === 'comment') {
-                    this.showCard(notification)
+                if (
+                    notification.related_type === 'card'
+                    || notification.related_type === 'comment'
+                    || notification.related_type === 'task'
+                ) {
+                    this.showCard(notification, notification.related_type !== 'card')
                 }
 
                 if (notification.related_type === 'event') {
@@ -105,12 +105,12 @@
                     })
                 )
             },
-            showCard(notification) {
+            showCard(notification, withCardId) {
                 this.$root.$emit(
                     'showModal',
                     'show-card',
                     this.$store.dispatch('getCard', {
-                        id: notification.related_id,
+                        id: withCardId ? notification.data.card_id : notification.related_id,
                         urlParams: {
                             projectId: notification.data.project_id
                         }
@@ -130,7 +130,7 @@
                         }
                     }).then(() => {
                         this.markAsRead(notification)
-                    })
+                    }).catch(err => this.emit('show'))
                 )
             },
             getNotificationText(notification) {
