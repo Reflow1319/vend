@@ -8,7 +8,6 @@ $factory->define(Event::class, function(Faker\Generator $faker) {
         'title' => $faker->catchPhrase,
         'start' => Carbon::now()->addDays(7),
         'end' => Carbon::now()->addDays(8),
-        'location' => $faker->address,
-        'description' => $faker->catchPhrase
+        'location' => $faker->address
     ];
 });

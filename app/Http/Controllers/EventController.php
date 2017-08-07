@@ -30,37 +30,35 @@ class EventController extends Controller
      */
     public function index()
     {
-        $events = $this->getEvents();
+        $events = Event::getAllEvents();
 
         return response()->make($events);
     }
 
     public function ical($hash)
     {
-        $events = $this->getEvents($hash);
+        $events = Event::getAllEvents($hash);
 
         $vcalendar = new VCalendar();
         foreach ($events as $event) {
             $e = [
-                'SUMMARY' => $event->title,
-                'DTSTART' => new \DateTime($event->start),
+                'SUMMARY' => $event['title'],
+                'DTSTART' => new \DateTime($event['start']),
             ];
 
-            if ($event->end) {
-                $e['DTEND'] = new \DateTime($event->end);
+            if ($event['end']) {
+                $e['DTEND'] = new \DateTime($event['end']);
             }
 
             $vcalendar->add('VEVENT', $e);
         }
 
-        return response(
-            $vcalendar->serialize(),
-            200,
-            [
-                'Content-type'        => 'text/calendar; charset=utf-8',
-                'Content-Disposition' => 'inline; filename=calendar.ics',
-            ]
-        );
+        $headers = [
+            'Content-type'        => 'text/calendar; charset=utf-8',
+            'Content-Disposition' => 'inline; filename=calendar.ics',
+        ];
+
+        return response($vcalendar->serialize(), 200, $headers);
     }
 
     /**
@@ -98,37 +96,6 @@ class EventController extends Controller
         notify(new NotifiedEvent($event))
             ->to(User::get())
             ->create();
-    }
-
-    /**
-     * @param null $hash
-     *
-     * @return \Illuminate\Database\Eloquent\Collection|\Illuminate\Support\Collection|static|static[]
-     */
-    private function getEvents($hash = null)
-    {
-        $user = null;
-        if ($hash) {
-            $user = User::whereEventUrl($hash)->first();
-            if ( ! $user) {
-                throw new NotFoundHttpException();
-            }
-        }
-
-        // Get from db
-        $events = Event::orderBy('start')->get();
-
-        // Add type to events
-        $events = collect($events->map(function ($event) {
-            $event->type = 'event';
-
-            return $event;
-        }));
-
-        $events = $events->merge(Project::events());
-        $events = $events->merge(Card::events());
-
-        return $events;
     }
 
     /**

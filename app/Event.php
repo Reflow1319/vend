@@ -31,4 +31,35 @@ class Event extends Model
         return $this->belongsTo(Topic::class);
     }
 
+    /**
+     * @param null $hash
+     *
+     * @return \Illuminate\Database\Eloquent\Collection|\Illuminate\Support\Collection|static|static[]
+     */
+    public static function getAllEvents($hash = null)
+    {
+        $user = null;
+        if ($hash) {
+            $user = User::whereEventUrl($hash)->first();
+            if ( ! $user) {
+                throw new NotFoundHttpException();
+            }
+        }
+
+        // Get from db
+        $events = Event::orderBy('start')->get();
+
+        // Add type to events
+        $events = collect($events->map(function ($event) {
+            $event->type = 'event';
+
+            return $event;
+        })->toArray());
+
+        $events = $events->merge(Project::events());
+        $events = $events->merge(Card::events());
+
+        return $events;
+    }
+
 }
