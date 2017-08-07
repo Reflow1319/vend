@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use App\Card;
 use App\Http\Requests\TaskRequest;
 use App\Notifications\NotifiedTask;
-use App\Notifications\Notify;
 use App\Project;
 use App\Task;
 
