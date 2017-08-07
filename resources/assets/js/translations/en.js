@@ -148,6 +148,7 @@ export default {
             card_updated: '{actor} updated {title} card in <a href="#/projects/{project_id}">{project_title}</a>',
             message_created: '{actor} created a message in <a href="#/topics/{topic_id}">{topic_title}</a> topic',
             event_created: '{actor} created <a href="#/calendar/{event_id}">{title}</a> event',
+            task_created: '{actor} created a card task in <a href="#/projects/{project_id}">{project_title}</a>',
             task_updated: '{actor} updated a card task in <a href="#/projects/{project_id}">{project_title}</a>',
             message_updated: '{actor} updated a message in {title} topic',
             comment_created: '{actor} commented on {title} card  in <a href="#/projects/{project_id}">{project_title}</a>',
