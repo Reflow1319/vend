@@ -33,7 +33,7 @@ class TopicMessageController extends Controller
             ->latest()
             ->paginate(50);
 
-        (new NotificationRead('message', $messages->pluck('id')->toArray()))
+        notifyRead('message', $messages->pluck('id')->toArray())
             ->read();
 
         return response()->make($messages);
