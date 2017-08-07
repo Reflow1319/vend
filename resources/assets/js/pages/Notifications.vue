@@ -91,7 +91,7 @@
                 }
 
                 if (notification.related_type === 'message') {
-                    this.$router.push({name: 'topic', params: {id: notification.related.id}})
+                    this.showMessage(notification)
                 }
             },
             showEvent(notification) {
@@ -101,7 +101,7 @@
                     this.$store.dispatch('getEvent', {
                         id: notification.related_id
                     }).then(() => {
-                        axios.put('notifications/read/' + notification.related_type + '/' + notification.related_id)
+                        this.markAsRead(notification)
                     })
                 )
             },
@@ -115,8 +115,22 @@
                             projectId: notification.data.project_id
                         }
                     }).then(() => {
-                        axios.put('notifications/read/' + notification.related_type + '/' + notification.related_id)
+                        this.markAsRead(notification)
                     })
+                )
+            },
+            showMessage(notification) {
+                this.$root.$emit(
+                    'showModal',
+                    'message-detail',
+                    this.$store.dispatch('getMessage', {
+                        id: notification.data.message_id,
+                        urlParams: {
+                            topicId: notification.data.topic_id
+                        }
+                    }).then(() => {
+                        this.markAsRead(notification)
+                    }).catch(err => this.emit('show'))
                 )
             },
             getNotificationText(notification) {
@@ -124,8 +138,8 @@
                 const key = `${notification.related_type}_${notification.type}`
                 return this.$t('notifications.messages.' + key, notification.data)
             },
-            markAsRead() {
-                axios.get('notifications/read')
+            markAsRead(notification) {
+                axios.put('notifications/read/' + notification.related_type + '/' + notification.related_id)
             }
         }
     }
