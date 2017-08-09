@@ -23,10 +23,6 @@ class Topic extends Model
     {
         parent::boot();
 
-        static::saving(function ($model) {
-            $model->user_id = Auth::user()->id;
-        });
-
         static::deleting(function ($model) {
             $model->messages()->delete();
             $model->favorites()->delete();
