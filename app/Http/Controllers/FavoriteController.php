@@ -2,20 +2,20 @@
 
 namespace App\Http\Controllers;
 
-use App\Favorite;
-use App\Project;
-use App\Topic;
+use App\Services\FavoriteService;
 use Illuminate\Support\Facades\Auth;
 
 class FavoriteController extends Controller
 {
     /**
-     * @var array
+     * @var FavoriteService
      */
-    protected $types = [
-        'topics' => Topic::class,
-        'projects' => Project::class
-    ];
+    private $favoriteService;
+
+    public function __construct(FavoriteService $favoriteService)
+    {
+        $this->favoriteService = $favoriteService;
+    }
 
     /**
      * Get favorites
@@ -24,9 +24,7 @@ class FavoriteController extends Controller
      */
     public function index()
     {
-        $favorites = Favorite::whereUserId(Auth::user()->id)
-            ->with('favoritable')
-            ->get();
+        $favorites = $this->favoriteService->getUserFavorites(Auth::user()->id);
 
         return response()->make($favorites);
     }
@@ -41,16 +39,7 @@ class FavoriteController extends Controller
      */
     public function save($type, $id)
     {
-        $model = $this->getModel($type, $id);
-
-        $favorite = $model->favorites()->firstOrNew([
-            'user_id' => Auth::user()->id,
-        ]);
-
-        if( ! $favorite->exists) {
-            $favorite = $model->favorites()->save($favorite);
-            $favorite->load('favoritable');
-        }
+        $favorite = $this->favoriteService->save($type, $id, Auth::user()->id);
 
         return response()->make($favorite);
     }
@@ -65,33 +54,8 @@ class FavoriteController extends Controller
      */
     public function destroy($type, $id)
     {
-        $model = $this->getModel($type, $id);
-
-        $favorite = $model->favorites()->firstOrNew([
-            'user_id' => Auth::user()->id,
-        ]);
-
-        if($favorite->exists) {
-            $favorite->delete();
-        }
+        $this->favoriteService->delete($type, $id, Auth::user()->id);
 
         return response()->make(null, 204);
-    }
-
-    /**
-     * Returns model based on type and id
-     *
-     * @param $type
-     * @param $id
-     *
-     * @return null
-     */
-    private function getModel($type, $id)
-    {
-        if (array_key_exists($type, $this->types)) {
-            return (new $this->types[$type])->find($id);
-        }
-
-        return null;
     }
 }
