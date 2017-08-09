@@ -2,15 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\Card;
 use App\Event;
 use App\Http\Requests\EventRequest;
 use App\Notifications\NotifiedEvent;
-use App\Notifications\Notify;
-use App\Project;
 use App\User;
 use Sabre\VObject\Component\VCalendar;
-use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 class EventController extends Controller
 {
