@@ -1,7 +1,7 @@
 <template>
     <div class="form-group">
         <div id="editor" class="form-control">
-            <p v-html="content"></p>
+            <p v-html="value"></p>
         </div>
     </div>
 </template>
@@ -11,6 +11,7 @@
 
     export default {
         props: {
+            value: {},
             content: {
                 type: String,
                 default: ''
@@ -33,17 +34,14 @@
                         ['bold', 'italic', 'link', 'code-block'],
                     ]
                 },
-                placeholder: this.placeholder,
+                placeholder: this.$t(this.placeholder),
                 theme: 'snow'
             })
-        },
-        methods: {
-            getContent() {
-                return this.editor.root.innerHTML.replace("<p><br></p>", "")
-            },
-            setContent(content) {
-                this.editor.setContents(content || '')
-            }
+
+            this.editor.on('text-change', () => {
+                let content = this.editor.root.innerHTML.replace("<p><br></p>", "")
+                this.$emit('input', content)
+            })
         }
     }
 </script>

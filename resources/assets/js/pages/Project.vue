@@ -59,6 +59,8 @@
     import {mapGetters} from 'vuex'
     import Loader from '../components/common/Loader.vue'
     import Card from '../components/cards/Card.vue'
+    import CardEdit from '../components/cards/CardEdit.vue'
+    import ProjectEdit from '../components/projects/ProjectEdit.vue'
     import FavoriteButton from '../components/common/FavoriteButton.vue'
     import sortable from 'jquery-ui/ui/widgets/sortable'
     import moment from 'moment'
@@ -193,14 +195,14 @@
                     project_id: this.project.id,
                     is_completed: this.markToComplete(column)
                 })
-                this.$root.$emit('showModal', 'edit-card')
+                this.$root.$emit('showModal', CardEdit)
             },
             markToComplete(column) {
                 return column.is_archive || (this.lastColumn && this.lastColumn.id === column.id)
             },
             editProject(project) {
                 this.$store.commit('setProject', project)
-                this.$root.$emit('showModal', 'edit-project')
+                this.$root.$emit('showModal', ProjectEdit)
             },
             updateProject(project) {
                 this.lastColumn = _.filter(project.columns, {is_archive: false}).reverse()[0]

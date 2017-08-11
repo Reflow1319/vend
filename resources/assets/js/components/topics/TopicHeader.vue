@@ -22,6 +22,7 @@
 
 <script>
     import FavoriteButton from '../common/FavoriteButton.vue'
+    import TopicForm from '../topics/TopicForm.vue'
 
     export default {
         props: ['topic'],
@@ -30,7 +31,7 @@
         },
         methods: {
             editTopic() {
-                this.$root.$emit('showModal', 'topic-form')
+                this.$root.$emit('showModal', TopicForm)
             }
         }
     }

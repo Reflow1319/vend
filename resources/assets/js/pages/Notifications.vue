@@ -44,6 +44,9 @@
     import moment from 'moment'
     import {camelize} from 'inflection'
     import LoadMore from '../components/common/LoadMore.vue'
+    import CardDetail from '../components/cards/CardDetail.vue'
+    import EventDetail from '../components/events/EventDetail.vue'
+    import MessageDetail from '../components/messages/MessageDetail.vue'
 
     export default {
         components: {
@@ -97,7 +100,7 @@
             showEvent(notification) {
                 this.$root.$emit(
                     'showModal',
-                    'event-detail',
+                    EventDetail,
                     this.$store.dispatch('getEvent', {
                         id: notification.related_id
                     }).then(() => {
@@ -108,7 +111,7 @@
             showCard(notification, withCardId) {
                 this.$root.$emit(
                     'showModal',
-                    'show-card',
+                    CardDetail,
                     this.$store.dispatch('getCard', {
                         id: withCardId ? notification.data.card_id : notification.related_id,
                         urlParams: {
@@ -122,7 +125,7 @@
             showMessage(notification) {
                 this.$root.$emit(
                     'showModal',
-                    'message-detail',
+                    MessageDetail,
                     this.$store.dispatch('getMessage', {
                         id: notification.data.message_id,
                         urlParams: {

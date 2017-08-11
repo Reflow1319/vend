@@ -16,25 +16,25 @@
 <script>
     export default {
         props: {
-            users: {},
-            selected: {}
-        },
-        computed: {
-            innnerSelected() {
-                return this.selected
+            users: {
+                type: Array,
+                default: () => []
+            },
+            value: {
+                type: Array,
+                default: () => []
             }
         },
         methods: {
             inSelected(user) {
-                return _.findIndex(this.innnerSelected, {id: user.id}) > -1
+                return _.findIndex(this.value, {id: user.id}) > -1
             },
             toggleUser(user) {
-                if (this.inSelected(user)) {
-                    this.innnerSelected.splice(_.findIndex(this.innnerSelected, {id: user.id}), 1)
-                } else {
-                    this.innnerSelected.push(user)
-                }
-                this.$emit('change', this.innnerSelected)
+                this.inSelected(user)
+                    ? this.value.splice(_.findIndex(this.value, {id: user.id}), 1)
+                    : this.value.push(user)
+
+                this.$emit('input', this.value)
             }
         }
     }

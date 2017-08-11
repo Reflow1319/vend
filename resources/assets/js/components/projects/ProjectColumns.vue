@@ -2,7 +2,7 @@
     <div>
         <div class="form-group">
             <div class="project-columns">
-                <div v-for="(column, index) in innerColumns" class="form-group">
+                <div v-for="(column, index) in value" class="form-group">
                     <input type="hidden" @change="changeOrder(column, $event)" class="column-order">
                     <div class="input-group">
                         <div class="btn btn-default">
@@ -13,7 +13,7 @@
                             <i :class="column.is_archive  ? 'icon-checked' : 'icon-unchecked'"></i>
                             {{ $t('projects.archiveColumn') }}
                         </span>
-                        <a @click="innerColumns.splice(index, 1)" class="btn btn-default">
+                        <a @click="value.splice(index, 1)" class="btn btn-default">
                             <i class="icon-delete"></i>
                         </a>
                     </div>
@@ -22,11 +22,17 @@
         </div>
 
         <div class="input-group">
-            <input type="text" v-model="newColumn.title" class="form-control"
-                   :placeholder="$t('projects.form.columnTitle')">
-            <a class="btn btn-default"
-               @click="newColumn.title !== '' ? addColumn() : ''"
-               :disabled="newColumn.title == ''">{{ $t('projects.form.addColumn') }}</a>
+            <input
+                type="text"
+                v-model="newColumn.title"
+                class="form-control"
+               :placeholder="$t('projects.form.columnTitle')">
+
+                <a class="btn btn-default"
+                   @click="addColumn()"
+                   :disabled="newColumn.title == ''">
+                    {{ $t('projects.form.addColumn') }}
+                </a>
         </div>
     </div>
 </template>
@@ -34,7 +40,10 @@
 <script>
     export default {
         props: {
-            columns: {}
+            value: {
+                type: Array,
+                default: []
+            }
         },
         data() {
             return {
@@ -42,13 +51,11 @@
                     title: '',
                     is_archive: false
                 },
-                innerColumns: [],
                 columnsEl: null
             }
         },
         mounted() {
             this.columnsEl = $(this.$el).find('.project-columns');
-            this.innerColumns = this.columns
             this.bindSortable()
         },
         beforeDestroy() {
@@ -73,13 +80,15 @@
                 column.order = e.target.value
             },
             addColumn() {
-                this.innerColumns.push({
+                if(this.newColumn.title === '') return
+
+                this.value.push({
                     title: this.newColumn.title,
-                    order: this.innerColumns.length,
+                    order: this.value.length,
                     is_archive: false,
                 })
                 this.newColumn.title = ''
-                this.$emit('change', this.innerColumns)
+                this.$emit('input', this.value)
             },
         }
     }

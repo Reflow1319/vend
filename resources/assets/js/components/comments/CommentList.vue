@@ -1,7 +1,7 @@
 <template>
     <div>
         <div class="mb-md comment-list">
-            <div class="media media-sm small" v-for="comment in comments">
+            <div class="media media-sm small" v-for="comment in value">
                 <div class="media-left">
                     <img :src="comment.user.image" class="avatar">
                 </div>
@@ -21,7 +21,7 @@
         </div>
         <form action="#" @submit.prevent="save()">
             <div class="form-group">
-                <editor ref="editor" :content="newComment.content" :placeholder="$t('comments.placeholder')"></editor>
+                <editor v-model="newComment.content" placeholder="comments.placeholder"></editor>
             </div>
             <div class="text-right">
                 <button class="btn btn-primary">{{ $t('comments.create') }}</button>
@@ -35,17 +35,23 @@
     import {mapGetters} from 'vuex'
 
     export default {
-        props: ['comments', 'url'],
+        props: {
+            value: {
+                type: Array,
+                default: () => []
+            },
+            url: {
+                type: String,
+                default: ''
+            }
+        },
         components: {
             Editor
         },
         computed: {
             ...mapGetters({
                 currentUser: 'currentUser'
-            }),
-            innerComments() {
-                return this.comments
-            }
+            })
         },
         data() {
             return {
@@ -54,19 +60,17 @@
         },
         methods: {
             save() {
-                this.newComment.content = this.$refs.editor.getContent()
                 axios.post(this.url + '/comments', this.newComment).then(res => {
-                    this.innerComments.push(res.data)
+                    this.value.push(res.data)
                     this.newComment.content = ''
-                    this.$refs.editor.setContent()
-                    this.$emit('change', this.innerComments)
+                    this.$emit('change', this.value)
                 })
             },
             deleteComment(comment) {
                 axios.delete(this.url + '/comments/' + comment.id).then(() => {
-                    let commentIndex = _.findIndex(this.innerComments, {id: comment.id})
-                    this.innerComments.splice(commentIndex, 1)
-                    this.$emit('change', this.innerComments)
+                    let commentIndex = _.findIndex(this.value, {id: comment.id})
+                    this.value.splice(commentIndex, 1)
+                    this.$emit('input', this.value)
                 })
             }
         }

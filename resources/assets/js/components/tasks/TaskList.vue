@@ -1,7 +1,7 @@
 <template>
     <div>
         <div class="form-group task-list">
-            <div class="media media-sm cursor-pointer" v-for="task in tasks">
+            <div class="media media-sm cursor-pointer" v-for="task in value">
                 <div class="media-left" @click="toggle(task, $event)">
                     <i :class="task.is_completed ? 'icon icon-checked text-green' : 'icon icon-unchecked'"></i>
                 </div>
@@ -24,7 +24,16 @@
 
 <script>
     export default {
-        props: ['tasks', 'url'],
+        props: {
+            value: {
+                type: Array,
+                default: () => []
+            },
+            url: {
+                type: String,
+                default: ''
+            }
+        },
         data() {
             return {
                 newTask: {
@@ -32,29 +41,24 @@
                 },
             }
         },
-        computed: {
-            innerTasks() {
-                return this.tasks
-            }
-        },
         methods: {
             save() {
                 axios.post(this.url + '/tasks', this.newTask).then(res => {
                     this.newTask.title = ''
-                    this.innerTasks.push(res.data)
-                    this.$emit('change', this.innerTasks)
+                    this.value.push(res.data)
+                    this.$emit('change', this.value)
                 })
             },
             toggle(task) {
                 task.is_completed = !task.is_completed;
                 axios.put(this.url + '/tasks/' + task.id, task).then(res => {
-                    this.$emit('change', this.innerTasks)
+                    this.$emit('change', this.value)
                 })
             },
             deleteTask(task) {
                 axios.delete(this.url + '/tasks/' + task.id).then(() => {
-                    let taskIndex = _.findIndex(this.innerTasks, {id: task.id})
-                    this.innerTasks.splice(taskIndex, 1)
+                    let taskIndex = _.findIndex(this.value, {id: task.id})
+                    this.value.splice(taskIndex, 1)
                 })
             }
         }

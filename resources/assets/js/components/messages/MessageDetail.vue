@@ -1,16 +1,18 @@
 <template>
-    <div class="modal-body">
+    <modal-content>
         <message-item :message="message"></message-item>
-    </div>
+    </modal-content>
 </template>
 
 <script>
     import {mapGetters} from 'vuex'
     import MessageItem from './MessageItem.vue'
+    import ModalContent from '../common/ModalContent.vue'
 
     export default {
         components: {
-            MessageItem
+            MessageItem,
+            ModalContent
         },
         computed: {
             ...mapGetters({

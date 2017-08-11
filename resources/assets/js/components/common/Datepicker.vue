@@ -1,37 +1,43 @@
 <template>
-    <div>
-        <div class="input-group">
-            <input type="text"
-                   class="form-control"
-                   :value="date"
-                   :placeholder="placeholder"
-                   @focus="showDatepicker = true">
-            <input type="text"
-                   class="form-control"
-                   :value="time"
-                   placeholder="HH:MM"
-                   @change="setTime"
-                   v-if="hasTime">
-            <a class="btn btn-default" @click="clear()"><i class="icon-delete"></i></a>
-        </div>
-        <div class="dropdown" :class="{'open': showDatepicker}">
-            <div class="dropdown-menu">
-                <div class="datepicker"></div>
-            </div>
-        </div>
+    <div class="form-group">
+        <label v-if="label">{{ $t(label) }}</label>
+        <dropdown ref="dropdown">
+            <template slot="toggle">
+                <div class="input-group">
+                    <input type="text"
+                           class="form-control"
+                           :value="date"
+                           :placeholder="placeholder"
+                           @focus="show()">
+                    <input type="text"
+                           class="form-control"
+                           :value="time"
+                           placeholder="HH:MM"
+                           @change="setTime"
+                           v-if="hasTime">
+                    <a class="btn btn-default" @click="clear()"><i class="icon-delete"></i></a>
+                </div>
+            </template>
+            <div class="datepicker" slot="content"></div>
+        </dropdown>
     </div>
 </template>
 
 <script>
     import moment from 'moment'
     import datepicker from 'jquery-ui/ui/widgets/datepicker'
+    import Dropdown from '../common/Dropdown.vue'
 
     export default {
         name: 'Datepicker',
+        components: {
+            Dropdown
+        },
         props: {
             value: {},
             placeholder: {},
-            hasTime: {}
+            hasTime: {},
+            label: ''
         },
         data() {
             return {
@@ -60,6 +66,7 @@
                 onSelect: dateText => {
                     this.innerDate = dateText
                     this.change()
+                    this.$refs.dropdown.hide()
                 }
             })
         },
@@ -76,6 +83,9 @@
             change() {
                 this.$emit('input', this.innerDate + (this.hasTime ? ' ' + this.innerTime : ''))
                 this.showDatepicker = false
+            },
+            show() {
+                this.$refs.dropdown.open()
             },
             clear() {
                 this.innerTime = this.innerDate = null

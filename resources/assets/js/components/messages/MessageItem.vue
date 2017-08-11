@@ -15,13 +15,11 @@
         </div>
         <div class="media-right">
             <dropdown :right="true">
-                <div slot="dropdownToggle"><i class="icon-dots"></i></div>
-                <div slot="dropdownContent">
-                    <ul class="dropdown-links">
-                        <li><a href="#" @click.prevent="editMessage(message)">{{ $t('common.edit') }}</a></li>
-                        <li><a href="#" @click.prevent="deleteMessage(message)">{{ $t('common.delete') }}</a></li>
-                    </ul>
-                </div>
+                <i class="icon-dots" slot="toggle"></i>
+                <ul class="dropdown-links" slot="content">
+                    <li><a @click="editMessage(message)">{{ $t('common.edit') }}</a></li>
+                    <li><a @click="deleteMessage(message)">{{ $t('common.delete') }}</a></li>
+                </ul>
             </dropdown>
         </div>
     </div>
@@ -30,6 +28,7 @@
 <script>
     import Dropdown from '../common/Dropdown.vue'
     import FileAttachment from '../files/FileAttachment.vue'
+    import MessageEdit from './MessageEdit.vue'
 
     export default {
         props: ['message'],
@@ -40,7 +39,7 @@
         methods: {
             editMessage(message) {
                 this.$store.commit('setMessage', message)
-                this.$root.$emit('showModal', 'message-form')
+                this.$root.$emit('showModal', MessageEdit)
             },
             deleteMessage(message) {
                 this.$store.dispatch('deleteMessage', {id: message.id, urlParams: {topicId: message.topic_id}})
