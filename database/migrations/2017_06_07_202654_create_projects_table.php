@@ -19,7 +19,6 @@ class CreateProjectsTable extends Migration
             $table->text('description')->nullable();
             $table->date('due_date')->nullable();
             $table->boolean('is_archive')->index()->default(false);
-            $table->integer('account_id')->index()->unsigned();
             $table->timestamps();
         });
 

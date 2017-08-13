@@ -36,7 +36,7 @@ export default {
         },
         elapsedFormat(time, full) {
 
-            if(time < 60) return '00:01'
+            if(time < 60 && ! full) return '00:01'
 
             let sec_num = parseInt(time, 10)
             let hours = Math.floor(sec_num / 3600)

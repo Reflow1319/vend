@@ -19,13 +19,6 @@
                 })
             }
         },
-        mounted() {
-            this.$store.watch(state => {
-                return state.favorites
-            }, (val) => {
-                console.log(val)
-            })
-        },
         methods: {
             toggleFavorite() {
                 if(this.isFavorite.length) {

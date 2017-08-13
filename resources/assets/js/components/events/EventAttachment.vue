@@ -21,6 +21,8 @@
 
 
 <script>
+    import EventForm from './EventForm.vue'
+
     export default {
         props: ['event', 'highlight', 'clicked', 'prefix'],
         methods: {
@@ -28,7 +30,8 @@
                 if(this.clicked) this.clicked()
             },
             edit(event) {
-                this.emit('showModal', 'event-form', this.$store.dispatch('editEvent', event))
+                this.$store.commit('setEvent', event)
+                this.emit('showModal', EventForm)
             },
             destroy(event) {
                 this.$store.dispatch('deleteEvent', event)

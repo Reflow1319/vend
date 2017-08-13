@@ -33,6 +33,7 @@
 
 <script>
     import {mapGetters} from 'vuex'
+    import CardDetail from './CardDetail.vue'
 
     export default {
         props: ['card'],
@@ -47,7 +48,7 @@
         methods: {
             showCard(card) {
                 this.$store.commit('setCard', card)
-                this.$root.$emit('showModal', 'show-card')
+                this.$root.$emit('showModal', CardDetail)
                 axios.put('notifications/read/card/' + card.id)
             }
         }

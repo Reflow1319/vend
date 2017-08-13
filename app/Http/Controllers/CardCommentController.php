@@ -31,7 +31,7 @@ class CardCommentController extends Controller
         $comment = $card->comments()->save(new Comment($request->all()));
         $comment->load('user');
 
-        (new Notify(new NotifiedComment($comment, $card, $project)))
+        notify(new NotifiedComment($comment, $card, $project))
             ->to($project->users)
             ->create();
 

@@ -52,7 +52,9 @@ class TopicController extends Controller
      */
     public function store(TopicRequest $request)
     {
-        $topic = Topic::create($request->all());
+        $data = $request->all();
+        $data['user_id'] = Auth::user()->id;
+        $topic = Topic::create($data);
         $this->attachUsers($topic, $request);
 
         return $this->show($topic);

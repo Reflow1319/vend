@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use App\Card;
 use App\Http\Requests\TaskRequest;
 use App\Notifications\NotifiedTask;
-use App\Notifications\Notify;
 use App\Project;
 use App\Task;
 
@@ -29,7 +28,7 @@ class CardTaskController extends Controller
     {
         $task = $card->tasks()->save(new Task($request->all()));
 
-        (new Notify(new NotifiedTask(new Task, $task, $card, $project, true)))
+        notify(new NotifiedTask(new Task, $task, $card, $project, true))
             ->to($project->users)
             ->create();
 
@@ -55,7 +54,7 @@ class CardTaskController extends Controller
 
         $task->update($request->all());
 
-        (new Notify(new NotifiedTask($previous, $task, $card, $project, false)))
+        notify(new NotifiedTask($previous, $task, $card, $project, false))
             ->to($project->users)
             ->create();
 

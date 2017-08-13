@@ -44,6 +44,9 @@
     import moment from 'moment'
     import {camelize} from 'inflection'
     import LoadMore from '../components/common/LoadMore.vue'
+    import CardDetail from '../components/cards/CardDetail.vue'
+    import EventDetail from '../components/events/EventDetail.vue'
+    import MessageDetail from '../components/messages/MessageDetail.vue'
 
     export default {
         components: {
@@ -78,12 +81,12 @@
 
                 notification.read_at = moment().format('YYYY-MM-DD HH:ii:ss')
 
-                if (notification.related_type === 'card') {
-                    this.showCard(notification)
-                }
-
-                if (notification.related_type === 'comment') {
-                    this.showCard(notification)
+                if (
+                    notification.related_type === 'card'
+                    || notification.related_type === 'comment'
+                    || notification.related_type === 'task'
+                ) {
+                    this.showCard(notification, notification.related_type !== 'card')
                 }
 
                 if (notification.related_type === 'event') {
@@ -91,32 +94,46 @@
                 }
 
                 if (notification.related_type === 'message') {
-                    this.$router.push({name: 'topic', params: {id: notification.related.id}})
+                    this.showMessage(notification)
                 }
             },
             showEvent(notification) {
                 this.$root.$emit(
                     'showModal',
-                    'event-detail',
+                    EventDetail,
                     this.$store.dispatch('getEvent', {
                         id: notification.related_id
                     }).then(() => {
-                        axios.put('notifications/read/' + notification.related_type + '/' + notification.related_id)
+                        this.markAsRead(notification)
                     })
                 )
             },
-            showCard(notification) {
+            showCard(notification, withCardId) {
                 this.$root.$emit(
                     'showModal',
-                    'show-card',
+                    CardDetail,
                     this.$store.dispatch('getCard', {
-                        id: notification.related_id,
+                        id: withCardId ? notification.data.card_id : notification.related_id,
                         urlParams: {
                             projectId: notification.data.project_id
                         }
                     }).then(() => {
-                        axios.put('notifications/read/' + notification.related_type + '/' + notification.related_id)
+                        this.markAsRead(notification)
                     })
+                )
+            },
+            showMessage(notification) {
+                this.$root.$emit(
+                    'showModal',
+                    MessageDetail,
+                    this.$store.dispatch('getMessage', {
+                        id: notification.data.message_id,
+                        urlParams: {
+                            topicId: notification.data.topic_id
+                        }
+                    }).then(() => {
+                        this.markAsRead(notification)
+                    }).catch(err => this.emit('show'))
                 )
             },
             getNotificationText(notification) {
@@ -124,8 +141,8 @@
                 const key = `${notification.related_type}_${notification.type}`
                 return this.$t('notifications.messages.' + key, notification.data)
             },
-            markAsRead() {
-                axios.get('notifications/read')
+            markAsRead(notification) {
+                axios.put('notifications/read/' + notification.related_type + '/' + notification.related_id)
             }
         }
     }

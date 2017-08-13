@@ -14,6 +14,11 @@
         },
         methods: {
             set(err) {
+                if(! err) {
+                    this.errors = null
+                    return
+                }
+
                 this.errors = _.map(err.response.data, e => {
                     return e.join("<br>")
                 })

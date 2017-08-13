@@ -19,6 +19,7 @@ class NotificationController extends Controller
             ->where('notification_user.user_id', Auth::user()->id)
             ->leftJoin('notification_user', 'notifications.id', '=', 'notification_id')
             ->with('actor')
+            ->groupBy('notifications.id')
             ->latest()
             ->paginate(50);
 

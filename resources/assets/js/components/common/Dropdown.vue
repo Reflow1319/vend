@@ -1,10 +1,11 @@
 <template>
-    <div class="dropdown" :class="[{'open': show, 'dropdown-right pull-right': right, 'dropdown-inline': inline, 'dropdown-top': top}, classes]">
-        <a href="#" @click.prevent="toggle()" class="dropdown-toggle">
-            <slot name="dropdownToggle"></slot>
+    <div class="dropdown"
+         :class="[{'open': show, 'dropdown-right pull-right': right, 'dropdown-inline': inline, 'dropdown-top': top}, classes]">
+        <a @click="open()" class="dropdown-toggle">
+            <slot name="toggle"></slot>
         </a>
-        <div class="dropdown-menu">
-            <slot name="dropdownContent"></slot>
+        <div class="dropdown-menu" @click.stop>
+            <slot name="content"></slot>
         </div>
     </div>
 </template>
@@ -18,29 +19,20 @@
             }
         },
         mounted() {
-            document.addEventListener('click', this.handleClick)
+            document.addEventListener('click', this.handleClick, true)
         },
         beforeDestroy() {
-            document.removeEventListener('click', this.handleClick)
+            document.removeEventListener('click', this.handleClick, true)
         },
         methods: {
-            toggle() {
-                this.show = !this.show
-            },
             hide() {
                 this.show = false
             },
+            open() {
+                this.show = true
+            },
             handleClick(e) {
-                let target = $(e.target)
-                if(
-                    target.closest('.dropdown-toggle').length !== 0
-                    || target.hasClass('.dropdown-toggle')
-                    || target.closest('.dropdown-menu').length !== 0
-                ) {
-                    return null
-                }
-
-                this.show = false
+                if (!this.$el.contains(e.target)) this.show = false;
             }
         }
     }

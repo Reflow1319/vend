@@ -32,16 +32,14 @@
 
 <script>
     import {mapGetters} from 'vuex'
-    import EditUser from '../components/users/EditUser.vue'
-    import ShowUser from '../components/users/ShowUser.vue'
+    import UserEdit from '../components/users/UserEdit.vue'
+    import UserDetail from '../components/users/UserDetail.vue'
     import Loader from '../components/common/Loader.vue'
     import SearchBar from '../components/users/SearchBar.vue'
 
     export default {
         name: 'UserList',
         components: {
-            EditUser,
-            ShowUser,
             Loader,
             SearchBar
         },
@@ -54,7 +52,6 @@
         computed: {
             ...mapGetters({
                 users: 'users',
-//                filteredUsers: 'filteredUsers'
             })
         },
         mounted() {
@@ -85,11 +82,11 @@
             },
             create() {
                 this.$store.commit('setUser', {})
-                this.$root.$emit('showModal', 'edit-user')
+                this.$root.$emit('showModal', UserEdit)
             },
             show(user) {
                 this.$store.commit('setUser', user)
-                this.$root.$emit('showModal', 'show-user')
+                this.$root.$emit('showModal', UserDetail)
             },
             showSearch() {
                 this.$refs.searchBar.show = ! this.$refs.searchBar.show

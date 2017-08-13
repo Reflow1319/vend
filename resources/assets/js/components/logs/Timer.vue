@@ -9,8 +9,8 @@
         </div>
         <div class="timer-right">
             <dropdown :top="true" class="timer-dropdown">
-                <div slot="dropdownToggle"><i class="icon-chevron-up"></i></div>
-                <div slot="dropdownContent">
+                <div slot="toggle"><i class="icon-chevron-up"></i></div>
+                <div slot="content">
                     <div class="dropdown-links">
                         <a @click="toggleTimer(log.card)" v-for="log in currentUser.logs">
                             <span class="label label-primary label-sm pull-right">
@@ -28,11 +28,9 @@
 
 <script>
     import {mapGetters} from 'vuex'
-    import mixins from '../../mixins'
     import Dropdown from '../common/Dropdown.vue'
 
     export default {
-        mixins: [mixins],
         components: {
             Dropdown
         },
@@ -45,9 +43,6 @@
             }),
             running() {
                 return this.currentLog && this.currentLog.is_running
-            },
-            elapsedTime() {
-
             }
         },
         methods: {

@@ -6,24 +6,24 @@
 
             <div class="header-top-right">
                 <dropdown :right="true">
-                    <img :src="currentUser.image" alt="" class="avatar" slot="dropdownToggle">
-                    <div slot="dropdownContent">
-                        <b>{{ currentUser.name }}</b>
-                        <div class="text-muted">{{ $t('users.roles.' + currentUser.role) }}</div>
-                        <div class="dropdown-links">
-                            <a href="/logout">{{ $t('auth.logout') }}</a>
+                    <img :src="currentUser.image" alt="" class="avatar" slot="toggle">
+                    <template slot="content">
+                        <div class="dropdown-header">
+                            <b>{{ currentUser.name }}</b><br>
+                            <span>{{ $t('users.roles.' + currentUser.role) }}</span>
                         </div>
-                    </div>
+                        <a href="/logout">{{ $t('auth.logout') }}</a>
+                    </template>
                 </dropdown>
             </div>
         </div>
 
         <div class="header-blocks">
-            <nav class="header-nav">
-                <router-link :to="{name: 'projects'}" exact><i class="icon-stack"></i> {{ $t('projects.index') }}</router-link>
-                <router-link :to="{name: 'notifications'}" exact><i class="icon-flame"></i>
+            <nav class="nav-list nav-list-light">
+                <router-link :to="{name: 'projects'}" exact :class="{'active' : $route.name === 'project'}"><i class="icon-stack"></i> {{ $t('projects.index') }}</router-link>
+                <router-link :to="{name: 'notifications'}"><i class="icon-flame"></i>
                     {{ $t('notifications.index') }}
-                    <span class="badge badge-warn" v-if="unReadNotifications.length > 0">{{ unReadNotifications.length }}</span>
+                    <span class="badge badge-warn" v-if="unread">{{ unread }}</span>
                 </router-link>
                 <router-link :to="{name: 'topics'}"><i class="icon-bubbles"></i> {{ $t('topics.index') }}</router-link>
                 <router-link :to="{name: 'users'}" v-if="isEditor"><i class="icon-users"></i> {{ $t('users.index') }}</router-link>
@@ -40,7 +40,6 @@
 
 <script>
     import {mapGetters} from 'vuex'
-
     import Timer from '../logs/Timer'
     import Favorites from './Favorites.vue'
     import Dropdown from './Dropdown.vue'
@@ -55,8 +54,11 @@
             ...mapGetters({
                 currentUser: 'currentUser',
                 isEditor: 'isEditor',
-                unReadNotifications: 'unReadNotifications'
-            })
+                notifications: 'notifications'
+            }),
+            unread() {
+                return this.notifications.filter(n => n.read_at === null).length
+            }
         },
         methods: {
             logout() {

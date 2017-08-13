@@ -4,9 +4,7 @@
             <div class="form-group">
                 <input type="text" v-model="log.length" class="form-control" :placeholder="$t('logs.length')">
             </div>
-            <div class="form-group">
-                <datepicker v-model="log.date" :placeholder="$t('logs.date')"></datepicker>
-            </div>
+            <datepicker v-model="log.date" :placeholder="$t('logs.date')" />
             <div class="form-group form-group-btn">
                 <a @click="saveLog()" class="btn btn-primary">{{ $t('common.save') }}</a>
             </div>
@@ -36,8 +34,8 @@
 </template>
 
 <script>
-    import Datepicker from '../common/Datepicker.vue'
     import {mapGetters} from 'vuex'
+    import Datepicker from '../common/Datepicker.vue'
 
     export default {
         props: ['logs', 'small', 'add', 'card', 'show-card'],

@@ -16,9 +16,7 @@
 </template>
 
 <script>
-    import mixins from '../../mixins'
     export default {
         props: ['file'],
-        mixins: [mixins]
     }
 </script>

@@ -31,10 +31,13 @@
 </template>
 
 <script>
-    import Loader from '../components/common/Loader.vue'
-    import EventAttachment from '../components/events/EventAttachment.vue'
     import {mapGetters} from 'vuex'
     import moment from 'moment'
+    import Loader from '../components/common/Loader.vue'
+    import EventAttachment from '../components/events/EventAttachment.vue'
+    import EventDetail from '../components/events/EventDetail.vue'
+    import EventForm from '../components/events/EventForm.vue'
+    import CardDetail from '../components/cards/CardDetail.vue'
 
     export default {
         components: {
@@ -53,7 +56,7 @@
             if(this.$route.params.id) {
                 this.emit(
                     'showModal',
-                    'event-detail',
+                    EventDetail,
                     this.$store.dispatch('getEvent', {id: this.$route.params.id})
                 )
             }
@@ -78,7 +81,7 @@
                     return () =>{
                         this.$root.$emit(
                             'showModal',
-                            'event-detail',
+                            EventDetail,
                             this.$store.dispatch('getEvent', {id: e.id})
                         )
                     }
@@ -88,7 +91,7 @@
                     return () => {
                         this.$root.$emit(
                             'showModal',
-                            'show-card',
+                            CardDetail,
                             this.$store.dispatch('getCard', {
                                 id: e.id,
                                 urlParams: {projectId: e.meta.project_id}
@@ -102,7 +105,7 @@
             },
             create() {
                 this.$store.commit('setEvent', {})
-                this.emit('showModal', 'event-form')
+                this.emit('showModal', EventForm)
             },
             fetchEvents() {
                 this.$refs.loader.start()

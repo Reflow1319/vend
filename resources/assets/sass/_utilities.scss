@@ -156,11 +156,19 @@ input[type=checkbox]:checked + .checkbox:before {
     color: $green;
 }
 
+label {
+    margin-bottom: 5px;
+    display: block;
+    font-size: 13px;
+    text-transform: uppercase;
+}
+
 .badge {
     padding: 1px 7px;
     font-size: 13px;
     border-radius: 10px;
     line-height: 1.4em;
+    min-width: 20px;
     &-warn {
         background: $warn;
         color: #fff;

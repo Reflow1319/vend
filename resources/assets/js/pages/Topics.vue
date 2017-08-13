@@ -72,6 +72,7 @@
 <script>
     import {mapGetters} from 'vuex'
     import Loader from '../components/common/Loader.vue'
+    import TopicForm from '../components/topics/TopicForm.vue'
 
     export default {
         components: {
@@ -110,7 +111,7 @@
         },
         methods: {
             createTopic() {
-                this.$root.$emit('showModal', 'topic-form')
+                this.$root.$emit('showModal', TopicForm)
                 this.$store.commit('setTopic', {users: []})
             }
         }

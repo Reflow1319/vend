@@ -55,6 +55,7 @@
 <script>
     import {mapGetters} from 'vuex'
     import Loader from '../components/common/Loader.vue'
+    import ProjectEdit from '../components/projects/ProjectEdit.vue'
 
     export default {
         components: {
@@ -96,7 +97,7 @@
             },
             createProject() {
                 this.$store.commit('setProject', {columns: [], users: []})
-                this.$root.$emit('showModal', 'edit-project');
+                this.$root.$emit('showModal', ProjectEdit);
             },
             showProject(project) {
                 this.$router.push({name: 'project', params: {id: project.id}})

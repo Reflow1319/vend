@@ -17,7 +17,7 @@
         },
         computed: {
             isLast() {
-                return this.options.current_page === this.options.last_page
+                return this.options.current_page === this.options.last_page || this.options.total === 0
             }
         },
         methods: {

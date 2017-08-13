@@ -4,14 +4,12 @@
         <div v-if="favorites.length == 0" class="text-muted small">
             {{ $t('favorites.empty') }}
         </div>
-        <div @click.prevent="showFavorite(favorite)" v-for="favorite in favorites" class="media media-sm small media-dark cursor-pointer">
-            <div class="media-left">
-                <i :class="getFavoriteIcon(favorite)"></i>
-            </div>
-            <div class="media-body">
+        <nav class="nav-list nav-list-small nav-list-light">
+            <a @click="showFavorite(favorite)" v-for="favorite in favorites" v-bind:key="favorite.id">
+                <i :class="getIcon(favorite)"></i>
                 {{ favorite.favoritable.title }}
-            </div>
-        </div>
+            </a>
+        </nav>
     </div>
 </template>
 
@@ -23,23 +21,23 @@
         projects: 'project',
     }
 
+    const icons = {
+        'projects' : 'icon-stack',
+        'topics': 'icon-bubbles'
+    }
+
     export default {
         computed: {
             ...mapGetters({
                 favorites: 'favorites',
-            })
+            }),
         },
         mounted() {
             this.$store.dispatch('getFavorites')
         },
         methods: {
-            getFavoriteIcon(favorite) {
-                let icon = ''
-                switch(favorite.type) {
-                    case 'projects' : icon = 'icon-stack'; break;
-                    case 'topics' : icon = 'icon-bubbles'; break;
-                }
-                return icon
+            getIcon(favorite) {
+                return icons[favorite.type]
             },
             showFavorite(favorite) {
                 if(favorite.type === 'projects' || favorite.type === 'topics') {

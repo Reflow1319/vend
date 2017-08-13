@@ -42,7 +42,6 @@
         max-width: 700px;
         margin: 50px auto;
         background: #FFF;
-        //background: lighten($light-gray, 4);
         border-radius: 4px;
     }
     &-body {
@@ -55,8 +54,8 @@
     &-title {
         font-size: 20px;
         line-height: 30px;
-        margin: 0 100px;
         font-weight: normal;
+        flex: 1;
     }
     &-footer {
         padding: $modal-footer-padding;
@@ -90,34 +89,44 @@
         text-align: center;
         color: #FFF;
         position: relative;
+        display: flex;
         a {
             color: #FFF;
         }
     }
     &-header-left,
     &-header-right {
-        position: absolute;
-        top: 15px;
-        font-size: 14px;
+        width: 90px;
+        font-size: 13px;
         a {
             display: inline-block;
             border: 1px solid rgba(0, 0, 0, .2);
             padding: 5px 15px;
             border-radius: 15px;
-            margin-left: 5px;
             &:hover {
                 background: rgba(0, 0, 0, .2);
             }
         }
     }
     &-header-left {
-        left: 15px;
+        text-align: left;
     }
     &-header-right {
-        right: 15px;
+        text-align: right;
     }
     &-meta {
         margin: 15px 0 0 0;
+        display: none;
+        span, a {
+            font-size: 13px;
+            border-radius: 15px;
+            display: inline-block;
+            padding: 5px 15px;
+            margin: 0 2px;
+            line-height: 1.45em;
+            text-transform: none;
+            background: rgba(0, 0, 0, .2);
+        }
     }
     &-close {
         float: right;

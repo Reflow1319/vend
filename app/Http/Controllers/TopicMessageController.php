@@ -8,7 +8,6 @@ use App\Message;
 use App\Notifications\NotificationRead;
 use App\Topic;
 use App\Notifications\NotifiedMessage;
-use App\Notifications\Notify;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -34,7 +33,7 @@ class TopicMessageController extends Controller
             ->latest()
             ->paginate(50);
 
-        (new NotificationRead('message', $messages->pluck('id')->toArray()))
+        notifyRead('message', $messages->pluck('id')->toArray())
             ->read();
 
         return response()->make($messages);
@@ -50,6 +49,19 @@ class TopicMessageController extends Controller
     {
         $message = $this->save($topic, $request);
         $message->load('user', 'files');
+
+        return response()->make($message);
+    }
+
+    /**
+     * @param Topic   $topic
+     * @param Message $message
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function show(Topic $topic, Message $message)
+    {
+        $message->load('user');
 
         return response()->make($message);
     }
@@ -102,7 +114,7 @@ class TopicMessageController extends Controller
         $topic->messages()->save($message);
         $topic->latestMessage()->save($message);
 
-        (new Notify(new NotifiedMessage($message, $topic)))
+        notify(new NotifiedMessage($message, $topic))
             ->to($topic->users)
             ->create();
 
