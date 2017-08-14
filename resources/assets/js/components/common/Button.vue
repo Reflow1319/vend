@@ -47,6 +47,7 @@
         text-transform: uppercase;
         font-size: 13px;
         line-height: 21px;
+        background: transparent;
 
         &:hover {
             position: relative;

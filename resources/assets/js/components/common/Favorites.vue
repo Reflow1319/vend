@@ -1,9 +1,16 @@
 <template>
     <nav-list :title="$t('favorites.title')" :light="true" :small="true">
-        <div v-if="favorites.length == 0" class="text-muted small">
-            {{ $t('favorites.empty') }}
-        </div>
-        <nav-list-item :label="link.label" :icon="link.icon" :to="link.to" v-for="link in links" :key="link.id" />
+
+        <div v-if="favorites.length == 0" class="text-muted small">{{ $t('favorites.empty') }}</div>
+
+        <nav-list-item
+            :label="link.label"
+            :icon="link.icon"
+            :to="link.to"
+            :params="link.params"
+            :key="link.id"
+            v-for="link in links" />
+
     </nav-list>
 </template>
 

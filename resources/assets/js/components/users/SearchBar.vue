@@ -1,5 +1,5 @@
 <template>
-    <div class="info-bar" :class="{'open': show }">
+    <sidebar :open="show" :right="true" background="#45516a">
 
         <div class="form-group text-right">
             <a @click="clearFilter()" class="text-muted"><i class="icon-delete"></i> {{ $t('filter.clear') }}</a>
@@ -9,22 +9,27 @@
             <input type="text" class="form-control" @keyup="setQuery" v-model="query">
         </div>
 
-        <h4 class="sidebar-subtitle">{{ $t('users.role') }}</h4>
-        <div class="info-bar-links">
-            <a @click="setRole(role)"
-               :class="{'active' : selectedRole == role}"
-               v-for="role in roles">{{ $t('users.roles.' + role) }}</a>
-        </div>
-    </div>
+        <nav-list :title="$t('users.role')" :light="true">
+            <nav-list-item
+                :label="$t('users.roles.' + role)"
+                :classes="{'active' : selectedRole == role}"
+                :key="role"
+                @click="setRole(role)"
+                v-for="role in roles"/>
+        </nav-list>
+
+    </sidebar>
 </template>
 
 <script>
     import moment from 'moment'
     import mixins from '../../mixins'
     import Datepicker from '../common/Datepicker.vue'
+    import Sidebar from '../common/Sidebar.vue'
+    import NavList from '../common/NavList.vue'
+    import NavListItem from '../common/NavListItem.vue'
 
     export default {
-        mixins: [mixins],
         data() {
             return {
                 filter: {},
@@ -35,7 +40,10 @@
             }
         },
         components: {
-            Datepicker
+            Datepicker,
+            NavList,
+            NavListItem,
+            Sidebar
         },
         methods: {
             setRole(role) {

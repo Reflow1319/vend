@@ -12,19 +12,21 @@
 
         <div class="container">
             <loader :loading="loading"></loader>
-            <div class="card-list" v-if="projects.length">
 
-                <card @click="showProject(project)" v-for="project in projects" :key="project.id" :title="project.title" height="200px">
-                    <template slot="body">
-                        <labeled-prop :label="$t('projects.dueDate')" :prop="dateFormat(project.due_date)" />
-                    </template>
-                    <template slot="footer">
-                        <progress-bar :current="project.completed_cards_count" :full="project.cards_count" />
-                        <avatar-list :images="userImages(project)" />
-                    </template>
-                </card>
-
+            <div class="row" v-if="projects.length">
+                <div class="col-md-4" v-for="project in projects" :key="project.id">
+                    <card @click="showProject(project)" :title="project.title" height="200px">
+                        <template slot="body">
+                            <labeled-prop :label="$t('projects.dueDate')" :prop="dateFormat(project.due_date)" />
+                        </template>
+                        <template slot="footer">
+                            <progress-bar :current="project.completed_cards_count" :full="project.cards_count" />
+                            <avatar-list :images="userImages(project)" />
+                        </template>
+                    </card>
+                </div>
             </div>
+
             <div v-if="empty && $route.name !== 'projects-archive'" class="text-center">
                 <div class="no-record mb-md">
                     {{ $t('projects.empty') }}

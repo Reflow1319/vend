@@ -22,7 +22,6 @@
     import Editor from '../common/Editor.vue'
     import FormInput from '../common/FormInput.vue'
     import ModalContent from '../common/ModalContent.vue'
-    import CardDetail from './CardDetail.vue'
 
     export default {
         components: {
@@ -60,7 +59,7 @@
             },
             save() {
                 this.$store.dispatch('saveCard', {urlParams: {projectId: this.card.project_id}, ...this.card})
-                    .then(() => this.emit('showModal', CardDetail))
+                    .then(() => this.emit('showModal', require('./CardDetail.vue')))
                     .catch(err => this.emit('modalError', err.response.data))
             }
         }
