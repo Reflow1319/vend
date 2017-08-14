@@ -1,21 +1,16 @@
 <template>
     <div>
-        <topic-header :topic="topic"></topic-header>
-
+        <topic-header :topic="topic" />
         <div class="container">
-
-            <message-form></message-form>
-
+            <message-form />
             <div class="wbox">
-                <message-item :message="message" v-for="message in messages" v-bind:key="message.id"></message-item>
-                <loader ref="loader"></loader>
-                <div class="no-record" v-if="empty && ! isLoading()">
+                <message-item :message="message" v-for="message in messages" v-bind:key="message.id" />
+                <loader :loading="loading" />
+                <div class="no-record" v-if="empty && !loading">
                     {{ $t('messages.empty') }}
                 </div>
             </div>
-
-            <load-more :options="meta" @loaded="addData"></load-more>
-
+            <load-more :options="meta" @loaded="addData" />
         </div>
     </div>
 </template>
@@ -45,6 +40,7 @@
         data() {
             return {
                 empty: false,
+                loading: false,
                 meta: {}
             }
         },
@@ -58,18 +54,15 @@
             },
             fetch() {
                 const topicId = this.$route.params.id
-                this.$refs.loader.start()
+                this.loading = true
                 this.$store.commit('setTopic', {})
                 this.$store.commit('setMessages', [])
                 this.$store.dispatch('getTopic', {id: topicId}).then(() => {
                     this.$store.dispatch('getMessages', {urlParams: {topicId: topicId}}).then(data => {
                         this.meta = data
-                        this.$refs.loader.stop()
+                        this.loading = false
                     })
                 })
-            },
-            isLoading() {
-                return this.$refs.loader.loading;
             },
             setEmpty() {
                 this.empty = this.messages.length === 0;

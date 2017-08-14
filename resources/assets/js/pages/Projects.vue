@@ -1,41 +1,29 @@
 <template>
     <div>
-        <div class="title-bar">
-            <div class="title-bar-title">{{ $t('projects.index') }}</div>
-            <div class="title-bar-right">
-                <nav class="title-bar-tabs">
-                    <router-link :to="{name: 'projects'}" exact>{{ $t('projects.active') }}</router-link>
-                    <router-link :to="{name: 'projects-archive'}">{{ $t('projects.archive') }}</router-link>
-                </nav>
-                <a @click="createProject()" class="btn btn-primary title-bar-btn">{{ $t('projects.create') }}</a>
-            </div>
-        </div>
+        <title-bar :title="$t('projects.index')">
+            <template slot="tabs">
+                <router-link :to="{name: 'projects'}" exact>{{ $t('projects.active') }}</router-link>
+                <router-link :to="{name: 'projects-archive'}">{{ $t('projects.archive') }}</router-link>
+            </template>
+            <template slot="right">
+                <ui-button @click="createProject()" type="primary">{{ $t('projects.create') }}</ui-button>
+            </template>
+        </title-bar>
+
         <div class="container">
-            <loader ref="loader"></loader>
+            <loader :loading="loading"></loader>
             <div class="card-list" v-if="projects.length">
-                <a @click="showProject(project)" class="card card-lg" v-for="project in projects">
-                    <div class="card-heading">
-                        <h3>{{ project.title }}</h3>
-                    </div>
-                    <div class="card-body">
-                        <div v-if="project.due_date">
-                            <div class="text-muted">{{ $t('projects.dueDate') }}</div>
-                            <b>{{ dateFormat(project.due_date) }}</b>
-                        </div>
-                    </div>
-                    <div class="card-footer">
-                        <div class="progress" v-if="progress(project) !== false">
-                            <div class="text-muted small">{{ progress(project) + '%' }}</div>
-                            <div class="progress-wrapper">
-                                <div class="progress-bar" :style="'width:' + progress(project) + '%'"></div>
-                            </div>
-                        </div>
-                        <div class="card-users">
-                            <img :src="user.image" class="avatar" v-for="(user, index) in project.users" v-if="index <= displayUser - 1">
-                            <span class="counter" v-if="project.users.length > displayUser">+{{ project.users.length - displayUser }}</span>
-                        </div>
-                    </div>
-                </a>
+
+                <card @click="showProject(project)" v-for="project in projects" :key="project.id" :title="project.title" height="200px">
+                    <template slot="body">
+                        <labeled-prop :label="$t('projects.dueDate')" :prop="dateFormat(project.due_date)" />
+                    </template>
+                    <template slot="footer">
+                        <progress-bar :current="project.completed_cards_count" :full="project.cards_count" />
+                        <avatar-list :images="userImages(project)" />
+                    </template>
+                </card>
+
             </div>
             <div v-if="empty && $route.name !== 'projects-archive'" class="text-center">
                 <div class="no-record mb-md">
@@ -55,11 +43,23 @@
 <script>
     import {mapGetters} from 'vuex'
     import Loader from '../components/common/Loader.vue'
+    import Card from '../components/common/Card'
     import ProjectEdit from '../components/projects/ProjectEdit.vue'
+    import ProgressBar from '../components/common/ProgressBar'
+    import AvatarList from '../components/common/AvatarList'
+    import TitleBar from '../components/common/TitleBar'
+    import UiButton from '../components/common/Button'
+    import LabeledProp from '../components/common/LabeledProp'
 
     export default {
         components: {
-            Loader
+            Loader,
+            LabeledProp,
+            ProgressBar,
+            UiButton,
+            TitleBar,
+            AvatarList,
+            Card
         },
         computed: {
             ...mapGetters({
@@ -68,6 +68,7 @@
         },
         data() {
             return {
+                loading: false,
                 loaded: false,
                 empty: false,
                 displayUser: 10
@@ -77,8 +78,11 @@
             this.fetch()
         },
         methods: {
+            userImages(project) {
+                return project.users.map(u => u.image)
+            },
             fetch() {
-                this.$refs.loader.start()
+                this.loading = true
                 this.$store.commit('setProjects', [])
                 this.empty = false
                 let isArchive = this.$route.name === 'projects-archive'
@@ -86,7 +90,7 @@
                     if (this.projects.length === 0) {
                         this.empty = true
                     }
-                    this.$refs.loader.stop()
+                    this.loading = false
                 })
             },
             progress(project) {

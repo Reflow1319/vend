@@ -1,28 +1,24 @@
 <template>
     <div>
-        <div class="title-bar">
-            <div class="title-bar-title">
+        <title-bar>
+            <template slot="left">
                 <router-link to="/">{{ $t('projects.index') }}</router-link>
                 <i class="icon-arrow-right title-bar-arrow"></i>
                 {{ project.title }}
-            </div>
-            <div class="title-bar-info">
                 <span class="label label-warn title-bar-label" v-if="project.due_date">
                     {{ dateFormat(project.due_date) }}
                 </span>
-            </div>
-            <div class="title-bar-right">
-                <nav class="title-bar-nav">
-                    <a @click="editProject(project)"><i class="icon-pencil"></i></a>
-                    <a @click="toggleInfo()" :class="{'active' : infoVisible}"><i class="icon-search"></i></a>
-                    <favorite-button type="projects" :id="project.id"></favorite-button>
-                </nav>
-            </div>
-        </div>
+            </template>
+            <template slot="right">
+                <a @click="editProject(project)" class="btn"><i class="icon-pencil"></i></a>
+                <a @click="toggleInfo()" class="btn" :class="{'active' : infoVisible}"><i class="icon-search"></i></a>
+                <favorite-button type="projects" :id="project.id"></favorite-button>
+            </template>
+        </title-bar>
 
         <div class="container-fluid">
 
-            <search-bar :project="project" ref="searchBar"></search-bar>
+            <search-bar :project="project" :open="infoVisible"></search-bar>
 
             <loader ref="loader"></loader>
             <div class="column-list" v-if="loaded">
@@ -62,12 +58,14 @@
     import CardEdit from '../components/cards/CardEdit.vue'
     import ProjectEdit from '../components/projects/ProjectEdit.vue'
     import FavoriteButton from '../components/common/FavoriteButton.vue'
+    import TitleBar from '../components/common/TitleBar.vue'
     import sortable from 'jquery-ui/ui/widgets/sortable'
     import moment from 'moment'
 
     export default {
         components: {
             SearchBar,
+            TitleBar,
             FavoriteButton,
             Card,
             Loader
@@ -95,10 +93,6 @@
         },
         mounted() {
             this.navigateTo()
-
-            this.$refs.searchBar.$on('changed', status => {
-                this.infoVisible = status
-            })
 
             this.on('filter:cards', this.filterCards)
 
@@ -181,7 +175,7 @@
                 })
             },
             toggleInfo() {
-                this.$refs.searchBar.toggle()
+                this.infoVisible = !this.infoVisible
             },
             columnCards(column) {
                 return this.filteredCards.filter(card => card.column_id === column.id)

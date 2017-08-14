@@ -1,41 +1,37 @@
 <template>
-    <header class="header">
 
-        <div class="header-top">
-            <a href="#" class="header-title"></a>
+    <sidebar background="#495891" :open="true">
 
-            <div class="header-top-right">
-                <dropdown :right="true">
-                    <img :src="currentUser.image" alt="" class="avatar" slot="toggle">
-                    <template slot="content">
-                        <div class="dropdown-header">
-                            <b>{{ currentUser.name }}</b><br>
-                            <span>{{ $t('users.roles.' + currentUser.role) }}</span>
-                        </div>
-                        <a href="/logout">{{ $t('auth.logout') }}</a>
-                    </template>
-                </dropdown>
-            </div>
-        </div>
+        <template slot="heading">
+            <a href="#" class="logo"></a>
+            <dropdown :right="true">
+                <img :src="currentUser.image" alt="" class="avatar" slot="toggle">
+                <template slot="content">
+                    <div class="dropdown-header">
+                        <b>{{ currentUser.name }}</b><br>
+                        <span>{{ $t('users.roles.' + currentUser.role) }}</span>
+                    </div>
+                    <a href="/logout">{{ $t('auth.logout') }}</a>
+                </template>
+            </dropdown>
+        </template>
 
-        <div class="header-blocks">
-            <nav class="nav-list nav-list-light">
-                <router-link :to="{name: 'projects'}" exact :class="{'active' : $route.name === 'project'}"><i class="icon-stack"></i> {{ $t('projects.index') }}</router-link>
-                <router-link :to="{name: 'notifications'}"><i class="icon-flame"></i>
-                    {{ $t('notifications.index') }}
-                    <span class="badge badge-warn" v-if="unread">{{ unread }}</span>
-                </router-link>
-                <router-link :to="{name: 'topics'}"><i class="icon-bubbles"></i> {{ $t('topics.index') }}</router-link>
-                <router-link :to="{name: 'users'}" v-if="isEditor"><i class="icon-users"></i> {{ $t('users.index') }}</router-link>
-                <router-link :to="{name: 'calendar'}" v-if="isEditor"><i class="icon-calendar"></i> {{ $t('events.index') }}</router-link>
-                <router-link :to="{name: 'logs'}" v-if="isEditor"><i class="icon-chart"></i> {{ $t('logs.index') }}</router-link>
-            </nav>
-            <favorites></favorites>
-        </div>
-        <div class="header-bottom-nav">
+        <nav-list :light="true">
+            <nav-list-item to="projects" icon="stack" :label="$t('projects.index')" :classes="{'active' : $route.name === 'project'}" :exact="true" />
+            <nav-list-item to="notifications" icon="flame" :badge="unread" :label="$t('notifications.index')" />
+            <nav-list-item to="topics" icon="bubbles" :label="$t('topics.index')" />
+            <nav-list-item to="users" icon="users" :label="$t('users.index')" v-if="isEditor" />
+            <nav-list-item to="calendar" icon="users" :label="$t('users.index')" v-if="isEditor" />
+            <nav-list-item to="logs" icon="chart" :label="$t('logs.index')" v-if="isEditor" />
+        </nav-list>
+
+        <favorites></favorites>
+
+        <template slot="footer">
             <timer></timer>
-        </div>
-    </header>
+        </template>
+
+    </sidebar>
 </template>
 
 <script>
@@ -43,10 +39,16 @@
     import Timer from '../logs/Timer'
     import Favorites from './Favorites.vue'
     import Dropdown from './Dropdown.vue'
+    import Sidebar from './Sidebar'
+    import NavList from './NavList'
+    import NavListItem from './NavListItem'
 
     export default {
         components: {
             Timer,
+            NavList,
+            NavListItem,
+            Sidebar,
             Favorites,
             Dropdown
         },
@@ -57,7 +59,8 @@
                 notifications: 'notifications'
             }),
             unread() {
-                return this.notifications.filter(n => n.read_at === null).length
+                const unreadItems = this.notifications.filter(n => n.read_at === null).length
+                return unreadItems ? unreadItems.toString() : null
             }
         },
         methods: {
@@ -70,3 +73,15 @@
 
     }
 </script>
+
+<style>
+    .logo {
+        float: left;
+    }
+</style>
+
+<style>
+    .logo {
+        float: left;
+    }
+</style>

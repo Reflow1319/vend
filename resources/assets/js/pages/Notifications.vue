@@ -1,25 +1,20 @@
 <template>
     <div>
-        <div class="title-bar">
-            <div class="title-bar-title">
-                {{ $t('notifications.index') }}
-            </div>
-            <div class="title-bar-right">
-                <a @click="markAsRead()" class="btn btn-primary title-bar-btn">{{ $t('notifications.markAsRead') }}</a>
-            </div>
-        </div>
+        <title-bar :title="$t('notifications.index')">
+            <template slot="right">
+                <ui-button @click="markAsRead()" type="primary" :label="$t('notifications.markAsRead')" />
+            </template>
+        </title-bar>
+
         <div class="container">
             <div class="wbox">
                 <div class="notifications">
-                    <div v-for="notification in notifications" v-bind:key="notification.id"
-                         class="media cursor-pointer" @click="showNotification(notification)">
-                        <div class="media-left">
+                    <media v-for="notification in notifications" :key="notification.id" @click="showNotification(notification)">
+                        <template slot="left">
                             <div class="notification-dot" :class="{'unread' : notification.read_at == null }"></div>
-                        </div>
-                        <div class="media-left">
                             <img :src="notification.actor.image" alt="" class="avatar">
-                        </div>
-                        <div class="media-body">
+                        </template>
+                        <template slot="body">
                             <div v-html="getNotificationText(notification)"></div>
                             <div class="notification-changes" v-if="notification.data.changes">
                                 <div v-for="change in notification.data.changes">
@@ -30,8 +25,8 @@
                                 </div>
                             </div>
                             <span class="text-muted">{{ fromNow(notification.created_at) }}</span>
-                        </div>
-                    </div>
+                        </template>
+                    </media>
                 </div>
             </div>
             <load-more :options="meta" @loaded="addData"></load-more>
@@ -47,10 +42,16 @@
     import CardDetail from '../components/cards/CardDetail.vue'
     import EventDetail from '../components/events/EventDetail.vue'
     import MessageDetail from '../components/messages/MessageDetail.vue'
+    import TitleBar from '../components/common/TitleBar.vue'
+    import UiButton from '../components/common/Button.vue'
+    import Media from '../components/common/Media.vue'
 
     export default {
         components: {
-            LoadMore
+            LoadMore,
+            Media,
+            UiButton,
+            TitleBar
         },
         data() {
             return {
@@ -147,3 +148,63 @@
         }
     }
 </script>
+
+<style lang="scss">
+    @import "../../sass/variables";
+
+    .notification-dot {
+        width: 8px;
+        height: 8px;
+        margin: 5px 10px 0 0;
+        background: rgba(255, 255, 255, .3);
+        border-radius: 4px;
+        display: inline-block;
+        &.unread {
+            background: $green-light;
+        }
+    }
+    .notification-changes {
+        font-size: 13px;
+        background: lighten($light-gray, 3);
+        padding: 5px;
+        margin: 10px 0;
+        b {
+            min-width: 100px;
+            display: inline-block;
+        }
+        i {
+            opacity: .5;
+            font-size: 12px;
+        }
+    }
+</style>
+
+<style lang="scss">
+    @import "../../sass/variables";
+
+    .notification-dot {
+        width: 8px;
+        height: 8px;
+        margin: 5px 10px 0 0;
+        background: rgba(255, 255, 255, .3);
+        border-radius: 4px;
+        display: inline-block;
+        &.unread {
+            background: $green-light;
+        }
+    }
+    .notification-changes {
+        font-size: 13px;
+        background: lighten($light-gray, 3);
+        padding: 5px;
+        margin: 10px 0;
+        b {
+            min-width: 100px;
+            display: inline-block;
+        }
+        i {
+            opacity: .5;
+            font-size: 12px;
+        }
+    }
+</style>

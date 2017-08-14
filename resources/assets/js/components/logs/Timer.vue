@@ -52,3 +52,129 @@
         }
     }
 </script>
+
+<style lang="scss">
+    @import "../../../sass/variables";
+
+    .timer {
+        background: #12B4AF;
+        border-radius: 3px;
+        color: #FFF;
+        display: flex;
+        align-items: center;
+        font-size: 13px;
+        &-left,
+        &-right {
+            i[class^=icon] {
+                color: #fff;
+            }
+        }
+        &-left {
+            flex: 1;
+            padding: 10px;
+            border-right: 1px solid rgba(0, 0, 0, .2);
+            display: flex;
+            a {
+                color: #fff;
+            }
+            b {
+                display: block;
+            }
+        }
+        &-toggle {
+            width: 30px;
+            height: 30px;
+            border-radius: 15px;
+            border: 1px solid rgba(255, 255, 255, .3);
+            text-align: center;
+            margin-right: 5px;
+            i {
+                line-height: 28px;
+                font-size: 20px;
+            }
+        }
+        &.active {
+            background: $warn;
+        }
+        &-title {
+            flex: 1;
+        }
+        .dropdown-toggle {
+            padding: 10px 8px;
+            display: block;
+        }
+        &-dropdown .dropdown-menu {
+            min-width: 230px;
+        }
+    }
+
+    .log-card-active {
+        background: $warn;
+        border-radius: 3px;
+        padding: 0 5px;
+        color: #FFF;
+    }
+</style>
+
+<style lang="scss">
+    @import "../../../sass/variables";
+
+    .timer {
+        background: #12B4AF;
+        border-radius: 3px;
+        color: #FFF;
+        display: flex;
+        align-items: center;
+        font-size: 13px;
+        &-left,
+        &-right {
+            i[class^=icon] {
+                color: #fff;
+            }
+        }
+        &-left {
+            flex: 1;
+            padding: 10px;
+            border-right: 1px solid rgba(0, 0, 0, .2);
+            display: flex;
+            a {
+                color: #fff;
+            }
+            b {
+                display: block;
+            }
+        }
+        &-toggle {
+            width: 30px;
+            height: 30px;
+            border-radius: 15px;
+            border: 1px solid rgba(255, 255, 255, .3);
+            text-align: center;
+            margin-right: 5px;
+            i {
+                line-height: 28px;
+                font-size: 20px;
+            }
+        }
+        &.active {
+            background: $warn;
+        }
+        &-title {
+            flex: 1;
+        }
+        .dropdown-toggle {
+            padding: 10px 8px;
+            display: block;
+        }
+        &-dropdown .dropdown-menu {
+            min-width: 230px;
+        }
+    }
+
+    .log-card-active {
+        background: $warn;
+        border-radius: 3px;
+        padding: 0 5px;
+        color: #FFF;
+    }
+</style>

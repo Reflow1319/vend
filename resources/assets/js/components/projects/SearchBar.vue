@@ -1,6 +1,5 @@
 <template>
-    <div class="info-bar" :class="{'open': visible}">
-
+    <sidebar :right="true" background="#45516a" :open="open">
         <div class="form-group text-right">
             <a @click="clearFilter()" class="text-muted"><i class="icon-delete"></i> {{ $t('filter.clear') }}</a>
         </div>
@@ -9,39 +8,54 @@
             <input type="text" class="form-control" @keyup="setQuery" v-model="query">
         </div>
 
-        <h4 class="sidebar-subtitle">{{ $t('filter.dueDate') }}</h4>
-        <div class="info-bar-links">
-            <a @click="setDueDate(key)"
-               :class="{'active' : selectedDate == key}"
-               v-for="(filter, key) in dateFilters">{{ $t(filter) }}</a>
-        </div>
+        <nav-list :title="$t('filter.dueDate')" :light="true">
+            <nav-list-item
+                :label="$t(filter)"
+                :key="key"
+                :classes="{'active' : selectedDate == key}"
+                @click="setDueDate(key)"
+                v-for="(filter, key) in dateFilters"/>
+        </nav-list>
 
-        <h4 class="sidebar-subtitle">{{ $t('filter.assignedTo') }}</h4>
+        <nav-list :title="$t('filter.assignedTo')" :light="true">
+            <media
+                :image="user.image"
+                :key="user.id"
+                :classes="{'active' : selectedUser == user.id}"
+                :small="true"
+                v-for="user in project.users"
+                @click="setUser(user)">
+                <template slot="body">
+                    {{ user.name }}
+                    <div class="text-muted">{{ user.email }}</div>
+                </template>
+            </media>
+        </nav-list>
 
-        <div class="media media-sm small"
-             v-for="user in project.users"
-             @click="setUser(user)"
-             :class="{'active' : selectedUser == user.id}">
-            <div class="media-left">
-                <img :src="user.image" alt="" class="avatar avatar-sm">
-            </div>
-            <div class="media-body">
-                {{ user.name }}
-                <div class="text-muted">{{ user.email }}</div>
-            </div>
-        </div>
-
-    </div>
+    </sidebar>
 </template>
 
 <script>
     import moment from 'moment'
     import mixins from '../../mixins'
     import Datepicker from '../common/Datepicker.vue'
+    import Sidebar from '../common/Sidebar.vue'
+    import Media from '../common/Media.vue'
+    import NavList from '../common/NavList.vue'
+    import NavListItem from '../common/NavListItem.vue'
 
     export default {
-        props: ['project'],
-        mixins: [mixins],
+        components: {
+            Datepicker,
+            Sidebar,
+            NavList,
+            Media,
+            NavListItem
+        },
+        props: {
+            project: Object,
+            open: Boolean,
+        },
         data() {
             return {
                 filter: {},
@@ -56,9 +70,6 @@
                     nextMonth: 'filter.nextMonth'
                 }
             }
-        },
-        components: {
-            Datepicker
         },
         methods: {
             show() {

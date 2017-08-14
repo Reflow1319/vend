@@ -1,16 +1,13 @@
 <template>
     <div>
-        <div class="title-bar">
-            <div class="title-bar-title">
-                {{ $t('events.index') }}
-            </div>
-            <div class="title-bar-right">
-                <nav class="title-bar-nav">
-                    <a :href="'/calendar/' + currentUser.event_url + '/calendar.ics'" target="_blank">{{ $t('events.ics') }}</a>
-                </nav>
-                <a @click="create()" class="btn btn-primary title-bar-btn">{{ $t('events.create') }}</a>
-            </div>
-        </div>
+        <title-bar>
+            <template slot="left">{{ $t('events.index') }}</template>
+            <template slot="right">
+                <v-button :href="`/calendar/${currentUser.event_url}/calendar.ics`" target="_blank">{{ $t('events.ics') }}</v-button>
+                <v-button @click="create" type="primary">{{ $t('events.create') }}</v-button>
+            </template>
+        </title-bar>
+
         <div class="container">
             <loader ref="loader"></loader>
             <div v-for="(events, index) in groups" v-if="loaded">
@@ -34,14 +31,18 @@
     import {mapGetters} from 'vuex'
     import moment from 'moment'
     import Loader from '../components/common/Loader.vue'
+    import VButton from '../components/common/Button.vue'
     import EventAttachment from '../components/events/EventAttachment.vue'
     import EventDetail from '../components/events/EventDetail.vue'
     import EventForm from '../components/events/EventForm.vue'
+    import TitleBar from '../components/common/TitleBar.vue'
     import CardDetail from '../components/cards/CardDetail.vue'
 
     export default {
         components: {
             Loader,
+            VButton,
+            TitleBar,
             EventAttachment
         },
         computed: {

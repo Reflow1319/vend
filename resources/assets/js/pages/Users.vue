@@ -1,30 +1,26 @@
 <template>
     <div>
-        <div class="title-bar">
-            <div class="title-bar-title">{{ $t('users.index') }}</div>
-            <div class="title-bar-right">
-                <div class="title-bar-nav">
-                    <a @click="showSearch()"><i class="icon-search"></i></a>
-                </div>
-                <a @click="create()" class="btn btn-primary title-bar-btn">{{ $t('users.create') }}</a>
-            </div>
-        </div>
+        <title-bar>
+            <template slot="left">{{ $t('users.index') }}</template>
+            <template slot="right">
+                <a @click="showSearch()" class="btn"><i class="icon-search"></i></a>
+                <v-button @click="create()" type="primary">{{ $t('users.create') }}</v-button>
+            </template>
+        </title-bar>
         <div class="container">
             <loader ref="loader"></loader>
             <search-bar ref="searchBar"></search-bar>
             <div class="card-list">
-                <a @click="show(user)" class="card project-card card-center" v-for="user in filteredUsers">
-                    <div class="card-body">
-                        <span class="card-title">
-                            <img :src="user.image" alt="" class="avatar avatar-large">
-                        </span>
-                        <div><b>{{ user.name }}</b></div>
+                <card @click="show(user)" v-for="user in filteredUsers" :center="true" v-bind:key="user.id">
+                    <img :src="user.image" alt="" class="avatar avatar-large" slot="title">
+                    <template slot="body">
+                        <b>{{ user.name }}</b><br>
                         {{ user.email }}
-                    </div>
-                    <div class="card-footer">
-                        <span>{{ $t('users.roles.' + user.role.toString()) }}</span>
-                    </div>
-                </a>
+                    </template>
+                    <template slot="footer">
+                        {{ $t('users.roles.' + user.role.toString()) }}
+                    </template>
+                </card>
             </div>
         </div>
     </div>
@@ -36,11 +32,17 @@
     import UserDetail from '../components/users/UserDetail.vue'
     import Loader from '../components/common/Loader.vue'
     import SearchBar from '../components/users/SearchBar.vue'
+    import VButton from '../components/common/Button'
+    import Card from '../components/common/Card'
+    import TitleBar from '../components/common/TitleBar'
 
     export default {
         name: 'UserList',
         components: {
             Loader,
+            Card,
+            TitleBar,
+            VButton,
             SearchBar
         },
         data() {

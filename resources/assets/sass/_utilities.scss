@@ -169,6 +169,8 @@ label {
     border-radius: 10px;
     line-height: 1.4em;
     min-width: 20px;
+    background: $warn;
+    color: #fff;
     &-warn {
         background: $warn;
         color: #fff;

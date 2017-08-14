@@ -1,5 +1,5 @@
 <template>
-    <a @click="toggleFavorite()" :class="{'highlight': isFavorite.length}">
+    <a @click="toggleFavorite()" :class="[{'highlight': isFavorite.length}, 'btn']">
         <i class="icon icon-star"></i>
     </a>
 </template>
@@ -34,3 +34,19 @@
         }
     }
 </script>
+
+<style lang="scss">
+    @import "../../../sass/variables";
+
+    .highlight i {
+        color: $warn;
+    }
+</style>
+
+<style lang="scss">
+    @import "../../../sass/variables";
+
+    .highlight i {
+        color: $warn;
+    }
+</style>

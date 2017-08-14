@@ -1,39 +1,32 @@
 <template>
-    <div class="media">
-        <div class="media-left">
-            <img :src="message.user.image" alt="" class="avatar">
-        </div>
-        <div class="media-body">
-            <div class="media-heading">
-                <b>{{ message.user.name }}</b>
-                <span class="text-muted">{{ fromNow(message.created_at) }}</span>
-            </div>
+    <media :title="message.user.name" :meta="fromNow(message.created_at)">
+        <avatar :image="message.user.image" slot="left" />
+        <template slot="body">
             <div v-html="message.message"></div>
             <div class="media-grid">
                 <file-attachment v-for="file in message.files" v-bind:key="file.id" :file="file"></file-attachment>
             </div>
-        </div>
-        <div class="media-right">
-            <dropdown :right="true">
-                <i class="icon-dots" slot="toggle"></i>
-                <ul class="dropdown-links" slot="content">
-                    <li><a @click="editMessage(message)">{{ $t('common.edit') }}</a></li>
-                    <li><a @click="deleteMessage(message)">{{ $t('common.delete') }}</a></li>
-                </ul>
-            </dropdown>
-        </div>
-    </div>
+        </template>
+        <template slot="actions">
+            <a @click="editMessage(message)">{{ $t('common.edit') }}</a>
+            <a @click="deleteMessage(message)">{{ $t('common.delete') }}</a>
+        </template>
+    </media>
 </template>
 
 <script>
     import Dropdown from '../common/Dropdown.vue'
     import FileAttachment from '../files/FileAttachment.vue'
     import MessageEdit from './MessageEdit.vue'
+    import Media from '../common/Media'
+    import Avatar from '../common/Avatar'
 
     export default {
         props: ['message'],
         components: {
             Dropdown,
+            Avatar,
+            Media,
             FileAttachment,
         },
         methods: {

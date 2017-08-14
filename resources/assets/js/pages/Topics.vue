@@ -1,11 +1,12 @@
 <template>
     <div>
-        <div class="title-bar">
-            <div class="title-bar-title">{{ $t('topics.index') }}</div>
-            <div class="title-bar-right">
-                <a @click="createTopic()" class="btn btn-primary title-bar-btn">{{ $t('topics.create') }}</a>
-            </div>
-        </div>
+        <title-bar>
+            <template slot="left">{{ $t('topics.index') }}</template>
+            <template slot="right">
+                <v-button @click="createTopic()" type="primary">{{ $t('topics.create') }}</v-button>
+            </template>
+        </title-bar>
+
         <div class="container">
             <loader ref="loader"></loader>
 
@@ -73,10 +74,14 @@
     import {mapGetters} from 'vuex'
     import Loader from '../components/common/Loader.vue'
     import TopicForm from '../components/topics/TopicForm.vue'
+    import TitleBar from '../components/common/TitleBar.vue'
+    import VButton from '../components/common/Button.vue'
 
     export default {
         components: {
-            Loader
+            Loader,
+            VButton,
+            TitleBar
         },
         computed: {
             ...mapGetters({

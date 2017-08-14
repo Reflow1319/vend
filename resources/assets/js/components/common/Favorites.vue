@@ -1,50 +1,52 @@
 <template>
-    <div>
-        <h4 class="sidebar-subtitle">{{ $t('favorites.title') }}</h4>
+    <nav-list :title="$t('favorites.title')" :light="true" :small="true">
         <div v-if="favorites.length == 0" class="text-muted small">
             {{ $t('favorites.empty') }}
         </div>
-        <nav class="nav-list nav-list-small nav-list-light">
-            <a @click="showFavorite(favorite)" v-for="favorite in favorites" v-bind:key="favorite.id">
-                <i :class="getIcon(favorite)"></i>
-                {{ favorite.favoritable.title }}
-            </a>
-        </nav>
-    </div>
+        <nav-list-item :label="link.label" :icon="link.icon" :to="link.to" v-for="link in links" :key="link.id" />
+    </nav-list>
 </template>
 
 <script>
     import {mapGetters} from 'vuex'
-
-    const typeRouteMapping = {
-        topics: 'topic',
-        projects: 'project',
-    }
-
-    const icons = {
-        'projects' : 'icon-stack',
-        'topics': 'icon-bubbles'
-    }
+    import NavList from './NavList'
+    import NavListItem from './NavListItem'
 
     export default {
+        components: {
+            NavList,
+            NavListItem
+        },
         computed: {
             ...mapGetters({
                 favorites: 'favorites',
             }),
         },
-        mounted() {
-            this.$store.dispatch('getFavorites')
-        },
-        methods: {
-            getIcon(favorite) {
-                return icons[favorite.type]
-            },
-            showFavorite(favorite) {
-                if(favorite.type === 'projects' || favorite.type === 'topics') {
-                    const name = typeRouteMapping[favorite.type]
-                    this.$router.push({name: name, params: {id: favorite.favoritable.id}})
+        data() {
+            return {
+                links: [],
+                routeMapping: {
+                    topics: 'topic',
+                    projects: 'project',
+                },
+                icons: {
+                    'projects' : 'stack',
+                    'topics': 'bubbles'
                 }
             }
+        },
+        mounted() {
+            this.$store.dispatch('getFavorites').then(() => {
+                this.links = this.favorites.map(f => {
+                    return {
+                        id: f.id,
+                        icon: this.icons[f.type],
+                        to: this.routeMapping[f.type],
+                        params: {id: f.favoritable.id},
+                        label: f.favoritable.title
+                    }
+                })
+            })
         }
     }
 </script>
