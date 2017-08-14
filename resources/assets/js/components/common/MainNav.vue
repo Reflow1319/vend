@@ -21,7 +21,7 @@
             <nav-list-item to="notifications" icon="flame" :badge="unread" :label="$t('notifications.index')" />
             <nav-list-item to="topics" icon="bubbles" :label="$t('topics.index')" />
             <nav-list-item to="users" icon="users" :label="$t('users.index')" v-if="isEditor" />
-            <nav-list-item to="calendar" icon="users" :label="$t('users.index')" v-if="isEditor" />
+            <nav-list-item to="calendar" icon="calendar" :label="$t('events.index')" v-if="isEditor" />
             <nav-list-item to="logs" icon="chart" :label="$t('logs.index')" v-if="isEditor" />
         </nav-list>
 

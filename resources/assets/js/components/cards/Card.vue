@@ -1,5 +1,5 @@
 <template>
-    <card @click.prevent="showCard(card)" :data-id="card.id">
+    <card @click="showCard()" :data-id="card.id">
         <template slot="body">
             {{ card.title }}
             <div class="card-assigned">
@@ -28,7 +28,6 @@
 
 <script>
     import {mapGetters} from 'vuex'
-    import CardDetail from './CardDetail.vue'
     import Card from '../common/Card.vue'
 
     export default {
@@ -59,10 +58,10 @@
             }
         },
         methods: {
-            showCard(card) {
-                this.$store.commit('setCard', card)
-                this.$root.$emit('showModal', CardDetail)
-                axios.put('notifications/read/card/' + card.id)
+            showCard() {
+                this.$store.commit('setCard', this.card)
+                this.$root.$emit('showModal', require('../cards/CardDetail.vue'))
+                axios.put('notifications/read/card/' + this.card.id)
             }
         }
     }
