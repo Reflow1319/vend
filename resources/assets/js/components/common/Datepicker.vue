@@ -55,7 +55,7 @@
             }
         },
         mounted() {
-            if(this.value) {
+            if (this.value) {
                 let date = this.value.split(' ');
                 this.innerDate = date[0]
                 this.innerTime = this.hasTime ? date[1] : null
@@ -95,3 +95,77 @@
         }
     }
 </script>
+
+<style lang="scss">
+    @import "../../../sass/variables";
+
+    .ui-datepicker {
+        padding: 0 10px 10px 10px;
+        font-size: 13px;
+    }
+
+    .ui-datepicker-calendar {
+
+        td {
+            text-align: center;
+
+            a {
+                color: $common;
+                display: block;
+                padding: 3px 5px;
+                border-radius: 3px;
+            }
+
+            &.ui-datepicker-today a {
+                background: $warn;
+                color: #FFF;
+            }
+
+        }
+    }
+
+    .ui-datepicker-header {
+        margin-bottom: 10px;
+        padding-bottom: 5px;
+
+        &:before,
+        &:after {
+            clear: both;
+            content: '';
+            display: table;
+        }
+
+    }
+
+    .ui-datepicker-next,
+    .ui-datepicker-prev {
+        position: absolute;
+        top: 5px;
+        display: block;
+        padding: 5px 10px;
+        cursor: pointer;
+    }
+
+    .ui-datepicker-current-day a {
+        background: $highlight;
+        color: #FFF;
+    }
+
+    .ui-datepicker-prev {
+        left: 0;
+    }
+
+    .ui-datepicker-next {
+        right: 0;
+    }
+
+    .ui-datepicker-title {
+        padding: 5px 5px 10px 5px;
+        text-align: center;
+        border-bottom: 1px solid $light-gray;
+    }
+
+    .ui-datepicker-next {
+        float: right;
+    }
+</style>
