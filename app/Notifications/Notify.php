@@ -34,7 +34,7 @@ class Notify
     }
 
     /**
-     * Sets the actor
+     * Sets the actor.
      *
      * @param $author
      *
@@ -48,7 +48,7 @@ class Notify
     }
 
     /**
-     * Notification recipients
+     * Notification recipients.
      *
      * @param $users
      *
@@ -62,7 +62,7 @@ class Notify
     }
 
     /**
-     * Creates a new notification
+     * Creates a new notification.
      */
     public function create()
     {
@@ -80,7 +80,7 @@ class Notify
     }
 
     /**
-     * Assign notification to recipients
+     * Assign notification to recipients.
      *
      * @param Notification $notification
      *
@@ -95,6 +95,5 @@ class Notify
         foreach ($this->recipients as $recipient) {
             $recipient->notifications()->save($notification);
         }
-
     }
 }

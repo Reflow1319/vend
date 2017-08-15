@@ -3,7 +3,6 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
-use Illuminate\Support\Facades\Auth;
 
 class UserRequest extends FormRequest
 {
@@ -25,10 +24,10 @@ class UserRequest extends FormRequest
     public function rules()
     {
         return [
-            'name' => 'required',
-            'email' => 'required|unique:users,email' . ($this->method() == 'PUT' ? ',' . $this->get('id') : ''),
-            'role' => 'required|in:admin,editor,client',
-            'password' => 'sometimes'
+            'name'     => 'required',
+            'email'    => 'required|unique:users,email'.($this->method() == 'PUT' ? ','.$this->get('id') : ''),
+            'role'     => 'required|in:admin,editor,client',
+            'password' => 'sometimes',
         ];
     }
 }

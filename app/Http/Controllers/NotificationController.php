@@ -9,7 +9,7 @@ use Illuminate\Support\Facades\Auth;
 class NotificationController extends Controller
 {
     /**
-     * Get notifications
+     * Get notifications.
      *
      * @return \Illuminate\Http\Response
      */
@@ -27,10 +27,10 @@ class NotificationController extends Controller
     }
 
     /**
-     * Mark all notifications as read
+     * Mark all notifications as read.
      *
      * @param string|null $type
-     * @param int|null $id
+     * @param int|null    $id
      *
      * @return \Illuminate\Http\Response
      */

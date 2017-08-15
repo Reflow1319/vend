@@ -24,9 +24,9 @@ class EventRequest extends FormRequest
     public function rules()
     {
         return [
-            'title' => 'max:255|required',
-            'start' => 'required|date_format:Y-m-d H:i',
-            'location' => 'max:255'
+            'title'    => 'max:255|required',
+            'start'    => 'required|date_format:Y-m-d H:i',
+            'location' => 'max:255',
         ];
     }
 }

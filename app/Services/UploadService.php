@@ -32,7 +32,7 @@ class UploadService
         // Uhmm
         $this->isImage = explode('/', $this->fileRequest->getClientMimeType())[0] === 'image';
 
-        if($this->isImage) {
+        if ($this->isImage) {
             $this->createThumbnail();
         }
 
@@ -50,20 +50,19 @@ class UploadService
     private function createResource()
     {
         $file = new File([
-            'name' => $this->fileRequest->getClientOriginalName(),
-            'filename' => $this->fileName,
-            'size' => $this->fileRequest->getClientSize(),
-            'is_image' => $this->isImage,
+            'name'      => $this->fileRequest->getClientOriginalName(),
+            'filename'  => $this->fileName,
+            'size'      => $this->fileRequest->getClientSize(),
+            'is_image'  => $this->isImage,
             'mime_type' => $this->fileRequest->getClientMimeType(),
-            'type' => $this->type,
-            'parent' => $this->parent ? $this->parent->id : null,
-            'path' => $this->path,
+            'type'      => $this->type,
+            'parent'    => $this->parent ? $this->parent->id : null,
+            'path'      => $this->path,
         ]);
 
-        if($this->parent) {
+        if ($this->parent) {
             $this->parent->files()->save($file);
-        }
-        else {
+        } else {
             $file->save();
         }
 

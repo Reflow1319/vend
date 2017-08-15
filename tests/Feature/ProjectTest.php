@@ -18,9 +18,9 @@ class ProjectTest extends TestCase
         $user = $this->createAdmin();
 
         $project = factory(Project::class)->make([
-            'title' => 'My first project',
+            'title'   => 'My first project',
             'columns' => factory(Column::class, 2)->make(),
-            'users' => factory(User::class, 2)->make()
+            'users'   => factory(User::class, 2)->make(),
         ]);
 
         $project->users->add($user);

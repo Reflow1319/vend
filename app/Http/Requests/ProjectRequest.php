@@ -22,17 +22,17 @@ class ProjectRequest extends CustomFormRequest
     public function rules()
     {
         return [
-            'title' => 'required',
-            'users' => 'required|array|filled',
-            'columns' => 'required|array|filled',
-            'columns.*.title' => 'required'
+            'title'           => 'required',
+            'users'           => 'required|array|filled',
+            'columns'         => 'required|array|filled',
+            'columns.*.title' => 'required',
         ];
     }
 
     public function messages()
     {
         return [
-            'columns.*.title.required' => 'Columns title field is required'
+            'columns.*.title.required' => 'Columns title field is required',
         ];
     }
 }

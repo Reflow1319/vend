@@ -25,7 +25,7 @@ class TopicRequest extends FormRequest
     {
         return [
             'title' => 'required',
-            'users' => 'array|filled'
+            'users' => 'array|filled',
         ];
     }
 }

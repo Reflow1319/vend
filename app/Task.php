@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class Task extends Model
 {
     protected $casts = [
-        'is_completed' => 'boolean'
+        'is_completed' => 'boolean',
     ];
 
     /**
@@ -16,11 +16,11 @@ class Task extends Model
     protected $fillable = [
         'title',
         'is_completed',
-        'order'
+        'order',
     ];
 
     /**
-     * Morph to relation
+     * Morph to relation.
      *
      * @return \Illuminate\Database\Eloquent\Relations\MorphTo
      */

@@ -18,7 +18,7 @@ class CardController extends Controller
     public function __construct()
     {
         $this->middleware('role:editor', [
-            'except' => ['index', 'upload']
+            'except' => ['index', 'upload'],
         ]);
 
         $this->middleware('member:project');
@@ -46,7 +46,7 @@ class CardController extends Controller
 
     /**
      * @param \App\Project $project
-     * @param \App\Card $card
+     * @param \App\Card    $card
      *
      * @return \Illuminate\Http\Response
      */
@@ -65,7 +65,7 @@ class CardController extends Controller
     }
 
     /**
-     * @param \App\Project $project
+     * @param \App\Project                   $project
      * @param \App\Http\Requests\CardRequest $request
      *
      * @return \Illuminate\Http\Response
@@ -76,9 +76,9 @@ class CardController extends Controller
     }
 
     /**
-     * @param \App\Project $project
+     * @param \App\Project                   $project
      * @param \App\Http\Requests\CardRequest $request
-     * @param \App\Card $card
+     * @param \App\Card                      $card
      *
      * @return \Illuminate\Http\Response
      */
@@ -88,9 +88,9 @@ class CardController extends Controller
     }
 
     /**
-     * @param \App\Project $project
+     * @param \App\Project             $project
      * @param \Illuminate\Http\Request $request
-     * @param \App\Card $card
+     * @param \App\Card                $card
      *
      * @return \Illuminate\Http\Response
      */
@@ -102,9 +102,9 @@ class CardController extends Controller
     }
 
     /**
-     * @param \App\Project $project
+     * @param \App\Project             $project
      * @param \Illuminate\Http\Request $request
-     * @param \App\Card|null $card
+     * @param \App\Card|null           $card
      *
      * @return \Illuminate\Http\Response
      */
@@ -138,7 +138,7 @@ class CardController extends Controller
 
     /**
      * @param Project $project
-     * @param Card $card
+     * @param Card    $card
      */
     public function destroy(Project $project, Card $card)
     {
@@ -146,9 +146,9 @@ class CardController extends Controller
     }
 
     /**
-     * @param Project $project
+     * @param Project                  $project
      * @param \Illuminate\Http\Request $request
-     * @param Card $card
+     * @param Card                     $card
      *
      * @return \Illuminate\Http\Response
      */

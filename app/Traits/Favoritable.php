@@ -3,7 +3,6 @@
 namespace App\Traits;
 
 use App\Favorite;
-use Illuminate\Support\Facades\Auth;
 
 trait Favoritable
 {

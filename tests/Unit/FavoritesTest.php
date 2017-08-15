@@ -15,7 +15,7 @@ class FavoritesTest extends TestCase
     {
         $userEditor = $this->createEditor();
         $topic = factory(Topic::class)->create([
-            'user_id' => $userEditor->id
+            'user_id' => $userEditor->id,
         ]);
 
         $favoriteService = new FavoriteService();

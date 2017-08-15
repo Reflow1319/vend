@@ -3,9 +3,9 @@
 use App\Notifications\NotificationRead;
 use App\Notifications\Notify;
 
-if ( ! function_exists('notify')) {
+if (!function_exists('notify')) {
     /**
-     * Creates a new Notify instance
+     * Creates a new Notify instance.
      *
      * @param $params
      *
@@ -17,9 +17,9 @@ if ( ! function_exists('notify')) {
     }
 }
 
-if ( ! function_exists('notifyRead')) {
+if (!function_exists('notifyRead')) {
     /**
-     * Creates a new Notify instance
+     * Creates a new Notify instance.
      *
      * @param $type
      * @param $ids

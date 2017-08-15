@@ -11,8 +11,8 @@ class Log extends Model
         'card_id',
         'is_running',
         'user_id',
-	    'created_at',
-	    'updated_at'
+        'created_at',
+        'updated_at',
     ];
 
     /**
@@ -21,7 +21,7 @@ class Log extends Model
     protected $with = ['card'];
 
     /**
-     * Relation: Belongs to a card
+     * Relation: Belongs to a card.
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
@@ -31,7 +31,7 @@ class Log extends Model
     }
 
     /**
-     * Relation: Belongs to a user
+     * Relation: Belongs to a user.
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
@@ -42,13 +42,13 @@ class Log extends Model
 
     /**
      * Return the length attribute
-     * If running, we returns with the elapsed time
+     * If running, we returns with the elapsed time.
      *
      * @return mixed
      */
     public function getLengthAttribute()
     {
-        if(isset($this->attributes['is_running']) && $this->attributes['is_running'] == 1) {
+        if (isset($this->attributes['is_running']) && $this->attributes['is_running'] == 1) {
             return $this->attributes['length'] + (time() - strtotime($this->attributes['updated_at']));
         }
 
@@ -56,9 +56,10 @@ class Log extends Model
     }
 
     /**
-     * Return current running log for a given user
+     * Return current running log for a given user.
      *
      * @param $user
+     *
      * @return mixed
      */
     public static function current($user)

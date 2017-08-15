@@ -26,7 +26,7 @@ class NotifiedCard implements NotifiedResource
     private $previous;
 
     /**
-     * @var boolean
+     * @var bool
      */
     private $isNew;
 
@@ -36,12 +36,12 @@ class NotifiedCard implements NotifiedResource
      * @param Model   $previous
      * @param Card    $card
      * @param Project $project
-     * @param boolean $isNew
+     * @param bool    $isNew
      */
     public function __construct(Model $previous, Card $card, Project $project, $isNew = false)
     {
-        $this->card     = $card;
-        $this->project  = $project;
+        $this->card = $card;
+        $this->project = $project;
         $this->previous = $previous;
         $this->isNew = $isNew;
     }

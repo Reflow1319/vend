@@ -14,13 +14,13 @@ class Message extends Model
     {
         parent::boot();
 
-        if(Auth::check()) {
-            static::saving(function($model) {
-               $model->user_id = Auth::user()->id;
+        if (Auth::check()) {
+            static::saving(function ($model) {
+                $model->user_id = Auth::user()->id;
             });
         }
 
-        static::deleting(function($model) {
+        static::deleting(function ($model) {
             $model->files()->delete();
         });
     }

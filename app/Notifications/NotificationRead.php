@@ -31,7 +31,7 @@ class NotificationRead
     }
 
     /**
-     * Mark notifications as read
+     * Mark notifications as read.
      */
     public function read()
     {

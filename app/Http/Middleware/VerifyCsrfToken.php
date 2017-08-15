@@ -13,6 +13,6 @@ class VerifyCsrfToken extends BaseVerifier
      */
     protected $except = [
         'projects/add_column',
-        'users/*/upload'
+        'users/*/upload',
     ];
 }

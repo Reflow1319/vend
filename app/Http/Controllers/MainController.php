@@ -14,5 +14,3 @@ class MainController extends Controller
         return view('layouts.app');
     }
 }
-
-

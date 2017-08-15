@@ -15,7 +15,7 @@ class UserTest extends TestCase
     {
         $this->withoutEvents();
 
-        $user = factory(User::Class)->create();
+        $user = factory(User::class)->create();
         $userEditor = $this->createEditor();
 
         $this->actingAs($userEditor)

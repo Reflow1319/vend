@@ -13,7 +13,7 @@ class Column extends Model
     protected $fillable = [
         'order',
         'title',
-	    'is_archive',
+        'is_archive',
     ];
 
     public function cards()

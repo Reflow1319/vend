@@ -4,9 +4,7 @@ namespace App\Notifications;
 
 use App\Card;
 use App\Comment;
-use App\Helpers\ModelDiff;
 use App\Project;
-use App\User;
 use Illuminate\Database\Eloquent\Model;
 
 class NotifiedComment implements NotifiedResource
@@ -35,7 +33,7 @@ class NotifiedComment implements NotifiedResource
      */
     public function __construct(Model $comment, Card $card, Project $project)
     {
-        $this->card    = $card;
+        $this->card = $card;
         $this->project = $project;
         $this->comment = $comment;
     }

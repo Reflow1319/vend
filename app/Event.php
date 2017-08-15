@@ -61,5 +61,4 @@ class Event extends Model
 
         return $events;
     }
-
 }

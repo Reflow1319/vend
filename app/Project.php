@@ -4,7 +4,6 @@ namespace App;
 
 use App\Traits\Favoritable;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Support\Facades\Auth;
 
 class Project extends Model
 {
@@ -53,7 +52,9 @@ class Project extends Model
     {
         $projects = self::where('due_date', '!=', null)->get();
 
-        if(empty($projects)) return collect([]);
+        if (empty($projects)) {
+            return collect([]);
+        }
 
         return $projects->map(function ($project) {
             return [

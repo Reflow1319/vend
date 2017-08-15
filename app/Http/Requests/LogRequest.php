@@ -24,9 +24,9 @@ class LogRequest extends FormRequest
     public function rules()
     {
         return [
-            'length' => 'required|integer',
+            'length'  => 'required|integer',
             'card_id' => 'required|exists:cards,id',
-            'date' => 'date_format:Y-m-d'
+            'date'    => 'date_format:Y-m-d',
         ];
     }
 }
