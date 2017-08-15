@@ -35,13 +35,13 @@ class ModelDiff
      */
     public function __construct(Model $from, Model $to, $properties = [])
     {
-        $this->from       = $from;
-        $this->to         = $to;
+        $this->from = $from;
+        $this->to = $to;
         $this->properties = $properties;
     }
 
     /**
-     * Add a map
+     * Add a map.
      *
      * @param $property
      * @param $model
@@ -53,7 +53,7 @@ class ModelDiff
     }
 
     /**
-     * Returns the model differences
+     * Returns the model differences.
      *
      * @return array
      */
@@ -75,7 +75,7 @@ class ModelDiff
     }
 
     /**
-     * Checks for property mappings
+     * Checks for property mappings.
      *
      * Mapped properties returns the related model field
      * instead of the original value
@@ -89,9 +89,9 @@ class ModelDiff
     {
         if (array_key_exists($property, $this->mappings)) {
             $resource = $this->mappings[$property][0];
-            $field    = $this->mappings[$property][1];
+            $field = $this->mappings[$property][1];
 
-            return (new $resource)->find($model->{$property})->{$field};
+            return (new $resource())->find($model->{$property})->{$field};
         } else {
             return $model->{$property};
         }
