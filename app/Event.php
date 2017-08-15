@@ -41,13 +41,13 @@ class Event extends Model
         $user = null;
         if ($hash) {
             $user = User::whereEventUrl($hash)->first();
-            if ( ! $user) {
+            if (!$user) {
                 throw new NotFoundHttpException();
             }
         }
 
         // Get from db
-        $events = Event::orderBy('start')->get();
+        $events = self::orderBy('start')->get();
 
         // Add type to events
         $events = collect($events->map(function ($event) {

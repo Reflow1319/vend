@@ -27,7 +27,7 @@ class File extends Model
 
     public function getThumbnailAttribute()
     {
-        if($this->attributes['is_image']) {
+        if ($this->attributes['is_image']) {
             return asset('/uploads/thumbnails/'.$this->attributes['filename']);
         }
 

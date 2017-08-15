@@ -3,7 +3,6 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Support\Facades\Auth;
 
 class Favorite extends Model
 {
@@ -14,12 +13,12 @@ class Favorite extends Model
     protected $appends = ['type'];
 
     const types = [
-        'topics' => 'App\Topic',
+        'topics'   => 'App\Topic',
         'projects' => 'App\Project',
     ];
 
     /**
-     * Alter the favoriteable_type to type name
+     * Alter the favoriteable_type to type name.
      *
      * @return mixed
      */

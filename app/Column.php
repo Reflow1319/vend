@@ -7,17 +7,17 @@ use Illuminate\Database\Eloquent\Model;
 class Column extends Model
 {
     protected $casts = [
-        'is_archive' => 'boolean'
+        'is_archive' => 'boolean',
     ];
 
     protected $fillable = [
         'order',
         'title',
-	    'is_archive'
+	    'is_archive',
     ];
 
     public function cards()
     {
-     return $this->hasMany(Card::class);
+        return $this->hasMany(Card::class);
     }
 }

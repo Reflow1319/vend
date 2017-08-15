@@ -27,25 +27,25 @@ class Card extends Model
     {
         parent::boot();
 
-        static::deleting(function($model) {
+        static::deleting(function ($model) {
             $model->files()->delete();
             $model->tasks()->delete();
             $model->comments()->delete();
             $model->logs()->delete();
-//            $model->notifications()->delete();
+            // $model->notifications()->delete();
         });
     }
 
     public function getDescriptionAttribute()
     {
-        return ! isset($this->attributes['description']) || strip_tags($this->attributes['description']) === ''
+        return !isset($this->attributes['description']) || strip_tags($this->attributes['description']) === ''
             ? ''
             : $this->attributes['description'];
     }
 
     public function setDueDateAttribute($value)
     {
-        if (! is_null($value)) {
+        if (!is_null($value)) {
             $this->attributes['due_date'] = str_replace('. ', '-', $value);
         } else {
             $this->attributes['due_date'] = null;
@@ -96,7 +96,9 @@ class Card extends Model
     {
         $cards = self::where('due_date', '!=', null)->get();
 
-        if(empty($cards)) return collect([]);
+        if (empty($cards)) {
+            return collect([]);
+        }
 
         return $cards->map(function ($card) {
             return [
