@@ -18,25 +18,25 @@ class EventTest extends \Tests\TestCase
         $date = Carbon::now()->format('Y-m-d');
 
         factory(Project::class)->create([
-            'title' => 'Test project',
-            'due_date' => $date
+            'title'    => 'Test project',
+            'due_date' => $date,
         ]);
 
         factory(Card::class)->create([
-            'title' => 'Test card',
-            'due_date' => $date,
-            'column_id' => 1,
-            'project_id' => 1
+            'title'      => 'Test card',
+            'due_date'   => $date,
+            'column_id'  => 1,
+            'project_id' => 1,
         ]);
 
         factory(Event::class)->create([
             'title' => 'Test event',
             'start' => $date,
-            'end' => null
+            'end'   => null,
         ]);
 
         $this->actingAs($userEditor)
-            ->json('GET', 'calendar/' . $userEditor->event_url . '/calendar.ics')
+            ->json('GET', 'calendar/'.$userEditor->event_url.'/calendar.ics')
             ->assertHeader('Content-type', 'text/calendar; charset=utf-8')
             ->assertHeader('Content-Disposition', 'inline; filename=calendar.ics')
             ->assertStatus(200);

@@ -4,8 +4,8 @@ use App\Card;
 use App\Event;
 use App\Project;
 use Carbon\Carbon;
-use Illuminate\Support\Collection;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
+use Illuminate\Support\Collection;
 use Tests\CreatesProject;
 use Tests\TestCase;
 
@@ -18,16 +18,16 @@ class EventsTest extends TestCase
         $date = Carbon::now()->format('Y-m-d');
 
         factory(Card::class)->create([
-            'title' => 'Test card',
-            'due_date' => $date,
-            'column_id' => 1,
-            'project_id' => 1
+            'title'      => 'Test card',
+            'due_date'   => $date,
+            'column_id'  => 1,
+            'project_id' => 1,
         ]);
 
         $events = Card::events();
 
         $data = [
-            'id' => 1,
+            'id'       => 1,
             'title'    => 'Test card',
             'start'    => $date,
             'location' => null,
@@ -46,19 +46,19 @@ class EventsTest extends TestCase
         $date = Carbon::now()->format('Y-m-d');
 
         factory(Project::class)->create([
-            'title' => 'Test project',
-            'due_date' => $date
+            'title'    => 'Test project',
+            'due_date' => $date,
         ]);
 
         $events = Project::events();
 
         $data = [
-            'id' => 1,
+            'id'       => 1,
             'title'    => 'Test project',
             'start'    => $date,
             'location' => null,
             'end'      => null,
-            'type'     => 'project'
+            'type'     => 'project',
         ];
 
         $this->assertEquals($events->get(0), $data);
@@ -69,21 +69,21 @@ class EventsTest extends TestCase
         $date = Carbon::now()->format('Y-m-d');
 
         factory(Project::class)->create([
-            'title' => 'Test project',
-            'due_date' => $date
+            'title'    => 'Test project',
+            'due_date' => $date,
         ]);
 
         factory(Card::class)->create([
-            'title' => 'Test card',
-            'due_date' => $date,
-            'column_id' => 1,
-            'project_id' => 1
+            'title'      => 'Test card',
+            'due_date'   => $date,
+            'column_id'  => 1,
+            'project_id' => 1,
         ]);
 
         factory(Event::class)->create([
             'title' => 'Test event',
             'start' => $date,
-            'end' => null
+            'end'   => null,
         ]);
 
         $events = Event::getAllEvents();

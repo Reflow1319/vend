@@ -22,5 +22,4 @@ class TopicEventController extends Controller
 
         return response()->make($events);
     }
-
 }

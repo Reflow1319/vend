@@ -5,7 +5,6 @@ namespace App;
 use App\Traits\Favoritable;
 use App\Traits\Notifiable;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Support\Facades\Auth;
 
 class Topic extends Model
 {
@@ -16,9 +15,6 @@ class Topic extends Model
      */
     protected $fillable = ['title', 'description', 'is_public', 'is_archive'];
 
-    /**
-     *
-     */
     protected static function boot()
     {
         parent::boot();

@@ -4,10 +4,10 @@ namespace Tests\Feature;
 
 use App\Card;
 use App\Comment;
+use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Tests\CreatesProject;
 use Tests\CreatesUser;
 use Tests\TestCase;
-use Illuminate\Foundation\Testing\DatabaseMigrations;
 
 class TaskTest extends TestCase
 {
@@ -21,7 +21,7 @@ class TaskTest extends TestCase
         $project = $this->createProject($user);
 
         $card = factory(Card::class)->create([
-            'column_id' => $project->columns()->first()->id,
+            'column_id'  => $project->columns()->first()->id,
             'project_id' => $project->id,
         ]);
 
@@ -30,7 +30,7 @@ class TaskTest extends TestCase
         ])->toArray();
 
         $this->actingAs($user)
-            ->json('POST', '/api/projects/' . $project->id . '/cards/'.$card->id.'/tasks', $task)
+            ->json('POST', '/api/projects/'.$project->id.'/cards/'.$card->id.'/tasks', $task)
             ->assertStatus(200)
             ->assertJson([
                 'title' => 'This is the task title',

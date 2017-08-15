@@ -18,7 +18,7 @@ class FavoriteController extends Controller
     }
 
     /**
-     * Get favorites
+     * Get favorites.
      *
      * @return \Illuminate\Http\Response
      */
@@ -30,7 +30,7 @@ class FavoriteController extends Controller
     }
 
     /**
-     * Creates a favorite by type and id
+     * Creates a favorite by type and id.
      *
      * @param $type
      * @param $id
@@ -45,7 +45,7 @@ class FavoriteController extends Controller
     }
 
     /**
-     * Deletes a favorite by type and id
+     * Deletes a favorite by type and id.
      *
      * @param $type
      * @param $id

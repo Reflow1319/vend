@@ -11,15 +11,13 @@
 |
 */
 
-
 Auth::routes();
 
 Route::get('logout', '\App\Http\Controllers\Auth\LoginController@logout');
 Route::get('uploads/thumbnails/{path}', 'FileController@getThumbnail');
 Route::get('uploads/{path}', 'FileController@getFile');
 
-
-Route::group(['middleware' => 'auth'], function() {
+Route::group(['middleware' => 'auth'], function () {
     Route::get('/', 'MainController@app');
 });
 

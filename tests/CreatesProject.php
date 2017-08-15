@@ -14,10 +14,10 @@ trait CreatesProject
         $users = factory(User::class, 2)->make();
 
         if ($user) {
-            if(is_array($user)) {
-                foreach($user as $u) {
+            if (is_array($user)) {
+                foreach ($user as $u) {
                     $users->add($u);
-                };
+                }
             } else {
                 $users->add($user);
             }

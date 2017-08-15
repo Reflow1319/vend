@@ -2,10 +2,6 @@
 
 namespace App\Providers;
 
-use App\Project;
-use App\Services\AccountService;
-use App\Topic;
-use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\ServiceProvider;
 
@@ -28,6 +24,5 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register()
     {
-
     }
 }

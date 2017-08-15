@@ -1,6 +1,5 @@
 <?php
 
-
 namespace App\Mail;
 
 use Illuminate\Bus\Queueable;
@@ -19,7 +18,7 @@ class Reminder extends Mailable
      */
     public function __construct($project)
     {
-         $this->project = $project;
+        $this->project = $project;
     }
 
     /**
@@ -30,7 +29,7 @@ class Reminder extends Mailable
     public function build()
     {
         return $this->from('hello@app.com', 'Your Application')
-                    ->subject('Event Reminder: ' . $this->project->title)
+                    ->subject('Event Reminder: '.$this->project->title)
                     ->view('emails.test', ['project' => $this->project]);
     }
 }

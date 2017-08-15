@@ -5,10 +5,10 @@ namespace Tests\Feature;
 use App\Card;
 use App\Log;
 use Carbon\Carbon;
+use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Tests\CreatesProject;
 use Tests\CreatesUser;
 use Tests\TestCase;
-use Illuminate\Foundation\Testing\DatabaseMigrations;
 
 class LogTest extends TestCase
 {
@@ -22,13 +22,13 @@ class LogTest extends TestCase
 
         $card = factory(Card::class)->create([
             'project_id' => $project->id,
-            'column_id' => $project->columns()->first()->id,
+            'column_id'  => $project->columns()->first()->id,
         ]);
 
         factory(Log::class)->create([
-            'card_id' => $card->id,
-            'user_id' => $userAdmin->id,
-            'length' => 100,
+            'card_id'    => $card->id,
+            'user_id'    => $userAdmin->id,
+            'length'     => 100,
             'created_at' => Carbon::now()->subDays(2)->format('Y-m-d'),
             'updated_at' => Carbon::now()->subDays(2)->format('Y-m-d'),
         ])->toArray();
@@ -46,14 +46,14 @@ class LogTest extends TestCase
 
         $card = factory(Card::class)->create([
             'project_id' => $project->id,
-            'column_id' => $project->columns()->first()->id,
+            'column_id'  => $project->columns()->first()->id,
         ]);
 
         $log = factory(Log::class)->make([
-            'card_id' => $card->id,
+            'card_id'    => $card->id,
             'is_running' => 0,
-            'length' => 100,
-            'date' => Carbon::now()->format('Y-m-d'),
+            'length'     => 100,
+            'date'       => Carbon::now()->format('Y-m-d'),
         ])->toArray();
 
         $this->actingAs($user)

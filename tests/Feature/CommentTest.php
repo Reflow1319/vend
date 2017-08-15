@@ -4,10 +4,10 @@ namespace Tests\Feature;
 
 use App\Card;
 use App\Comment;
+use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Tests\CreatesProject;
 use Tests\CreatesUser;
 use Tests\TestCase;
-use Illuminate\Foundation\Testing\DatabaseMigrations;
 
 class CommentTest extends TestCase
 {
@@ -21,7 +21,7 @@ class CommentTest extends TestCase
         $project = $this->createProject($user);
 
         $card = factory(Card::class)->create([
-            'column_id' => $project->columns()->first()->id,
+            'column_id'  => $project->columns()->first()->id,
             'project_id' => $project->id,
         ]);
 
@@ -31,7 +31,7 @@ class CommentTest extends TestCase
         ])->toArray();
 
         $this->actingAs($user)
-            ->json('POST', '/api/projects/' . $project->id . '/cards/' . $card->id . '/comments', $comment)
+            ->json('POST', '/api/projects/'.$project->id.'/cards/'.$card->id.'/comments', $comment)
             ->assertStatus(200)
             ->assertJson([
                 'content' => 'This is the comment content',
@@ -47,7 +47,7 @@ class CommentTest extends TestCase
         $project = $this->createProject([$userAdmin, $userEditor]);
 
         $card = factory(Card::class)->create([
-            'column_id' => $project->columns()->first()->id,
+            'column_id'  => $project->columns()->first()->id,
             'project_id' => $project->id,
         ]);
 
@@ -60,7 +60,7 @@ class CommentTest extends TestCase
         $card->comments()->save($comment);
 
         $this->actingAs($userEditor)
-            ->json('DELETE', '/api/projects/' . $card->project_id . '/cards/' . $card->id . '/comments/' . $comment->id)
+            ->json('DELETE', '/api/projects/'.$card->project_id.'/cards/'.$card->id.'/comments/'.$comment->id)
             ->assertStatus(403);
     }
 }

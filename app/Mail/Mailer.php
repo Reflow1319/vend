@@ -5,7 +5,6 @@ namespace App\Mail;
 use Illuminate\Bus\Queueable;
 use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
-use Illuminate\Contracts\Queue\ShouldQueue;
 
 class Mailer extends Mailable
 {
@@ -18,6 +17,7 @@ class Mailer extends Mailable
      *
      * @param $view
      * @param $data
+     *
      * @internal param $notification
      */
     public function __construct($view, $data)

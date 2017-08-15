@@ -20,12 +20,12 @@ class CardTest extends TestCase
         $project = $this->createProject($user);
 
         $card = factory(Card::class)->make([
-            'title' => 'Do something special',
+            'title'      => 'Do something special',
             'project_id' => $project->id,
-            'column_id' => $project->columns()->first(),
+            'column_id'  => $project->columns()->first(),
         ]);
 
-        $this->actingAs($user)->json('POST', '/api/projects/' . $project->id . '/cards', $card->toArray())
+        $this->actingAs($user)->json('POST', '/api/projects/'.$project->id.'/cards', $card->toArray())
             ->assertStatus(200)->assertJson([
                 'title' => 'Do something special',
             ]);
@@ -37,18 +37,18 @@ class CardTest extends TestCase
         $project = $this->createProject($user);
 
         $card = factory(Card::class)->create([
-            'title' => 'Do something special',
+            'title'      => 'Do something special',
             'project_id' => $project->id,
-            'column_id' => $project->columns()->first(),
+            'column_id'  => $project->columns()->first(),
         ]);
 
         $this->actingAs($user)->json('GET',
                 '/api/projects/'.$project->id.'/cards/'.$card->id)->assertStatus(200)->assertJsonStructure([
                 'title',
-                'tasks' => [],
+                'tasks'    => [],
                 'comments' => [],
-                'files' => [],
-                'logs' => [],
+                'files'    => [],
+                'logs'     => [],
             ]);
     }
 
@@ -59,7 +59,7 @@ class CardTest extends TestCase
 
         $card = factory(Card::class)->make([
             'project_id' => $project->id,
-            'column_id' => $project->columns()->first(),
+            'column_id'  => $project->columns()->first(),
         ]);
 
         $this->actingAs($user)->json('POST', '/api/projects/'.$project->id.'/cards',
@@ -73,7 +73,7 @@ class CardTest extends TestCase
 
         $card = factory(Card::class)->create([
             'project_id' => $project->id,
-            'column_id' => $project->columns()->first()->id,
+            'column_id'  => $project->columns()->first()->id,
         ]);
 
         $this->actingAs($user)->json('PUT', '/api/projects/'.$project->id.'/cards/'.$card->id,

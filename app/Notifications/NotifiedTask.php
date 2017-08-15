@@ -3,9 +3,9 @@
 namespace App\Notifications;
 
 use App\Card;
-use App\Task;
 use App\Helpers\ModelDiff;
 use App\Project;
+use App\Task;
 use Illuminate\Database\Eloquent\Model;
 
 class NotifiedTask implements NotifiedResource
@@ -26,7 +26,7 @@ class NotifiedTask implements NotifiedResource
     private $task;
 
     /**
-     * @var boolean
+     * @var bool
      */
     private $isNew;
 
@@ -40,9 +40,9 @@ class NotifiedTask implements NotifiedResource
      *
      * @param Task|Model $previous
      * @param Task|Model $task
-     * @param Card          $card
-     * @param Project       $project
-     * @param boolean       $isNew
+     * @param Card       $card
+     * @param Project    $project
+     * @param bool       $isNew
      */
     public function __construct(
         Model $previous,
@@ -50,9 +50,8 @@ class NotifiedTask implements NotifiedResource
         Card $card,
         Project $project,
         $isNew
-    )
-    {
-        $this->card    = $card;
+    ) {
+        $this->card = $card;
         $this->previous = $previous;
         $this->project = $project;
         $this->task = $task;
@@ -73,7 +72,7 @@ class NotifiedTask implements NotifiedResource
     public function getData()
     {
         $modelDiff = new ModelDiff($this->previous, $this->task, [
-            'is_completed'
+            'is_completed',
         ]);
 
         return [
@@ -81,7 +80,7 @@ class NotifiedTask implements NotifiedResource
             'card_title'    => $this->card->title,
             'project_id'    => $this->project->id,
             'project_title' => $this->project->title,
-            'changes' => $this->isNew ? null : $modelDiff->get()
+            'changes'       => $this->isNew ? null : $modelDiff->get(),
         ];
     }
 

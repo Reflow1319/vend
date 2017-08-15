@@ -47,9 +47,9 @@ class LogController extends Controller
     public function store(LogRequest $request)
     {
         $log = Log::create([
-            'length' => $request->length,
-            'user_id' => Auth::user()->id,
-            'card_id' => $request->card_id,
+            'length'     => $request->length,
+            'user_id'    => Auth::user()->id,
+            'card_id'    => $request->card_id,
             'created_at' => $request->date,
             'updated_at' => $request->date,
         ]);
@@ -83,7 +83,7 @@ class LogController extends Controller
         if ($running) {
             $running->update([
                 'is_running' => 0,
-                'length' => $running->length,
+                'length'     => $running->length,
             ]);
             $running->load('card');
 
@@ -98,10 +98,10 @@ class LogController extends Controller
         } else {
             // Create a card's log for today
             Log::create([
-                'card_id' => $card->id,
+                'card_id'    => $card->id,
                 'is_running' => 1,
-                'user_id' => Auth::user()->id,
-                'length' => 0,
+                'user_id'    => Auth::user()->id,
+                'length'     => 0,
             ]);
         }
 

@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use App\Favorite;
 use App\Http\Requests\TopicRequest;
 use App\Topic;
 use Illuminate\Http\Request;
@@ -68,7 +67,7 @@ class TopicController extends Controller
      */
     public function update(TopicRequest $request, Topic $topic)
     {
-	    $this->authorize('update', $topic);
+        $this->authorize('update', $topic);
 
         $topic->update($request->all());
         $this->attachUsers($topic, $request);
@@ -79,12 +78,13 @@ class TopicController extends Controller
     /**
      * @param \App\Topic $topic
      *
-     * @return void
      * @throws \Exception
+     *
+     * @return void
      */
     public function destroy(Topic $topic)
     {
-    	$this->authorize('update', $topic);
+        $this->authorize('update', $topic);
 
         $topic->delete();
     }

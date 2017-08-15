@@ -7,15 +7,15 @@ use Illuminate\Http\JsonResponse;
 
 class CustomFormRequest extends FormRequest
 {
-	/**
-	 * Return a formatted error message in json if
-	 * request type is json
-	 *
-	 * @param array $errors
-	 *
-	 * @return JsonResponse
-	 */
-	public function response(array $errors)
+    /**
+     * Return a formatted error message in json if
+     * request type is json.
+     *
+     * @param array $errors
+     *
+     * @return JsonResponse
+     */
+    public function response(array $errors)
     {
         if ($this->expectsJson()) {
             return new JsonResponse([

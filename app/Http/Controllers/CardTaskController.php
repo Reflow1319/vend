@@ -22,13 +22,14 @@ class CardTaskController extends Controller
      * @param TaskRequest $request
      *
      * @return \Illuminate\Http\Response
+     *
      * @internal param Account $account
      */
     public function store(Project $project, Card $card, TaskRequest $request)
     {
         $task = $card->tasks()->save(new Task($request->all()));
 
-        notify(new NotifiedTask(new Task, $task, $card, $project, true))
+        notify(new NotifiedTask(new Task(), $task, $card, $project, true))
             ->to($project->users)
             ->create();
 
@@ -42,6 +43,7 @@ class CardTaskController extends Controller
      * @param TaskRequest $request
      *
      * @return \Illuminate\Http\Response
+     *
      * @internal param Account $account
      */
     public function update(

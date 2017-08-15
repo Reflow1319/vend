@@ -28,13 +28,12 @@ class NotifiedMessage implements NotifiedResource
     /**
      * NotifiedCard constructor.
      *
-     * @param Model   $message
+     * @param Model $message
      * @param Topic $topic
-     *
      */
     public function __construct(Model $message, Topic $topic)
     {
-        $this->topic   = $topic;
+        $this->topic = $topic;
         $this->message = $message;
     }
 

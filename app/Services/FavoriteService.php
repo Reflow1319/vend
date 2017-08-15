@@ -13,12 +13,12 @@ class FavoriteService
      * @var array
      */
     protected $types = [
-        'topics' => Topic::class,
-        'projects' => Project::class
+        'topics'   => Topic::class,
+        'projects' => Project::class,
     ];
 
     /**
-     * Get favorites for a given user
+     * Get favorites for a given user.
      *
      * @param $userId
      *
@@ -32,7 +32,7 @@ class FavoriteService
     }
 
     /**
-     * Save a favorite
+     * Save a favorite.
      *
      * @param $type
      * @param $id
@@ -47,7 +47,7 @@ class FavoriteService
             'user_id' => $userId,
         ]);
 
-        if( ! $favorite->exists) {
+        if (!$favorite->exists) {
             $favorite = $model->favorites()->save($favorite);
             $favorite->load('favoritable');
         }
@@ -56,7 +56,7 @@ class FavoriteService
     }
 
     /**
-     * Deletes a favorite for a user
+     * Deletes a favorite for a user.
      *
      * @param $type
      * @param $id
@@ -70,24 +70,25 @@ class FavoriteService
             'user_id' => $userId,
         ]);
 
-        if($favorite->exists) {
+        if ($favorite->exists) {
             $favorite->delete();
         }
     }
 
     /**
-     * Returns model based on type and id
+     * Returns model based on type and id.
      *
      * @param $type
      * @param $id
      *
-     * @return Model
      * @throws \Exception
+     *
+     * @return Model
      */
     private function getModel($type, $id)
     {
         if (array_key_exists($type, $this->types)) {
-            return (new $this->types[$type])->find($id);
+            return (new $this->types[$type]())->find($id);
         } else {
             throw new \Exception('Model not found');
         }
