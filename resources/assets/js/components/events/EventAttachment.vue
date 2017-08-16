@@ -21,21 +21,25 @@
 
 
 <script>
+    import {eventFormat, dateFormat} from '../../utils'
+
     import EventForm from './EventForm.vue'
 
     export default {
-        props: ['event', 'highlight', 'clicked', 'prefix'],
-        methods: {
-            show() {
-                if(this.clicked) this.clicked()
-            },
-            edit(event) {
-                this.$store.commit('setEvent', event)
-                this.emit('showModal', EventForm)
-            },
-            destroy(event) {
-                this.$store.dispatch('deleteEvent', event)
-            }
+      props: ['event', 'highlight', 'clicked', 'prefix'],
+      methods: {
+        eventFormat,
+        dateFormat,
+        show () {
+          if (this.clicked) this.clicked()
+        },
+        edit (event) {
+          this.$store.commit('setEvent', event)
+          this.$root.$emit('showModal', EventForm)
+        },
+        destroy (event) {
+          this.$store.dispatch('deleteEvent', event)
         }
+      }
     }
 </script>

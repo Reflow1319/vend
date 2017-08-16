@@ -15,28 +15,29 @@
 </template>
 
 <script>
+    import {fromNow} from '../../utils'
     import Dropdown from '../common/Dropdown.vue'
     import FileAttachment from '../files/FileAttachment.vue'
-    import MessageEdit from './MessageEdit.vue'
     import Media from '../common/Media'
     import Avatar from '../common/Avatar'
 
     export default {
-        props: ['message'],
-        components: {
-            Dropdown,
-            Avatar,
-            Media,
-            FileAttachment,
+      props: ['message'],
+      components: {
+        Dropdown,
+        Avatar,
+        Media,
+        FileAttachment
+      },
+      methods: {
+        fromNow,
+        editMessage (message) {
+          this.$store.commit('setMessage', message)
+          this.$root.$emit('showModal', require('./MessageEdit.vue'))
         },
-        methods: {
-            editMessage(message) {
-                this.$store.commit('setMessage', message)
-                this.$root.$emit('showModal', MessageEdit)
-            },
-            deleteMessage(message) {
-                this.$store.dispatch('deleteMessage', {id: message.id, urlParams: {topicId: message.topic_id}})
-            }
+        deleteMessage (message) {
+          this.$store.dispatch('deleteMessage', {id: message.id, urlParams: {topicId: message.topic_id}})
         }
+      }
     }
 </script>

@@ -15,16 +15,16 @@
 
 <script>
     export default {
-        props: {
-            icon: String,
-            label: String,
-            to: String,
-            exact: Boolean,
-            params: Object,
-            active: Boolean,
-            classes: Object,
-            badge: String
-        }
+      props: {
+        icon: String,
+        label: String,
+        to: String,
+        exact: Boolean,
+        params: Object,
+        active: Boolean,
+        classes: Object,
+        badge: String
+      }
     }
 </script>
 

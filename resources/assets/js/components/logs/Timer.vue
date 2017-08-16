@@ -28,28 +28,30 @@
 
 <script>
     import {mapGetters} from 'vuex'
+    import {elapsedFormat} from '../../utils'
     import Dropdown from '../common/Dropdown.vue'
 
     export default {
-        components: {
-            Dropdown
+      components: {
+        Dropdown
+      },
+      computed: {
+        ...mapGetters({
+          currentLog: 'currentLog',
+          currentUser: 'currentUser',
+          timer: 'timer',
+          logs: 'logs'
+        }),
+        running () {
+          return this.currentLog && this.currentLog.is_running
         },
-        computed: {
-            ...mapGetters({
-                currentLog: 'currentLog',
-                currentUser: 'currentUser',
-                timer: 'timer',
-                logs: 'logs'
-            }),
-            running() {
-                return this.currentLog && this.currentLog.is_running
-            }
-        },
-        methods: {
-            toggleTimer(card) {
-                this.$store.dispatch('toggleTimer', card)
-            }
+      },
+      methods: {
+        elapsedFormat,
+        toggleTimer (card) {
+          this.$store.dispatch('toggleTimer', card)
         }
+      }
     }
 </script>
 

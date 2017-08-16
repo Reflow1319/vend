@@ -9,11 +9,11 @@
 
 <script>
     export default {
-        props: {
-            light: Boolean,
-            title: String,
-            small: Boolean
-        }
+      props: {
+        light: Boolean,
+        title: String,
+        small: Boolean
+      }
     }
 </script>
 

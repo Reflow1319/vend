@@ -7,10 +7,10 @@
 
 <script>
     export default {
-        props: {
-            label: String,
-            prop: String
-        }
+      props: {
+        label: String,
+        prop: String
+      }
     }
 </script>
 

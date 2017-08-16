@@ -9,25 +9,25 @@
 
 <script>
     export default {
-        props: ['options'],
-        data() {
-            return {
-                loading: false
-            }
-        },
-        computed: {
-            isLast() {
-                return this.options.current_page === this.options.last_page || this.options.total === 0
-            }
-        },
-        methods: {
-            load() {
-                this.loading = true
-                axios.get(this.options.next_page_url).then(res => {
-                    this.$emit('loaded', res.data)
-                    this.loading = false
-                })
-            }
+      props: ['options'],
+      data () {
+        return {
+          loading: false
         }
+      },
+      computed: {
+        isLast () {
+          return this.options.current_page === this.options.last_page || this.options.total === 0
+        }
+      },
+      methods: {
+        load () {
+          this.loading = true
+          axios.get(this.options.next_page_url).then(res => {
+            this.$emit('loaded', res.data)
+            this.loading = false
+          })
+        }
+      }
     }
 </script>

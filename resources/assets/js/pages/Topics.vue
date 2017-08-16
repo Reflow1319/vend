@@ -72,53 +72,55 @@
 
 <script>
     import {mapGetters} from 'vuex'
+    import {fromNow} from '../utils'
     import Loader from '../components/common/Loader.vue'
     import TopicForm from '../components/topics/TopicForm.vue'
     import TitleBar from '../components/common/TitleBar.vue'
     import VButton from '../components/common/Button.vue'
 
     export default {
-        components: {
-            Loader,
-            VButton,
-            TitleBar
+      components: {
+        Loader,
+        VButton,
+        TitleBar
+      },
+      computed: {
+        ...mapGetters({
+          topics: 'topics'
+        }),
+        readTopics () {
+          return this.topics.filter(t => {
+            return !t.unread
+          })
         },
-        computed: {
-            ...mapGetters({
-                topics: 'topics',
-            }),
-            readTopics() {
-                return this.topics.filter(t => {
-                    return ! t.unread
-                })
-            },
-            unreadTopics() {
-                return this.topics.filter(t => {
-                    return t.unread
-                })
-            }
-        },
-        data() {
-            return {
-                loaded: false,
-                empty: false
-            }
-        },
-        mounted() {
-            this.$refs.loader.start()
-            this.$store.dispatch('getTopics').then(() => {
-                this.$refs.loader.stop()
-                this.loaded = true
-                if(this.topics.length === 0) {
-                    this.empty = true
-                }
-            })
-        },
-        methods: {
-            createTopic() {
-                this.$root.$emit('showModal', TopicForm)
-                this.$store.commit('setTopic', {users: []})
-            }
+        unreadTopics () {
+          return this.topics.filter(t => {
+            return t.unread
+          })
         }
+      },
+      data () {
+        return {
+          loaded: false,
+          empty: false
+        }
+      },
+      mounted () {
+        this.$refs.loader.start()
+        this.$store.dispatch('getTopics').then(() => {
+          this.$refs.loader.stop()
+          this.loaded = true
+          if (this.topics.length === 0) {
+            this.empty = true
+          }
+        })
+      },
+      methods: {
+        fromNow,
+        createTopic () {
+          this.$root.$emit('showModal', TopicForm)
+          this.$store.commit('setTopic', {users: []})
+        }
+      }
     }
 </script>

@@ -10,14 +10,14 @@
     import ModalContent from '../common/ModalContent.vue'
 
     export default {
-        components: {
-            MessageItem,
-            ModalContent
-        },
-        computed: {
-            ...mapGetters({
-                message: 'message'
-            })
-        }
+      components: {
+        MessageItem,
+        ModalContent
+      },
+      computed: {
+        ...mapGetters({
+          message: 'message'
+        })
+      }
     }
 </script>

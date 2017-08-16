@@ -18,37 +18,37 @@
     import FileAttachment from '../files/FileAttachment.vue'
 
     export default {
-        computed: {
-            ...mapGetters({
-                message: 'message'
+      computed: {
+        ...mapGetters({
+          message: 'message'
+        })
+      },
+      components: {
+        ModalContent,
+        Editor,
+        Uploader,
+        ErrorMessage,
+        FileAttachment
+      },
+      methods: {
+        save () {
+          this.$store.dispatch('saveMessage', {
+            topicId: this.message.topic_id,
+            message: this.message.message,
+            files: this.message.files,
+            urlParams: {topicId: this.message.topic_id}
+          })
+            .then(() => {
+              this.$root.$emit('hideModal')
+            })
+            .catch(err => {
+              this.$refs.errorMessage.set(err)
             })
         },
-        components: {
-            ModalContent,
-            Editor,
-            Uploader,
-            ErrorMessage,
-            FileAttachment
-        },
-        methods: {
-            save() {
-                this.$store.dispatch('saveMessage', {
-                    topicId: this.message.topic_id,
-                    message: this.message.message,
-                    files: this.message.files,
-                    urlParams: {topicId: this.message.topic_id}
-                })
-                    .then(() => {
-                        this.emit('hideModal')
-                    })
-                    .catch(err => {
-                        this.setErrors(err)
-                    })
-            },
-            attachFile(file) {
-                if (!this.message.files) this.$set(this.message, 'files', [])
-                this.message.files.push(file)
-            }
+        attachFile (file) {
+          if (!this.message.files) this.$set(this.message, 'files', [])
+          this.message.files.push(file)
         }
+      }
     }
 </script>

@@ -18,29 +18,29 @@
     import Loader from '../components/common/Loader.vue'
 
     export default {
-        components: {
-            FileList,
-            TitleBar,
-            Loader
-        },
-        data() {
-            return {
-                files: []
-            }
-        },
-        methods: {
-            deleteFile(file) {
-                axios.delete('files/' + file.id).then(() => {
-                    this.files = this.files.filter(f => f.id !== file.id)
-                })
-            }
-        },
-        mounted() {
-            this.$refs.loader.start()
-            axios.get('files').then(res => {
-                this.files = res.data
-                this.$refs.loader.stop()
-            })
+      components: {
+        FileList,
+        TitleBar,
+        Loader
+      },
+      data () {
+        return {
+          files: []
         }
+      },
+      methods: {
+        deleteFile (file) {
+          axios.delete('files/' + file.id).then(() => {
+            this.files = this.files.filter(f => f.id !== file.id)
+          })
+        }
+      },
+      mounted () {
+        this.$refs.loader.start()
+        axios.get('files').then(res => {
+          this.files = res.data
+          this.$refs.loader.stop()
+        })
+      }
     }
 </script>

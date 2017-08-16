@@ -20,31 +20,30 @@ import Loader from '../components/common/Loader.vue'
 import EventAttachment from '../components/events/EventAttachment.vue'
 
 export default {
-    components: {
-        TopicHeader,
-        EventAttachment,
-        Loader,
-    },
-    data() {
-        return {
-            noRecord: false
-        }
-    },
-    computed: {
-        ...mapGetters({
-            topic: 'topic',
-            events: 'events'
-        })
-    },
-    mounted() {
-        this.$refs.loader.start()
-        this.$store.dispatch('getTopics', this.$route.params.id).then(() => {
-            this.$store.dispatch('getTopicChildren', {topicId: this.$route.params.id, type: 'events'}).then(() => {
-                this.$refs.loader.stop()
-                if(this.events.length === 0) this.noRecord = true
-            })
-        })
-
+  components: {
+    TopicHeader,
+    EventAttachment,
+    Loader
+  },
+  data () {
+    return {
+      noRecord: false
     }
+  },
+  computed: {
+    ...mapGetters({
+      topic: 'topic',
+      events: 'events'
+    })
+  },
+  mounted () {
+    this.$refs.loader.start()
+    this.$store.dispatch('getTopics', this.$route.params.id).then(() => {
+      this.$store.dispatch('getTopicChildren', {topicId: this.$route.params.id, type: 'events'}).then(() => {
+        this.$refs.loader.stop()
+        if (this.events.length === 0) this.noRecord = true
+      })
+    })
+  }
 }
 </script>

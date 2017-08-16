@@ -5,8 +5,8 @@ import enTranslation from './translations/en'
 Vue.use(VueI18n)
 
 export default new VueI18n({
-    locale: 'en',
-    messages: {
-        en: enTranslation
-    },
+  locale: 'en',
+  messages: {
+    en: enTranslation
+  }
 })

@@ -9,24 +9,23 @@
 
 <script>
     export default {
-        props: {
-            current: {
-                type: Number,
-                default: 0
-            },
-            full: {
-                type: Number,
-                default: 0
-            }
+      props: {
+        current: {
+          type: Number,
+          default: 0
         },
-        computed: {
-            progress() {
-                if (this.current === 0)
-                    return false
-
-                return Math.round((this.current / this.full) * 100)
-            }
+        full: {
+          type: Number,
+          default: 0
         }
+      },
+      computed: {
+        progress () {
+          if (this.current === 0) { return false }
+
+          return Math.round((this.current / this.full) * 100)
+        }
+      }
     }
 </script>
 

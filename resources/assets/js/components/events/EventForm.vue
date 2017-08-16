@@ -27,31 +27,31 @@
     import ModalContent from '../common/ModalContent.vue'
 
     export default {
-        components: {
-            Datepicker,
-            ModalContent,
-            FormInput,
-            ErrorMessage,
-            Editor
-        },
-        computed: {
-            ...mapGetters({
-                event: 'event'
+      components: {
+        Datepicker,
+        ModalContent,
+        FormInput,
+        ErrorMessage,
+        Editor
+      },
+      computed: {
+        ...mapGetters({
+          event: 'event'
+        })
+      },
+      methods: {
+        save () {
+          this.$store.dispatch('saveEvent', this.event)
+            .then(() => {
+              this.$root.$emit('hideModal')
+            })
+            .catch(err => {
+              this.$refs.errorMessage.set(err)
             })
         },
-        methods: {
-            save() {
-                this.$store.dispatch('saveEvent', this.event)
-                    .then(() => {
-                        this.emit('hideModal')
-                    })
-                    .catch(err => {
-                        this.setErrors(err)
-                    })
-            },
-            cancel() {
-                this.emit('hideModal')
-            }
+        cancel () {
+          this.$root.$emit('hideModal')
         }
+      }
     }
 </script>

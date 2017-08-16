@@ -24,53 +24,53 @@
     import LoadMore from '../components/common/LoadMore.vue'
 
     export default {
-        components: {
-            TopicHeader,
-            LoadMore,
-            MessageItem,
-            MessageForm,
-            Loader
-        },
-        computed: {
-            ...mapGetters({
-                topic: 'topic',
-                messages: 'messages'
-            })
-        },
-        data() {
-            return {
-                empty: false,
-                loading: false,
-                meta: {}
-            }
-        },
-        mounted() {
-            this.fetch()
-        },
-        methods: {
-            addData(data) {
-                this.meta = data
-                this.$store.commit('setMessages', this.messages.concat(data.data))
-            },
-            fetch() {
-                const topicId = this.$route.params.id
-                this.loading = true
-                this.$store.commit('setTopic', {})
-                this.$store.commit('setMessages', [])
-                this.$store.dispatch('getTopic', {id: topicId}).then(() => {
-                    this.$store.dispatch('getMessages', {urlParams: {topicId: topicId}}).then(data => {
-                        this.meta = data
-                        this.loading = false
-                    })
-                })
-            },
-            setEmpty() {
-                this.empty = this.messages.length === 0;
-            }
-        },
-        watch: {
-            '$route': 'fetch',
-            'messages': 'setEmpty'
+      components: {
+        TopicHeader,
+        LoadMore,
+        MessageItem,
+        MessageForm,
+        Loader
+      },
+      computed: {
+        ...mapGetters({
+          topic: 'topic',
+          messages: 'messages'
+        })
+      },
+      data () {
+        return {
+          empty: false,
+          loading: false,
+          meta: {}
         }
+      },
+      mounted () {
+        this.fetch()
+      },
+      methods: {
+        addData (data) {
+          this.meta = data
+          this.$store.commit('setMessages', this.messages.concat(data.data))
+        },
+        fetch () {
+          const topicId = this.$route.params.id
+          this.loading = true
+          this.$store.commit('setTopic', {})
+          this.$store.commit('setMessages', [])
+          this.$store.dispatch('getTopic', {id: topicId}).then(() => {
+            this.$store.dispatch('getMessages', {urlParams: {topicId: topicId}}).then(data => {
+              this.meta = data
+              this.loading = false
+            })
+          })
+        },
+        setEmpty () {
+          this.empty = this.messages.length === 0
+        }
+      },
+      watch: {
+        '$route': 'fetch',
+        'messages': 'setEmpty'
+      }
     }
 </script>

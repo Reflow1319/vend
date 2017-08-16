@@ -15,23 +15,23 @@
 
 <script>
     export default {
-        props: {
-            title: {
-                type: String
-            },
-            center: {
-                type: Boolean,
-                default: false
-            },
-            height: {
-                default: 'auto'
-            }
+      props: {
+        title: {
+          type: String
         },
-        methods: {
-            handleClick(e) {
-                this.$emit('click', e)
-            }
+        center: {
+          type: Boolean,
+          default: false
+        },
+        height: {
+          default: 'auto'
         }
+      },
+      methods: {
+        handleClick (e) {
+          this.$emit('click', e)
+        }
+      }
     }
 </script>
 

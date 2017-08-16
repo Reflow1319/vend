@@ -39,57 +39,57 @@
 
 <script>
     export default {
-        props: {
-            value: {
-                type: Array,
-                default: []
-            }
-        },
-        data() {
-            return {
-                newColumn: {
-                    title: '',
-                    is_archive: false
-                },
-                columnsEl: null
-            }
-        },
-        mounted() {
-            this.columnsEl = $(this.$el).find('.project-columns');
-            this.bindSortable()
-        },
-        beforeDestroy() {
-            this.removeSortable()
-        },
-        methods: {
-            removeSortable() {
-                this.columnsEl.sortable('destroy')
-            },
-            bindSortable() {
-                this.columnsEl.sortable({
-                    update: (e, ui) => {
-                        $('.column-order').each(function (ndx, el) {
-                            $(el).val(ndx);
-                            let evt = new Event('change');
-                            el.dispatchEvent(evt);
-                        })
-                    }
-                })
-            },
-            changeOrder(column, e) {
-                column.order = e.target.value
-            },
-            addColumn() {
-                if(this.newColumn.title === '') return
-
-                this.value.push({
-                    title: this.newColumn.title,
-                    order: this.value.length,
-                    is_archive: false,
-                })
-                this.newColumn.title = ''
-                this.$emit('input', this.value)
-            },
+      props: {
+        value: {
+          type: Array,
+          default: []
         }
+      },
+      data () {
+        return {
+          newColumn: {
+            title: '',
+            is_archive: false
+          },
+          columnsEl: null
+        }
+      },
+      mounted () {
+        this.columnsEl = $(this.$el).find('.project-columns')
+        this.bindSortable()
+      },
+      beforeDestroy () {
+        this.removeSortable()
+      },
+      methods: {
+        removeSortable () {
+          this.columnsEl.sortable('destroy')
+        },
+        bindSortable () {
+          this.columnsEl.sortable({
+            update: (e, ui) => {
+              $('.column-order').each(function (ndx, el) {
+                $(el).val(ndx)
+                let evt = new Event('change')
+                el.dispatchEvent(evt)
+              })
+            }
+          })
+        },
+        changeOrder (column, e) {
+          column.order = e.target.value
+        },
+        addColumn () {
+          if (this.newColumn.title === '') return
+
+          this.value.push({
+            title: this.newColumn.title,
+            order: this.value.length,
+            is_archive: false
+          })
+          this.newColumn.title = ''
+          this.$emit('input', this.value)
+        }
+      }
     }
 </script>

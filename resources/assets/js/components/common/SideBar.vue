@@ -14,19 +14,19 @@
 
 <script>
     export default{
-        props: {
-            background: {
-                type: String,
-                default: '#495891'
-            },
-            open: Boolean,
-            dark: Boolean,
-            right: Boolean,
-            visible: {
-                type: Boolean,
-                default: true
-            }
+      props: {
+        background: {
+          type: String,
+          default: '#495891'
+        },
+        open: Boolean,
+        dark: Boolean,
+        right: Boolean,
+        visible: {
+          type: Boolean,
+          default: true
         }
+      }
     }
 </script>
 

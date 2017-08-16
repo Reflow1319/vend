@@ -16,19 +16,18 @@
 </template>
 
 <script>
+    import {fileSize} from '../../utils'
 
     export default {
-        props: ['files', 'small'],
-        methods: {
-            deleteFile(file) {
-                let index = _.findIndex(this.files, {id: file.id})
-                axios.delete('files/' + file.id).then(res => {
-                    this.files.splice(index, 1)
-                })
-            },
-            fileSize(size) {
-                return (size / 1000) + ' kb'
-            }
+      props: ['files', 'small'],
+      methods: {
+        fileSize,
+        deleteFile (file) {
+          let index = _.findIndex(this.files, {id: file.id})
+          axios.delete('files/' + file.id).then(res => {
+            this.files.splice(index, 1)
+          })
         }
+      }
     }
 </script>

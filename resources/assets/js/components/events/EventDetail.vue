@@ -12,31 +12,33 @@
 
 <script>
     import {mapGetters} from 'vuex'
+    import {dateFormat} from '../../utils'
     import ModalContent from '../common/ModalContent.vue'
     import EventForm from './EventForm.vue'
 
     export default {
-        components: {
-            ModalContent
+      components: {
+        ModalContent
+      },
+      computed: {
+        ...mapGetters({
+          event: 'event'
+        })
+      },
+      methods: {
+        dateFormat,
+        edit () {
+          this.$root.$emit(
+            'showModal',
+            EventForm,
+            this.$store.dispatch('getEvent', {id: this.event.id})
+          )
         },
-        computed: {
-            ...mapGetters({
-                event: 'event'
-            })
-        },
-        methods: {
-            edit() {
-                this.emit(
-                    'showModal',
-                    EventForm,
-                    this.$store.dispatch('getEvent', {id: this.event.id})
-                )
-            },
-            destroy() {
-                this.$store.dispatch('deleteEvent', {id: this.event.id}).then(() => {
-                    this.emit('hideModal')
-                })
-            }
+        destroy () {
+          this.$store.dispatch('deleteEvent', {id: this.event.id}).then(() => {
+            this.$root.$emit('hideModal')
+          })
         }
+      }
     }
 </script>

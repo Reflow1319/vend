@@ -31,26 +31,26 @@
     import Avatar from './Avatar'
 
     export default {
-        props: {
-            title: String,
-            image: String,
-            meta: String,
-            content: String,
-            html: Boolean,
-            small: Boolean,
-            classes: Object
-        },
-        components: {
-            Dropdown,
-            Avatar
-        },
-        computed: {
-            Classes() {
-                return !this.classes
-                    ? {'media-sm': this.small}
-                    : Object.assign(this.classes, {'media-sm': this.small})
-            }
+      props: {
+        title: String,
+        image: String,
+        meta: String,
+        content: String,
+        html: Boolean,
+        small: Boolean,
+        classes: Object
+      },
+      components: {
+        Dropdown,
+        Avatar
+      },
+      computed: {
+        Classes () {
+          return !this.classes
+            ? {'media-sm': this.small}
+            : Object.assign(this.classes, {'media-sm': this.small})
         }
+      }
     }
 </script>
 

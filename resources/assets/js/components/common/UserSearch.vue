@@ -28,49 +28,49 @@
     import Dropdown from './Dropdown.vue'
 
     export default {
-        props: ['users', 'selected'],
-        components: {
-            Dropdown
-        },
-        data() {
-            return {
-                visible: false,
-                filteredUsers: [],
-                filter: {}
-            }
-        },
-        mounted() {
-            this.filterUsers()
-        },
-        methods: {
-            show(e) {
-                this.$refs.dropdown.show = true
-                this.filterUsers()
-                e.stopPropagation()
-            },
-            hide() {
-                this.$refs.dropdown.show = false
-                this.filter = {}
-            },
-            filterUsers() {
-                let filterName, filterEmail
-                this.filteredUsers = this.users.filter(u => {
-                    filterName = filterEmail = true
-                    if (this.filter.name && u.name.toLowerCase().indexOf(this.filter.name.toLowerCase()) === -1) {
-                        filterName = false
-                    }
-                    if (this.filter.name && u.email.toLowerCase().indexOf(this.filter.name.toLowerCase()) === -1) {
-                        filterEmail = false
-                    }
-                    return filterName || filterEmail
-                })
-            },
-            select(item) {
-                this.selected(item)
-                this.filter = {}
-                this.$refs.dropdown.show = false
-            }
+      props: ['users', 'selected'],
+      components: {
+        Dropdown
+      },
+      data () {
+        return {
+          visible: false,
+          filteredUsers: [],
+          filter: {}
         }
+      },
+      mounted () {
+        this.filterUsers()
+      },
+      methods: {
+        show (e) {
+          this.$refs.dropdown.show = true
+          this.filterUsers()
+          e.stopPropagation()
+        },
+        hide () {
+          this.$refs.dropdown.show = false
+          this.filter = {}
+        },
+        filterUsers () {
+          let filterName, filterEmail
+          this.filteredUsers = this.users.filter(u => {
+            filterName = filterEmail = true
+            if (this.filter.name && u.name.toLowerCase().indexOf(this.filter.name.toLowerCase()) === -1) {
+              filterName = false
+            }
+            if (this.filter.name && u.email.toLowerCase().indexOf(this.filter.name.toLowerCase()) === -1) {
+              filterEmail = false
+            }
+            return filterName || filterEmail
+          })
+        },
+        select (item) {
+          this.selected(item)
+          this.filter = {}
+          this.$refs.dropdown.show = false
+        }
+      }
 
     }
 </script>

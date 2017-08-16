@@ -26,7 +26,6 @@
 </template>
 
 <script>
-
     import {mapGetters} from 'vuex'
     import ProjectColumns from '../projects/ProjectColumns.vue'
     import MemberList from '../common/MembersList.vue'
@@ -37,42 +36,42 @@
     import ModalContent from '../common/ModalContent.vue'
 
     export default {
-        components: {
-            Tabs,
-            FormInput,
-            ModalContent,
-            Datepicker,
-            ProjectColumns,
-            ErrorMessage,
-            MemberList
-        },
-        computed: {
-            ...mapGetters({
-                project: 'project',
-                users: 'users'
+      components: {
+        Tabs,
+        FormInput,
+        ModalContent,
+        Datepicker,
+        ProjectColumns,
+        ErrorMessage,
+        MemberList
+      },
+      computed: {
+        ...mapGetters({
+          project: 'project',
+          users: 'users'
+        })
+      },
+      methods: {
+        save () {
+          this.$store.dispatch('saveProject', this.project)
+            .then(project => {
+              this.$root.$emit('hideModal')
+              this.$router.push({name: 'project', params: {id: project.id}})
             })
+            .catch(err => this.$refs.errorMessage.set(err))
         },
-        methods: {
-            save() {
-                this.$store.dispatch('saveProject', this.project)
-                    .then(project => {
-                        this.emit('hideModal')
-                        this.$router.push({name: 'project', params: {id: project.id}})
-                    })
-                    .catch(err => this.setErrors(err))
-            },
-            toggleArchive() {
-                this.project.is_archive = !this.project.is_archive
-                this.$store.dispatch('saveProject', this.project)
-            },
-            destroy() {
-                this.$store.dispatch('deleteProject', this.project).then(() => {
-                    this.$router.push({name: 'projects'})
-                })
-            },
-            cancel() {
-                this.emit('hideModal')
-            }
+        toggleArchive () {
+          this.project.is_archive = !this.project.is_archive
+          this.$store.dispatch('saveProject', this.project)
+        },
+        destroy () {
+          this.$store.dispatch('deleteProject', this.project).then(() => {
+            this.$router.push({name: 'projects'})
+          })
+        },
+        cancel () {
+          this.$root.$emit('hideModal')
         }
+      }
     }
 </script>

@@ -35,42 +35,42 @@
     import ErrorMessage from '../common/ErrorMessage.vue'
 
     export default {
-        components: {
-            Uploader,
-            FormInput,
-            ModalContent,
-            ErrorMessage
-        },
-        data() {
-            return {
-                userRoles: {
-                    '': 'Choose',
-                    admin: this.$t('users.roles.admin'),
-                    editor: this.$t('users.roles.editor'),
-                    client: this.$t('users.roles.client')
-                }
-            }
-        },
-        computed: {
-            ...mapGetters({
-                user: 'user'
-            })
-        },
-        mounted() {
-
-        },
-        methods: {
-            save() {
-                this.$store.dispatch('saveUser', this.user)
-                    .then(() => this.$root.$emit('hideModal'))
-                    .catch(err => this.setErrors(err))
-            },
-            switchImage(file) {
-                this.user.image = file.thumbnail;
-            },
-            cancel() {
-                this.emit('hideModal')
-            }
+      components: {
+        Uploader,
+        FormInput,
+        ModalContent,
+        ErrorMessage
+      },
+      data () {
+        return {
+          userRoles: {
+            '': 'Choose',
+            admin: this.$t('users.roles.admin'),
+            editor: this.$t('users.roles.editor'),
+            client: this.$t('users.roles.client')
+          }
         }
+      },
+      computed: {
+        ...mapGetters({
+          user: 'user'
+        })
+      },
+      mounted () {
+
+      },
+      methods: {
+        save () {
+          this.$store.dispatch('saveUser', this.user)
+            .then(() => this.$root.$emit('hideModal'))
+            .catch(err => this.$refs.errorMessage.set(err))
+        },
+        switchImage (file) {
+          this.user.image = file.thumbnail
+        },
+        cancel () {
+          this.$root.$emit('hideModal')
+        }
+      }
     }
 </script>

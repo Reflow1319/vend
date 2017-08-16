@@ -44,32 +44,32 @@
     import NavListItem from './NavListItem'
 
     export default {
-        components: {
-            Timer,
-            NavList,
-            NavListItem,
-            Sidebar,
-            Favorites,
-            Dropdown
-        },
-        computed: {
-            ...mapGetters({
-                currentUser: 'currentUser',
-                isEditor: 'isEditor',
-                notifications: 'notifications'
-            }),
-            unread() {
-                const unreadItems = this.notifications.filter(n => n.read_at === null).length
-                return unreadItems ? unreadItems.toString() : null
-            }
-        },
-        methods: {
-            logout() {
-                axios.get('logout').then(() => {
-                    window.location.href = '/login'
-                })
-            }
+      components: {
+        Timer,
+        NavList,
+        NavListItem,
+        Sidebar,
+        Favorites,
+        Dropdown
+      },
+      computed: {
+        ...mapGetters({
+          currentUser: 'currentUser',
+          isEditor: 'isEditor',
+          notifications: 'notifications'
+        }),
+        unread () {
+          const unreadItems = this.notifications.filter(n => n.read_at === null).length
+          return unreadItems ? unreadItems.toString() : null
         }
+      },
+      methods: {
+        logout () {
+          axios.get('logout').then(() => {
+            window.location.href = '/login'
+          })
+        }
+      }
 
     }
 </script>

@@ -1,63 +1,63 @@
 <template>
-    <img :src="image" class="avatar" :class="{'avatar-sm': small}">
+  <img :src="image" class="avatar" :class="{'avatar-sm': small}">
 </template>
 
 <script>
-    export default {
-        props: {
-            image: {
-                type: String
-            },
-            small: {
-                type: Boolean
-            }
-        }
+  export default {
+    props: {
+      image: {
+        type: String
+      },
+      small: {
+        type: Boolean
+      }
     }
+  }
 </script>
 
 <style lang="scss">
-    @import "../../../sass/variables";
+  @import "../../../sass/variables";
 
-    .avatar {
-        max-width: 32px;
-        height: auto;
-        border-radius: 16px;
-        display: inline-block;
-        vertical-align: middle;
-    }
+  .avatar {
+    max-width: 32px;
+    height: auto;
+    border-radius: 16px;
+    display: inline-block;
+    vertical-align: middle;
+  }
 
-    .avatar-sm {
-        max-width: 26px;
-    }
+  .avatar-sm {
+    max-width: 26px;
+  }
 
-    .avatar-large {
-        max-width: 50px;
-        border-radius: 25px;
-    }
+  .avatar-large {
+    max-width: 50px;
+    border-radius: 25px;
+  }
 
-    .avatar-upload {
-        position: relative;
-        background: $light-gray;
-        border: 1px dashed darken($light-gray, 10);
-        width: 92px;
-        height: 92px;
-        margin: 0 auto 10px auto;
-        padding: 5px;
-        border-radius: 46px;
-        &-image {
-            max-width: 80px;
-            border-radius: 40px;
-            height: auto;
-            display: inline-block;
-            vertical-align: top;
-        }
-        &-field {
-            position: absolute;
-            left: 0;
-            top: 0;
-            width: 100%;
-            height: 100%;
-            opacity: 0;
-        }
+  .avatar-upload {
+    position: relative;
+    background: $light-gray;
+    border: 1px dashed darken($light-gray, 10);
+    width: 92px;
+    height: 92px;
+    margin: 0 auto 10px auto;
+    padding: 5px;
+    border-radius: 46px;
+    &-image {
+      max-width: 80px;
+      border-radius: 40px;
+      height: auto;
+      display: inline-block;
+      vertical-align: top;
     }
+    &-field {
+      position: absolute;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      opacity: 0;
+    }
+  }
 </style>

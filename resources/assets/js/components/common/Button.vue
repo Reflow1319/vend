@@ -7,18 +7,18 @@
 
 <script>
     export default {
-        props: {
-            label: String,
-            icon: String,
-            type: String
-        },
-        computed: {
-            classes() {
-                return this.type
-                    ? 'btn btn-' + this.type
-                    : 'btn'
-            }
+      props: {
+        label: String,
+        icon: String,
+        type: String
+      },
+      computed: {
+        classes () {
+          return this.type
+            ? 'btn btn-' + this.type
+            : 'btn'
         }
+      }
     }
 </script>
 

@@ -20,39 +20,39 @@
     import FileAttachment from '../files/FileAttachment.vue'
 
     export default {
-        components: {
-            Uploader,
-            ErrorMessage,
-            FileAttachment,
-            Editor
-        },
-        computed: {
-            ...mapGetters({
-                message: 'message'
+      components: {
+        Uploader,
+        ErrorMessage,
+        FileAttachment,
+        Editor
+      },
+      computed: {
+        ...mapGetters({
+          message: 'message'
+        })
+      },
+      methods: {
+        save () {
+          this.$store.dispatch('saveMessage', {
+            topicId: this.$route.params.id,
+            message: this.message.message,
+            files: this.message.files,
+            urlParams: {topicId: this.$route.params.id}
+          })
+            .then(() => {
+              this.$store.commit('setMessage', {
+                message: '',
+                files: []
+              })
+            })
+            .catch(err => {
+              this.$refs.errorMessage.set(err)
             })
         },
-        methods: {
-            save() {
-                this.$store.dispatch('saveMessage', {
-                    topicId: this.$route.params.id,
-                    message: this.message.message,
-                    files: this.message.files,
-                    urlParams: {topicId: this.$route.params.id}
-                })
-                    .then(() => {
-                        this.$store.commit('setMessage', {
-                            message: '',
-                            files: []
-                        })
-                    })
-                    .catch(err => {
-                        this.setErrors(err)
-                    })
-            },
-            attachFile(file) {
-                if (!this.message.files) this.$set(this.message, 'files', [])
-                this.message.files.push(file)
-            }
+        attachFile (file) {
+          if (!this.message.files) this.$set(this.message, 'files', [])
+          this.message.files.push(file)
         }
+      }
     }
 </script>

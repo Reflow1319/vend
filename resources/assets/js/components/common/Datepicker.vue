@@ -24,76 +24,78 @@
 </template>
 
 <script>
-    import moment from 'moment'
-    import datepicker from 'jquery-ui/ui/widgets/datepicker'
-    import Dropdown from '../common/Dropdown.vue'
+  import moment from 'moment'
+  import $ from 'jquery'
+  import datepicker from 'jquery-ui/ui/widgets/datepicker'
+  import Dropdown from '../common/Dropdown.vue'
 
-    export default {
-        name: 'Datepicker',
-        components: {
-            Dropdown
-        },
-        props: {
-            value: {},
-            placeholder: {},
-            hasTime: {},
-            label: ''
-        },
-        data() {
-            return {
-                innerDate: null,
-                innerTime: null,
-                showDatepicker: false
-            }
-        },
-        computed: {
-            date() {
-                return this.innerDate ? moment(this.innerDate).format('MMM D, YYYY') : ''
-            },
-            time() {
-                return this.innerTime ? this.innerTime : ''
-            }
-        },
-        mounted() {
-            if (this.value) {
-                let date = this.value.split(' ');
-                this.innerDate = date[0]
-                this.innerTime = this.hasTime ? date[1] : null
-            }
+  export default {
+    name: 'Datepicker',
+    components: {
+      Dropdown
+    },
+    props: {
+      value: {},
+      placeholder: {},
 
-            $(this.$el).find('.datepicker').datepicker({
-                dateFormat: 'yy-mm-dd',
-                onSelect: dateText => {
-                    this.innerDate = dateText
-                    this.change()
-                    this.$refs.dropdown.hide()
-                }
-            })
-        },
-        methods: {
-            setTime(e) {
-                if (e.target.value !== ''
-                    && e.target.value.length === 5
-                    && e.target.value.indexOf(':')
-                ) {
-                    this.innerTime = e.target.value
-                    this.change()
-                }
-            },
-            change() {
-                this.$emit('input', this.innerDate + (this.hasTime ? ' ' + this.innerTime : ''))
-                this.showDatepicker = false
-            },
-            show() {
-                this.$refs.dropdown.open()
-            },
-            clear() {
-                this.innerTime = this.innerDate = null
-                this.$emit('input', null)
-                this.showDatepicker = false
-            }
+      hasTime: {},
+      label: ''
+    },
+    data () {
+      return {
+        innerDate: null,
+        innerTime: null,
+        showDatepicker: false
+      }
+    },
+    computed: {
+      date () {
+        return this.innerDate ? moment(this.innerDate).format('MMM D, YYYY') : ''
+      },
+      time () {
+        return this.innerTime ? this.innerTime : ''
+      }
+    },
+    mounted () {
+      if (this.value) {
+        let date = this.value.split(' ')
+        this.innerDate = date[0]
+        this.innerTime = this.hasTime ? date[1] : null
+      }
+
+      $(this.$el).find('.datepicker').datepicker({
+        dateFormat: 'yy-mm-dd',
+        onSelect: dateText => {
+          this.innerDate = dateText
+          this.change()
+          this.$refs.dropdown.hide()
         }
+      })
+    },
+    methods: {
+      setTime (e) {
+        if (e.target.value !== '' &&
+          e.target.value.length === 5 &&
+          e.target.value.indexOf(':')
+        ) {
+          this.innerTime = e.target.value
+          this.change()
+        }
+      },
+      change () {
+        this.$emit('input', this.innerDate + (this.hasTime ? ' ' + this.innerTime : ''))
+        this.showDatepicker = false
+      },
+      show () {
+        this.$refs.dropdown.open()
+      },
+      clear () {
+        this.innerTime = this.innerDate = null
+        this.$emit('input', null)
+        this.showDatepicker = false
+      }
     }
+  }
 </script>
 
 <style lang="scss">

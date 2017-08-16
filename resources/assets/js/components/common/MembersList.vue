@@ -15,27 +15,27 @@
 
 <script>
     export default {
-        props: {
-            users: {
-                type: Array,
-                default: () => []
-            },
-            value: {
-                type: Array,
-                default: () => []
-            }
+      props: {
+        users: {
+          type: Array,
+          default: () => []
         },
-        methods: {
-            inSelected(user) {
-                return _.findIndex(this.value, {id: user.id}) > -1
-            },
-            toggleUser(user) {
-                this.inSelected(user)
-                    ? this.value.splice(_.findIndex(this.value, {id: user.id}), 1)
-                    : this.value.push(user)
-
-                this.$emit('input', this.value)
-            }
+        value: {
+          type: Array,
+          default: () => []
         }
+      },
+      methods: {
+        inSelected (user) {
+          return _.findIndex(this.value, {id: user.id}) > -1
+        },
+        toggleUser (user) {
+          this.inSelected(user)
+            ? this.value.splice(_.findIndex(this.value, {id: user.id}), 1)
+            : this.value.push(user)
+
+          this.$emit('input', this.value)
+        }
+      }
     }
 </script>

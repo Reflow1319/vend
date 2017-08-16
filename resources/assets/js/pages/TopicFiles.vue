@@ -20,30 +20,30 @@
     import {mapGetters} from 'vuex'
 
     export default {
-        data() {
-            return {
-                noRecord: false
-            }
-        },
-        components: {
-            FileList,
-            Loader,
-            TopicHeader,
-        },
-        computed: {
-            ...mapGetters({
-                topic: 'topic',
-                files: 'topicFiles'
-            })
-        },
-        mounted() {
-            this.$refs.loader.start()
-            this.$store.dispatch('getTopic', {id: this.$route.params.id}).then(() => {
-                this.$store.dispatch('getTopicFiles', {urlParams: {topicId: this.$route.params.id}}).then(() => {
-                    this.$refs.loader.stop()
-                    if(this.files.length === 0) this.noRecord = true
-                })
-            })
+      data () {
+        return {
+          noRecord: false
         }
+      },
+      components: {
+        FileList,
+        Loader,
+        TopicHeader
+      },
+      computed: {
+        ...mapGetters({
+          topic: 'topic',
+          files: 'topicFiles'
+        })
+      },
+      mounted () {
+        this.$refs.loader.start()
+        this.$store.dispatch('getTopic', {id: this.$route.params.id}).then(() => {
+          this.$store.dispatch('getTopicFiles', {urlParams: {topicId: this.$route.params.id}}).then(() => {
+            this.$refs.loader.stop()
+            if (this.files.length === 0) this.noRecord = true
+          })
+        })
+      }
     }
 </script>

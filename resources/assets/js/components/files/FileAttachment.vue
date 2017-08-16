@@ -16,7 +16,11 @@
 </template>
 
 <script>
+    import {fileSize} from '../../utils'
     export default {
-        props: ['file'],
+      props: ['file'],
+      methods: {
+        fileSize
+      }
     }
 </script>

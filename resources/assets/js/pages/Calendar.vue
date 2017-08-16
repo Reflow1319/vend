@@ -39,83 +39,83 @@
     import CardDetail from '../components/cards/CardDetail.vue'
 
     export default {
-        components: {
-            Loader,
-            VButton,
-            TitleBar,
-            EventAttachment
-        },
-        computed: {
-            ...mapGetters({
-                currentUser: 'currentUser',
-                groups: 'eventsGrouped'
-            })
-        },
-        mounted() {
-            this.fetchEvents()
+      components: {
+        Loader,
+        VButton,
+        TitleBar,
+        EventAttachment
+      },
+      computed: {
+        ...mapGetters({
+          currentUser: 'currentUser',
+          groups: 'eventsGrouped'
+        })
+      },
+      mounted () {
+        this.fetchEvents()
 
-            if(this.$route.params.id) {
-                this.emit(
-                    'showModal',
-                    EventDetail,
-                    this.$store.dispatch('getEvent', {id: this.$route.params.id})
-                )
-            }
-        },
-        data() {
-            return {
-                loaded: false
-            }
-        },
-        methods: {
-            eventClicked(e) {
-                if (e.type === 'project') {
-                    return () => {
-                        this.$router.push({
-                            name: 'project',
-                            params: {id: e.id}
-                        })
-                    }
-                }
-
-                if(e.type === 'event') {
-                    return () =>{
-                        this.$root.$emit(
-                            'showModal',
-                            EventDetail,
-                            this.$store.dispatch('getEvent', {id: e.id})
-                        )
-                    }
-                }
-
-                if (e.type === 'card') {
-                    return () => {
-                        this.$root.$emit(
-                            'showModal',
-                            CardDetail,
-                            this.$store.dispatch('getCard', {
-                                id: e.id,
-                                urlParams: {projectId: e.meta.project_id}
-                            })
-                        )
-                    }
-                }
-            },
-            getDate(date) {
-                return moment(date, 'YYYY-MM').format('MMMM, YYYY')
-            },
-            create() {
-                this.$store.commit('setEvent', {})
-                this.emit('showModal', EventForm)
-            },
-            fetchEvents() {
-                this.$refs.loader.start()
-                this.$store.dispatch('getEvents').then(() => {
-                    this.$forceUpdate()
-                    this.$refs.loader.stop()
-                    this.loaded = true
-                })
-            }
+        if (this.$route.params.id) {
+          this.$root.$emit(
+            'showModal',
+            EventDetail,
+            this.$store.dispatch('getEvent', {id: this.$route.params.id})
+          )
         }
+      },
+      data () {
+        return {
+          loaded: false
+        }
+      },
+      methods: {
+        eventClicked (e) {
+          if (e.type === 'project') {
+            return () => {
+              this.$router.push({
+                name: 'project',
+                params: {id: e.id}
+              })
+            }
+          }
+
+          if (e.type === 'event') {
+            return () => {
+              this.$root.$emit(
+                'showModal',
+                EventDetail,
+                this.$store.dispatch('getEvent', {id: e.id})
+              )
+            }
+          }
+
+          if (e.type === 'card') {
+            return () => {
+              this.$root.$emit(
+                'showModal',
+                CardDetail,
+                this.$store.dispatch('getCard', {
+                  id: e.id,
+                  urlParams: {projectId: e.meta.project_id}
+                })
+              )
+            }
+          }
+        },
+        getDate (date) {
+          return moment(date, 'YYYY-MM').format('MMMM, YYYY')
+        },
+        create () {
+          this.$store.commit('setEvent', {})
+          this.$root.$emit('showModal', EventForm)
+        },
+        fetchEvents () {
+          this.$refs.loader.start()
+          this.$store.dispatch('getEvents').then(() => {
+            this.$forceUpdate()
+            this.$refs.loader.stop()
+            this.loaded = true
+          })
+        }
+      }
     }
 </script>

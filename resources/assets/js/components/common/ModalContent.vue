@@ -26,6 +26,6 @@
 
 <script>
     export default {
-        props: ['actions', 'title', 'left', 'right', 'save', 'cancel'],
+      props: ['actions', 'title', 'left', 'right', 'save', 'cancel']
     }
 </script>

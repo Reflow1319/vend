@@ -24,23 +24,23 @@
     import EditUser from './UserEdit.vue'
 
     export default {
-        components: {
-            ModalContent
+      components: {
+        ModalContent
+      },
+      computed: {
+        ...mapGetters({
+          user: 'user'
+        })
+      },
+      methods: {
+        edit () {
+          this.$root.$emit('showModal', EditUser)
         },
-        computed: {
-            ...mapGetters({
-                user: 'user'
-            })
-        },
-        methods: {
-            edit() {
-                this.$root.$emit('showModal', EditUser)
-            },
-            destroy() {
-                this.$store.dispatch('deleteUser', this.user).then(() => {
-                    this.$root.$emit('hideModal')
-                })
-            }
+        destroy () {
+          this.$store.dispatch('deleteUser', this.user).then(() => {
+            this.$root.$emit('hideModal')
+          })
         }
+      }
     }
 </script>

@@ -22,15 +22,15 @@
     import TitleBar from '../common/TitleBar.vue'
 
     export default {
-        props: ['topic'],
-        components: {
-            FavoriteButton,
-            TitleBar
-        },
-        methods: {
-            editTopic() {
-                this.$root.$emit('showModal', TopicForm)
-            }
+      props: ['topic'],
+      components: {
+        FavoriteButton,
+        TitleBar
+      },
+      methods: {
+        editTopic () {
+          this.$root.$emit('showModal', TopicForm)
         }
+      }
     }
 </script>
