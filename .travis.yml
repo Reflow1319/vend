@@ -11,6 +11,8 @@ services:
 before_install:
   - phpenv config-rm xdebug.ini
   - printf "\n" | pecl install -f redis
+  - cp .env.travis .env
+  - php artisan key:generate
 
 install: travis_retry composer install --no-interaction --prefer-dist --no-suggest
 
