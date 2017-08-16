@@ -1,5 +1,8 @@
 # Vend
 
+![Travis](https://travis-ci.org/Finehive/vend.svg?branch=master)
+[![StyleCI](https://styleci.io/repos/98275985/shield?branch=master)](https://styleci.io/repos/98275985)
+
 ![Vend](https://www.finehive.com/vend/vend_small.jpg)
 
 Vend is a project management tool built on Laravel and Vue.js
