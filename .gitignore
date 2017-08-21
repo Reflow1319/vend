@@ -4,8 +4,6 @@
 /storage/*.key
 /vendor
 /.idea
-/public/js/*.js
-/public/css/*.css
 /.vagrant
 Homestead.json
 Homestead.yaml
